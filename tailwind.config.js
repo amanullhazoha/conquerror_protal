@@ -108,11 +108,11 @@ module.exports = {
       container: {
         center: true,
       },
-      extend: {
-        screens: {
-          'xs': '475px',
-          '2xl': '1480px',
-        },
+      screens: {
+        'xs': '475px',
+        "md": "720px",
+        'lg': "980px",
+        '2xl': '1480px',
       },
     },
   },

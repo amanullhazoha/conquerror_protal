@@ -1,8 +1,10 @@
+import router from "./pages";
+import { RouterProvider } from "react-router-dom";
 
-export default function App() {
+function App() {
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
-  )
+    <RouterProvider router={router} />
+  );
 }
+
+export default App;
