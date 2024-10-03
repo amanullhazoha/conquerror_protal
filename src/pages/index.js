@@ -1,9 +1,10 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./Home";
+import NewApplication from "./NewApplication";
 import NotFound from "./NotFoundPage";
-import Login from "./auth/Login";
-import ForgotPassword from "./auth/ForgotPassword";
 import CheckEmail from "./auth/CheckEmail";
+import ForgotPassword from "./auth/ForgotPassword";
+import Login from "./auth/Login";
 import PasswordResetConfirmation from "./auth/PasswordResetConfirmation";
 import ResetPassword from "./auth/ResetPassword";
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
 	{
 		path: "/check-email",
 		element: <CheckEmail />,
+	},
+	{
+		path: "/new-application",
+		element: <NewApplication />,
 	},
 	{
 		path: "/password-reset-confirmation",
