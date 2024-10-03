@@ -1,25 +1,25 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import SearchIcon from "../../assets/icons/SearchIcon";
 import logo from "../../assets/images/conqueror_logo.png";
 import PublicLayout from "../../components/layouts/PublicLayout";
+import Head from "./Head";
 
 const Login = () => {
+	const [isViewable, setIsViewable] = useState(false);
+
 	return (
 		<PublicLayout>
-			<div className="flex justify-center items-center h-[90vh]">
+			<div className="flex justify-center items-center h-[90vh] px-4">
 				<div className="max-w-[450px] w-full">
 					{/* Head */}
-					<div className="flex flex-col justify-center items-center mb-6">
-						<img src={logo} alt="logo" className="w-[150px] h-auto mb-3" />
-						<p className="text-2xl text-[#111928] font-bold mb-1">
-							Log in to your account
-						</p>
-						<p className="text-sm text-[#6B7280]">
-							Welcome back! Please enter your details.
-						</p>
-					</div>
+					<Head
+						title={"Log in to your account"}
+						subtitle={"Welcome back! Please enter your details."}
+						logo={logo}
+					/>
 
-					<form className="grid gap-4 bg-white w-full shadow-custom-sm p-[20px] border rounded-lg">
+					<form className="grid gap-4 bg-white w-full shadow-custom-sm p-4 lg:p-[20px] border rounded-lg">
 						<div>
 							<label className="text-[#111928] text-sm" htmlFor="email">
 								Email
@@ -40,19 +40,22 @@ const Login = () => {
 						</div>
 
 						<div>
-							<label className="text-[#111928] text-sm" htmlFor="email">
+							<label className="text-[#111928] text-sm" htmlFor="password">
 								Password
 							</label>
 							<div className="relative flex flex-col items-center">
 								<input
 									className="w-full p-2 border rounded-lg mt-1 pr-8"
-									type="text"
-									name="email"
-									id="email"
-									placeholder="name@example.com"
+									type={isViewable ? "text" : "password"}
+									name="password"
+									id="password"
+									placeholder="Password"
 								/>
 
-								<div className="absolute right-2 top-[40%]">
+								<div
+									className="absolute right-2 top-[40%] z-10 cursor-pointer"
+									onClick={() => setIsViewable((prev) => !prev)}
+								>
 									<SearchIcon />
 								</div>
 							</div>
@@ -77,9 +80,12 @@ const Login = () => {
 						</button>
 					</form>
 
-					<div className="flex gap-2 justify-center items-center text-sm mt-4">
+					<div className="flex gap-1 justify-center items-center text-sm mt-5">
 						<p className="text-[#6B7280]">Don't have an account?</p>
-						<Link className="text-[#1C64F2] text-sm" to={"/auth/signup"}>
+						<Link
+							className="text-[#1C64F2] text-sm font-semibold"
+							to={"/signup"}
+						>
 							<p>Sign up</p>
 						</Link>
 					</div>
