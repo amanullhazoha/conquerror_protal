@@ -58,7 +58,7 @@ const Login = () => {
 							</div>
 						</div>
 
-						<div className="flex justify-between">
+						<div className="flex justify-between py-2">
 							<div className="flex gap-2 items-center">
 								<input type="checkbox" name="checkbox" id="checkbox" />
 								<p className="text-[#6B7280] text-sm">Remember me</p>
