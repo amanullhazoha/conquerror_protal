@@ -21,7 +21,13 @@ const Modal = () => {
 					Open Modal
 				</Button>
 
-				<Dialog open={openModal} onOpenChange={() => setOpenModal(false)}>
+				<Dialog
+					open={openModal}
+					onOpenChange={() => {
+						setOpenModal(false);
+						setActiveFile("");
+					}}
+				>
 					<DialogContent className="px-0">
 						<DialogHeader>
 							<DialogTitle className="pl-4">Download</DialogTitle>
@@ -69,7 +75,10 @@ const Modal = () => {
 
 						<div className="flex justify-end gap-4 px-4 py-2">
 							<Button
-								onClick={() => setOpenModal(false)}
+								onClick={() => {
+									setOpenModal(false);
+									setActiveFile("");
+								}}
 								className="rounded-full font-medium hover:bg-transparent"
 								variant="outline"
 							>
