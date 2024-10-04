@@ -192,7 +192,7 @@ const PrivateLayout = ({ children }) => {
 				</aside>
 
 				<main className="w-[70%] flex flex-col flex-grow min-h-[calc(100vh-83px)]">
-					<section>{children}</section>
+					<section className="p-6">{children}</section>
 
 					<footer className="mt-auto py-4 text-center">
 						<p className="text-lg text-gray-900">

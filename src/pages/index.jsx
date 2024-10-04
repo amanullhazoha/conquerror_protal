@@ -30,12 +30,12 @@ const router = createBrowserRouter([
 		element: <CheckEmail />,
 	},
 	{
-		path: "/new-application",
-		element: <NewApplication />,
-	},
-	{
 		path: "/password-reset-confirmation",
 		element: <PasswordResetConfirmation />,
+	},
+	{
+		path: "/new-application",
+		element: <NewApplication />,
 	},
 	{
 		path: "*",
