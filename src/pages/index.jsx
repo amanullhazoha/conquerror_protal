@@ -7,6 +7,9 @@ import ForgotPassword from "./auth/ForgotPassword";
 import Login from "./auth/Login";
 import PasswordResetConfirmation from "./auth/PasswordResetConfirmation";
 import ResetPassword from "./auth/ResetPassword";
+import Details from "./Modal";
+import EditDetails from "./Modal";
+import Modal from "./Modal";
 
 const router = createBrowserRouter([
 	{
@@ -36,6 +39,10 @@ const router = createBrowserRouter([
 	{
 		path: "/new-application",
 		element: <NewApplication />,
+	},
+	{
+		path: "/modal",
+		element: <Modal />,
 	},
 	{
 		path: "*",
