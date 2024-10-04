@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import HomePage from "./Home";
+import Modal from "./Modal";
 import NewApplication from "./NewApplication";
 import NotFound from "./NotFoundPage";
 import CheckEmail from "./auth/CheckEmail";
@@ -7,9 +8,7 @@ import ForgotPassword from "./auth/ForgotPassword";
 import Login from "./auth/Login";
 import PasswordResetConfirmation from "./auth/PasswordResetConfirmation";
 import ResetPassword from "./auth/ResetPassword";
-import Details from "./Modal";
-import EditDetails from "./Modal";
-import Modal from "./Modal";
+import ApplicationDetailsPage from "./ApplicationDetailsPage";
 
 const router = createBrowserRouter([
 	{
@@ -39,6 +38,10 @@ const router = createBrowserRouter([
 	{
 		path: "/new-application",
 		element: <NewApplication />,
+	},
+	{
+		path: "/application-details",
+		element: <ApplicationDetailsPage />,
 	},
 	{
 		path: "/modal",
