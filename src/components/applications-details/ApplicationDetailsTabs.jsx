@@ -1,5 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ApplicantBasicInfo from "./ApplicantBasicInfo";
+import ApplicantLicenseInfo from "./ApplicantLicenseInfo";
+import ApplicantPassportInfo from "./ApplicantPassportInfo";
 import ApplicationContactInfo from "./ApplicationContactInfo";
 import ApplicationNidInfo from "./ApplicationNidInfo";
 
@@ -26,6 +28,12 @@ const ApplicationDetailsTabs = () => {
         </TabsContent>
         <TabsContent value="NID/CNIC">
           <ApplicationNidInfo />
+        </TabsContent>
+        <TabsContent value="Passport">
+          <ApplicantPassportInfo />
+        </TabsContent>
+        <TabsContent value="License">
+          <ApplicantLicenseInfo />
         </TabsContent>
       </Tabs>
     </div>

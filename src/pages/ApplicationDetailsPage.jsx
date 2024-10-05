@@ -6,8 +6,12 @@ const ApplicationDetailsPage = () => {
   return (
     <PrivateLayout>
       <div className="flex gap-x-[24px]">
-        <UserInfoCard />
-        <ApplicationDetailsTabs />
+        <div className="self-start">
+          <UserInfoCard />
+        </div>
+        <div className="flex-1">
+          <ApplicationDetailsTabs />
+        </div>
       </div>
     </PrivateLayout>
   );
