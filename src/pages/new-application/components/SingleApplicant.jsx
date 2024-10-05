@@ -1,9 +1,10 @@
-import UserImage from "../../assets/images/new-applicant.png";
+import React from "react";
+import userImg from "../../../assets/images/applicant.jpg";
 
-const ApplicationCard = () => {
+const SingleApplicant = () => {
   return (
     <div className="rounded-2xl border-[1px] border-[#F2F2F2] relative">
-      <img className="rounded-t-2xl w-full" src={UserImage} alt="applicant" />
+      <img className="rounded-t-2xl" src={userImg} alt="applicant" />
       <span className="absolute right-2 top-2 inline-block bg-[#9061F9] text-white rounded-[32px] p-[2px_8px] text-[12px] font-medium">
         New
       </span>
@@ -20,4 +21,4 @@ const ApplicationCard = () => {
   );
 };
 
-export default ApplicationCard;
+export default SingleApplicant;

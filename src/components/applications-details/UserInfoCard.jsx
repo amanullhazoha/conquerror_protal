@@ -1,18 +1,25 @@
-import UserImg from "@/assets/images/applicant.jpg";
-import { BiUserPlus } from "react-icons/bi";
-import { BsArrowLeft, BsCalendar4Week } from "react-icons/bs";
+import UserImg from "@/assets/images/user.png";
 
+import AddUserIcon from "@/assets/icons/AddUserIcon";
+import ArrowLeftIcon from "@/assets/icons/ArrowLeftIcon";
+import CalendarIcon from "@/assets/icons/CalendarIcon";
+import DownIcon from "@/assets/icons/DownIcon";
+import SendIcon from "@/assets/icons/SendIcon";
+import { Link } from "react-router-dom";
+import ButtonV2 from "../ButtonV2";
 import { Button } from "../ui/button";
 
 const UserInfoCard = () => {
   return (
-    <div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6 max-w-[430px] w-full">
-      <Button
-        className="rounded-[32px] p-[8px_12px] bg-white"
-        variant="secondary"
-      >
-        <BsArrowLeft className="mr-2" /> Back To Application list
-      </Button>
+    <div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6 max-w-[430px] w-full h-auto">
+      <Link to="/new-application">
+        <Button
+          className="rounded-[32px] p-[8px_12px] bg-white"
+          variant="secondary"
+        >
+          <ArrowLeftIcon className="mr-2" /> Back To Application list
+        </Button>
+      </Link>
 
       <div className="bg-custom-gradient relative p-4 rounded-[16px] mt-[48px]">
         <div className="flex items-center gap-x-3">
@@ -37,16 +44,19 @@ const UserInfoCard = () => {
           New Application
         </button>
         <h4 className="flex items-center gap-x-2 text-gray-500 my-4">
-          <BsCalendar4Week className="text-gray-600" /> Submitted: Sun, Jul 28,
-          2024, 3:00 AM
+          <CalendarIcon /> Submitted: Sun, Jul 28, 2024, 3:00 AM
         </h4>
         <h4 className="flex items-center gap-x-2 text-gray-500">
-          <BiUserPlus className="text-gray-600" /> Submission ID: 7845545545
+          <AddUserIcon /> Submission ID: 7845545545
         </h4>
 
-        <div className="mt-4">
-          <Button className="mr-4">Inperson</Button>
-          <Button>Invite Interview</Button>
+        <div className="mt-4 flex items-center justify-between">
+          <ButtonV2 text="Inperson" icon={<DownIcon />} />
+          <ButtonV2
+            text="Invite Interview"
+            icon={<SendIcon />}
+            className="text-primary-700 border-primary-700"
+          />
         </div>
       </div>
     </div>
