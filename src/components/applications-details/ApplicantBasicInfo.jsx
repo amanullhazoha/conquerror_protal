@@ -1,5 +1,7 @@
 import { useState } from "react";
+import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
+import RadioInput from "../RadioInput";
 import ApplicantPhoto from "./ApplicantPhoto";
 
 const ApplicantBasicInfo = () => {
@@ -12,29 +14,7 @@ const ApplicantBasicInfo = () => {
             Basic Information
           </h2>
 
-          {isEdit ? (
-            <div className="flex flex-col 2xl:flex-row gap-y-2 items-center gap-x-4">
-              <button
-                onClick={() => setIsEdit(false)}
-                className="border-[1px] border-gray-200 text-gray-900 p-[8px_12px] rounded-[32px] font-medium text-[12px]"
-              >
-                Undo changes
-              </button>
-              <button
-                onClick={() => setIsEdit(false)}
-                className="border-[1px] border-primary-700 text-primary-700 p-[8px_12px] rounded-[32px] font-medium text-[12px]"
-              >
-                Submit
-              </button>
-            </div>
-          ) : (
-            <button
-              onClick={() => setIsEdit(true)}
-              className="border-[1px] border-gray-200 text-gray-900 p-[8px_12px] rounded-[32px] font-medium text-[12px]"
-            >
-              Edit
-            </button>
-          )}
+          <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
         </div>
 
         <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
@@ -78,7 +58,16 @@ const ApplicantBasicInfo = () => {
           />
         </div>
         <div className="mb-5 border-b border-gray-50 pb-3">
-          <FormInput label="Gender" placeholder="First Name" value="Male" isEdit={isEdit} />
+          <RadioInput
+            label="Select Gender"
+            value="male"
+            isEdit={isEdit}
+            options={[
+              { value: "male", label: "Male" },
+              { value: "female", label: "Female" },
+              { value: "others", label: "Others" },
+            ]}
+          />
         </div>
         <div className="mb-5 border-b border-gray-50 pb-3">
           <FormInput

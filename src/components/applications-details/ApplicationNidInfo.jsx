@@ -1,7 +1,10 @@
+import { useState } from "react";
+import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
 import ApplicantPhoto from "./ApplicantPhoto";
 
 const ApplicationNidInfo = () => {
+  const [isEdit, setIsEdit] = useState(false);
   return (
     <div className="grid grid-cols-[55%_45%] gap-x-6">
       <div className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]">
@@ -10,79 +13,102 @@ const ApplicationNidInfo = () => {
             NID/CNIC information
           </h2>
 
-          <button className="border-[1px] border-gray-200 text-gray-900 p-[8px_12px] rounded-[32px] font-medium text-[12px]">
-            Edit
-          </button>
+          <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
         </div>
 
         <div className="mb-5 border-b border-gray-50 pb-3">
           <FormInput
             label="NID/CNIC Number"
-            placeholder="First Name"
+            placeholder="NID?CNIC Number"
             value="4552212"
+            isEdit={isEdit}
           />
         </div>
-        <div className="grid grid-cols-2 mb-5 border-b border-gray-50 pb-3">
+        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
           <FormInput
             label="Marital Status"
-            placeholder="Father Name"
+            placeholder="Marital Status"
             value="Marital Status"
+            isEdit={isEdit}
+            className="pb-3"
           />
           <FormInput
             label="Spouse Name"
-            placeholder="Father Name"
+            placeholder="Spouse Name"
             value="Spouse Name"
+            isEdit={isEdit}
+            className="pb-3"
           />
         </div>
-        <div className="grid grid-cols-3 mb-5 border-b border-gray-50 pb-3">
+        <div className="grid 2xl:grid-cols-3 mb-5 border-b border-gray-50">
           <FormInput
             label="UAE Resident"
-            placeholder="Father Name"
+            placeholder="UAE Resident"
             value="Yes"
+            isEdit={isEdit}
+            className="pb-3"
           />
           <FormInput
             label="Emirates ID"
-            placeholder="Father Name"
+            placeholder="Emirates ID"
             value="82455554"
+            isEdit={isEdit}
+            className="pb-3"
           />
           <FormInput
             label="Expiry Date"
-            placeholder="Father Name"
             value="10-June-24"
+            isEdit={isEdit}
+            type="date"
+            className="pb-3"
           />
         </div>
         <div className="mb-5 border-b border-gray-50 pb-3">
           <FormInput
             label="Religion "
-            placeholder="Mother Name"
+            placeholder="Religion"
             value="+880 1770 066585"
+            isEdit={isEdit}
           />
         </div>
         <div className="mb-5 border-b border-gray-50 pb-3">
           <FormInput
             label="Permanent Address"
-            placeholder="Mother Name"
+            placeholder="Permanent Address"
             value="Dhaka faridpur bd"
+            isEdit={isEdit}
           />
         </div>
-        <div className="grid grid-cols-2 mb-5 border-b border-gray-50 pb-3">
+        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
           <FormInput
             label="State/ Province"
-            placeholder="Mother Name"
+            placeholder="State/ Province"
             value="Dhaka"
+            className="pb-3"
+            isEdit={isEdit}
           />
-          <FormInput label="City" placeholder="Mother Name" value="Dhaka" />
+          <FormInput
+            label="City"
+            placeholder="City"
+            value="Dhaka"
+            isEdit={isEdit}
+            className="pb-3"
+          />
         </div>
-        <div className="grid grid-cols-2 mb-5 border-b border-gray-50 pb-3">
+        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
           <FormInput
             label="Police Station"
-            placeholder="Mother Name"
+            placeholder="Police Station"
             value="Dhaka"
+            className="pb-3"
+            isEdit={isEdit}
           />
           <FormInput
             label="Postal Code"
-            placeholder="Mother Name"
+            placeholder="Postal Code"
             value="7850"
+            className="pb-3"
+            isEdit={isEdit}
           />
         </div>
       </div>

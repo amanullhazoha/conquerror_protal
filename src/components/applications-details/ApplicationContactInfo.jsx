@@ -1,6 +1,9 @@
+import { useState } from "react";
+import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
 
 const ApplicationContactInfo = () => {
+  const [isEdit, setIsEdit] = useState(false);
   return (
     <div className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]">
       <div className="flex items-center justify-between mb-[24px]">
@@ -8,30 +11,31 @@ const ApplicationContactInfo = () => {
           Contact information
         </h2>
 
-        <button className="border-[1px] border-gray-200 text-gray-900 p-[8px_12px] rounded-[32px] font-medium text-[12px]">
-          Edit
-        </button>
+        <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
       </div>
 
       <div className="mb-5 border-b border-gray-50 pb-3">
         <FormInput
           label="Email"
-          placeholder="First Name"
+          placeholder="Enter Email"
           value="molla.ux@gmail.com"
+          isEdit={isEdit}
         />
       </div>
       <div className="mb-5 border-b border-gray-50 pb-3">
         <FormInput
           label="Contact Number"
-          placeholder="Father Name"
+          placeholder="Enter Number"
           value="+880 1770 066585"
+          isEdit={isEdit}
         />
       </div>
       <div className="mb-5 border-b border-gray-50 pb-3">
         <FormInput
           label="WhatsApp Number"
-          placeholder="Mother Name"
+          placeholder="WhatsApp Number"
           value="+880 1770 066585"
+          isEdit={isEdit}
         />
       </div>
     </div>
