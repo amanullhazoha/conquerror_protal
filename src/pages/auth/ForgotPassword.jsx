@@ -7,7 +7,7 @@ import Head from "./Head";
 const ForgotPassword = () => {
 	return (
 		<PublicLayout>
-			<div className="flex justify-center items-center h-[90vh] px-4">
+			<div className="flex justify-center items-center h-[90vh] px-4 py-32 lg:py-80">
 				<div className="max-w-[450px] w-full">
 					{/* Head */}
 					<Head

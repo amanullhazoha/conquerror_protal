@@ -1,16 +1,63 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
-import SearchIcon from "../../assets/icons/SearchIcon";
+import { Button } from "@/components/ui/button";
+import useToast from "@/hooks/useToast";
+import { useUserLoginMutation } from "@/redux/features/auth/authApi";
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { IoMailOutline } from "react-icons/io5";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../assets/images/conqueror_logo.png";
 import PublicLayout from "../../components/layouts/PublicLayout";
 import Head from "./Head";
 
 const Login = () => {
+	const navigate = useNavigate();
+
 	const [isViewable, setIsViewable] = useState(false);
+	const { showSuccess, showError, showInfo, showLoading } = useToast();
+
+	const [
+		userLogin,
+		{ data: responseData, isLoading, isSuccess, isError, error },
+	] = useUserLoginMutation();
+
+	console.log("isSuccess: ", isSuccess);
+	console.log("Error: ", error);
+	console.log("responseData: ", responseData);
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		mode: "onChange",
+	});
+
+	const onSubmit = (formData) => {
+		console.log(formData);
+
+		const data = {
+			email: formData.email,
+			password: formData.password,
+		};
+
+		userLogin(data);
+	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			showSuccess("Login successful");
+			navigate("/dashboard");
+		}
+
+		if (isError) {
+			showError(error?.data);
+		}
+	}, [isError, isSuccess]);
 
 	return (
 		<PublicLayout>
-			<div className="flex justify-center items-center h-[90vh] px-4">
+			<div className="flex justify-center items-center h-[90vh] px-4 py-32 lg:py-80">
 				<div className="max-w-[450px] w-full">
 					{/* Head */}
 					<Head
@@ -19,24 +66,40 @@ const Login = () => {
 						logo={logo}
 					/>
 
-					<form className="grid gap-4 bg-white w-full shadow-custom-sm p-4 lg:p-[20px] border rounded-lg">
+					<form
+						onSubmit={handleSubmit(onSubmit)}
+						className="grid gap-4 bg-white w-full shadow-custom-sm p-4 lg:p-[20px] border rounded-lg"
+					>
 						<div>
 							<label className="text-[#111928] text-sm" htmlFor="email">
 								Email
 							</label>
 							<div className="relative flex flex-col items-center">
 								<input
-									className="w-full p-2 border rounded-lg mt-1 pl-8"
+									className={`w-full p-2 border rounded-lg mt-1 pl-8 outline-none ${
+										errors.email && "border-red-500"
+									}`}
 									type="text"
 									name="email"
 									id="email"
 									placeholder="name@example.com"
+									{...register("email", {
+										required: "Email is required",
+										pattern: {
+											value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+											message: "Enter a valid email",
+										},
+									})}
 								/>
 
 								<div className="absolute left-2 top-[40%]">
-									<SearchIcon />
+									<IoMailOutline className="text-sm text-[#6B7280]" />
 								</div>
 							</div>
+
+							{errors.email && (
+								<p className="text-sm text-red-500">{errors.email.message}</p>
+							)}
 						</div>
 
 						<div>
@@ -45,20 +108,38 @@ const Login = () => {
 							</label>
 							<div className="relative flex flex-col items-center">
 								<input
-									className="w-full p-2 border rounded-lg mt-1 pr-8"
+									className={`w-full p-2 border rounded-lg mt-1 pr-8 outline-none ${
+										errors.password && "border-red-500"
+									}`}
 									type={isViewable ? "text" : "password"}
 									name="password"
 									id="password"
 									placeholder="Password"
+									{...register("password", {
+										required: "Password is required",
+										minLength: {
+											value: 6,
+											message: "Password must be at least 6 characters long",
+										},
+									})}
 								/>
 
 								<div
 									className="absolute right-2 top-[40%] z-10 cursor-pointer"
 									onClick={() => setIsViewable((prev) => !prev)}
 								>
-									<SearchIcon />
+									{isViewable ? (
+										<FaRegEyeSlash className="text-sm text-[#6B7280]" />
+									) : (
+										<FaRegEye className="text-sm text-[#6B7280]" />
+									)}
 								</div>
 							</div>
+							{errors.password && (
+								<p className="text-sm text-red-500">
+									{errors.password.message}
+								</p>
+							)}
 						</div>
 
 						<div className="flex justify-between py-2">
@@ -75,9 +156,12 @@ const Login = () => {
 							</Link>
 						</div>
 
-						<button className="w-full bg-[#1A56DB] text-white rounded-lg py-2">
-							Log in
-						</button>
+						<Button
+							className="w-full bg-[#1A56DB] hover:bg-[#1A56DB] text-white rounded-lg py-2"
+							disabled={isLoading}
+						>
+							{isLoading ? "Loading..." : "Log in"}
+						</Button>
 					</form>
 
 					<div className="flex gap-1 justify-center items-center text-sm mt-5">
