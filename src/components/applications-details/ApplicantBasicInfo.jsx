@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
+import SelectBox from "../FormSelect";
 import RadioInput from "../RadioInput";
 import ApplicantPhoto from "./ApplicantPhoto";
 
@@ -70,19 +71,19 @@ const ApplicantBasicInfo = () => {
           />
         </div>
         <div className="mb-5 border-b border-gray-50 pb-3">
-          <FormInput
+          <SelectBox
             label="Nationality"
-            placeholder="First Name"
-            value="Nepal"
+            options={["Pakistan", "Bangladesh", "Nepal"]}
             isEdit={isEdit}
+            value="Pakistan"
           />
         </div>
         <div className="mb-5 border-b border-gray-50 pb-3">
-          <FormInput
+          <SelectBox
             label="Position"
-            placeholder="First Name"
-            value="Rider"
+            options={["Rider", "Car", "Driver"]}
             isEdit={isEdit}
+            value="Rider"
           />
         </div>
         <div className="mb-5 border-b border-gray-50 pb-3">
