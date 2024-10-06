@@ -28,7 +28,7 @@ const FormInput = ({
       <br />
       {isEdit ? (
         <input
-          className="h-[37px] rounded-[8px] p-[8px_16px] focus:outline-primary-600 outline-[1px] border-[1px] border-gray-300 bg-gray-50 text-sm"
+          className="h-[37px] w-full rounded-[8px] p-[8px_16px] focus:outline-primary-600 outline-[1px] border-[1px] border-gray-300 bg-gray-50 text-sm"
           type={type ? type : "text"}
           placeholder={placeholder}
           defaultValue={formattedValue}
