@@ -42,7 +42,7 @@ const PrivateLayout = ({ children }) => {
 					</p>
 				</div>
 
-				<div className="py-5 pr-6 border-b border-gray-200 flex justify-between flex-grow items-center">
+				<div className="py-5 pr-6 flex justify-between flex-grow items-center">
 					<div></div>
 
 					<div className="relative flex items-center">
@@ -277,7 +277,7 @@ const PrivateLayout = ({ children }) => {
 				</aside>
 
 				<main className="flex-1 flex flex-col flex-grow min-h-[calc(100vh-83px)]">
-					<section className="p-6">{children}</section>
+					<section className="p-6 border-t border-gray-200">{children}</section>
 
 					<footer className="mt-auto py-4 text-center">
 						<p className="text-lg text-gray-900">

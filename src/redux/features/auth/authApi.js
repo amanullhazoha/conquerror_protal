@@ -1,4 +1,5 @@
 import apiSlice from "../api/apiSlice";
+import { login } from "./authSlice";
 
 const authApi = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
@@ -11,7 +12,7 @@ const authApi = apiSlice.injectEndpoints({
 		}),
 		userLogin: builder.mutation({
 			query: (data) => ({
-				url: "/api/auth/local",
+				url: "/public/login",
 				method: "POST",
 				body: data,
 			}),
@@ -20,9 +21,9 @@ const authApi = apiSlice.injectEndpoints({
 					const result = await queryFulfilled;
 
 					dispatch(
-						userLoggedIn({
+						login({
 							isAuthenticated: true,
-							accessToken: result.data.jwt,
+							accessToken: result.data.access_token,
 							user: result.data.user,
 						})
 					);
