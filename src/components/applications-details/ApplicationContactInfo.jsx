@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
+import NumberInput from "../NumberInput";
 
 const ApplicationContactInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -14,7 +15,7 @@ const ApplicationContactInfo = () => {
         <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
       </div>
 
-      <div className="mb-5 border-b border-gray-50 pb-3">
+      <div className="border-b border-gray-50 pb-3">
         <FormInput
           label="Email"
           placeholder="Enter Email"
@@ -22,21 +23,11 @@ const ApplicationContactInfo = () => {
           isEdit={isEdit}
         />
       </div>
-      <div className="mb-5 border-b border-gray-50 pb-3">
-        <FormInput
-          label="Contact Number"
-          placeholder="Enter Number"
-          value="+880 1770 066585"
-          isEdit={isEdit}
-        />
+      <div className="border-b border-gray-50 pb-3">
+        <NumberInput isEdit={isEdit} label="Contact Number" />
       </div>
       <div className="mb-5 border-b border-gray-50 pb-3">
-        <FormInput
-          label="WhatsApp Number"
-          placeholder="WhatsApp Number"
-          value="+880 1770 066585"
-          isEdit={isEdit}
-        />
+        <NumberInput isEdit={isEdit} label="WhatsApp Number" />
       </div>
     </div>
   );

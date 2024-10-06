@@ -1,6 +1,8 @@
 import { useState } from "react";
 import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
+import SelectBox from "../FormSelect";
+import RadioInput from "../RadioInput";
 import ApplicantPhoto from "./ApplicantPhoto";
 
 const ApplicationNidInfo = () => {
@@ -16,7 +18,7 @@ const ApplicationNidInfo = () => {
           <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
         </div>
 
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="NID/CNIC Number"
             placeholder="NID?CNIC Number"
@@ -24,12 +26,22 @@ const ApplicationNidInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
-          <FormInput
+        <div
+          className={`${
+            !isEdit
+              ? "mb-5 border-b border-gray-50"
+              : "2xl:grid 2xl:grid-cols-1"
+          } grid 2xl:grid-cols-2 gap-x-5`}
+        >
+          <RadioInput
             label="Marital Status"
-            placeholder="Marital Status"
-            value="Marital Status"
+            value="married"
             isEdit={isEdit}
+            options={[
+              { value: "single", label: "Single" },
+              { value: "married", label: "Married" },
+              { value: "divorced", label: "Divorced" },
+            ]}
             className="pb-3"
           />
           <FormInput
@@ -40,12 +52,19 @@ const ApplicationNidInfo = () => {
             className="pb-3"
           />
         </div>
-        <div className="grid 2xl:grid-cols-3 mb-5 border-b border-gray-50">
-          <FormInput
+        <div
+          className={`${
+            !isEdit && "mb-5 border-b border-gray-50"
+          } grid 2xl:grid-cols-3 gap-x-5`}
+        >
+          <RadioInput
             label="UAE Resident"
-            placeholder="UAE Resident"
-            value="Yes"
+            value="yes"
             isEdit={isEdit}
+            options={[
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
             className="pb-3"
           />
           <FormInput
@@ -63,15 +82,16 @@ const ApplicationNidInfo = () => {
             className="pb-3"
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
-          <FormInput
-            label="Religion "
-            placeholder="Religion"
-            value="+880 1770 066585"
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
+          <SelectBox
+            label="Religion"
+            options={["Islam", "Christian", "Hinduism"]}
             isEdit={isEdit}
+            value="Islam"
+            className
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Permanent Address"
             placeholder="Permanent Address"
@@ -79,23 +99,31 @@ const ApplicationNidInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
-          <FormInput
+        <div
+          className={`${
+            !isEdit && "mb-5 border-b border-gray-50"
+          } grid 2xl:grid-cols-2 gap-x-5`}
+        >
+          <SelectBox
             label="State/ Province"
-            placeholder="State/ Province"
+            options={["Dhaka", "Rajshahi", "Chittagong"]}
+            isEdit={isEdit}
             value="Dhaka"
             className="pb-3"
-            isEdit={isEdit}
           />
-          <FormInput
+          <SelectBox
             label="City"
-            placeholder="City"
-            value="Dhaka"
+            options={["Dhaka", "Rajshahi", "Chittagong"]}
             isEdit={isEdit}
+            value="Dhaka"
             className="pb-3"
           />
         </div>
-        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
+        <div
+          className={`${
+            !isEdit && "mb-5 border-b border-gray-50"
+          } grid 2xl:grid-cols-2 gap-x-5`}
+        >
           <FormInput
             label="Police Station"
             placeholder="Police Station"
