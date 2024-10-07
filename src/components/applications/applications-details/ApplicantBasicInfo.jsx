@@ -1,9 +1,9 @@
 import { useState } from "react";
-import EditButtons from "../EditButtons";
-import FormInput from "../FormInput";
-import SelectBox from "../FormSelect";
-import RadioInput from "../RadioInput";
 import ApplicantPhoto from "./ApplicantPhoto";
+import EditButtons from "@/components/EditButtons";
+import FormInput from "@/components/FormInput";
+import RadioInput from "@/components/RadioInput";
+import SelectBox from "@/components/FormSelect";
 
 const ApplicantBasicInfo = () => {
   const [isEdit, setIsEdit] = useState(false);

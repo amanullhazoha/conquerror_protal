@@ -1,8 +1,7 @@
-import React from "react";
 import ArrowDown from "../../assets/icons/ArrowDown";
 import LongArrowIcon from "../../assets/icons/LongArrowIcon";
 
-const ApplicationPagination = () => {
+const ApplicationsPagination = () => {
 	return (
 		<div className="flex items-center justify-between py-3 border-t-[1px] border-[#E5E5E5] mt-6 px-[24px]">
 			<div className="flex items-center gap-x-6">
@@ -47,4 +46,4 @@ const ApplicationPagination = () => {
 	);
 };
 
-export default ApplicationPagination;
+export default ApplicationsPagination;

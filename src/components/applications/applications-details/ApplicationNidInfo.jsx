@@ -1,9 +1,10 @@
+import EditButtons from "@/components/EditButtons";
+import FormInput from "@/components/FormInput";
+import SelectBox from "@/components/FormSelect";
+import RadioInput from "@/components/RadioInput";
 import { useState } from "react";
-import EditButtons from "../EditButtons";
-import FormInput from "../FormInput";
-import SelectBox from "../FormSelect";
-import RadioInput from "../RadioInput";
 import ApplicantPhoto from "./ApplicantPhoto";
+
 
 const ApplicationNidInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
