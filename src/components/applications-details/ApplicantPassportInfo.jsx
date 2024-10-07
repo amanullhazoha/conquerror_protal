@@ -1,7 +1,7 @@
 import { useState } from "react";
+import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
 import ApplicantPhoto from "./ApplicantPhoto";
-import EditButtons from "../EditButtons";
 
 const ApplicantPassportInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
@@ -10,13 +10,13 @@ const ApplicantPassportInfo = () => {
       <div className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]">
         <div className="flex items-center justify-between mb-[24px]">
           <h2 className="text-[18px] leading-[27px] font-semibold">
-          Passport information
+            Passport information
           </h2>
 
           <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
         </div>
 
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Passport Number"
             placeholder="Passport Number"
@@ -24,7 +24,7 @@ const ApplicantPassportInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Expiry Date"
             value="10-June-24"

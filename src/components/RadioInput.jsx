@@ -1,8 +1,14 @@
 import CheckMarkIcon from "@/assets/icons/CheckMarkIcon";
 
-const RadioInput = ({ label, value, options = [], isEdit = false }) => {
+const RadioInput = ({
+  label,
+  value,
+  options = [],
+  isEdit = false,
+  className,
+}) => {
   return (
-    <div>
+    <div className={className}>
       <label
         className={`text-[12px] font-medium text-gray-400 inline-block ${
           isEdit && "text-gray-900 text-sm mb-2"

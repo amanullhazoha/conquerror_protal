@@ -1,8 +1,8 @@
 import ArrowDown from "@/assets/icons/ArrowDown";
 
-const SelectBox = ({ isEdit, label, value, options }) => {
+const SelectBox = ({ isEdit, label, value, options, className }) => {
   return (
-    <div className="w-full max-w-xs">
+    <div className={`${className} w-full max-w-xs`}>
       <label
         htmlFor=""
         className={`text-[12px] font-medium text-gray-400 inline-block ${
@@ -12,7 +12,7 @@ const SelectBox = ({ isEdit, label, value, options }) => {
         {label} {isEdit && <sup className="text-red-500">*</sup>}
       </label>{" "}
       {isEdit ? (
-        <div className="mt-1 relative">
+        <div className="mt-1 relative w-full">
           <select
             id="nationality"
             name="nationality"

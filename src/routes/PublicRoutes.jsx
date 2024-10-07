@@ -1,6 +1,7 @@
 import PublicRoute from "@/components/guards/PublicRoute";
 import CheckEmail from "@/pages/auth/CheckEmail";
 import ForgotPassword from "@/pages/auth/ForgotPassword";
+import ForgotPasswordStepper from "@/pages/auth/ForgotPasswordStepper";
 import Login from "@/pages/auth/Login";
 import PasswordResetConfirmation from "@/pages/auth/PasswordResetConfirmation";
 import ResetPassword from "@/pages/auth/ResetPassword";
@@ -20,7 +21,7 @@ const PublicRoutes = {
     },
     {
       path: "/forgot-password",
-      element: <ForgotPassword />,
+      element: <ForgotPasswordStepper />,
     },
     {
       path: "/reset-password",

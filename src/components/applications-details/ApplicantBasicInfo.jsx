@@ -18,7 +18,11 @@ const ApplicantBasicInfo = () => {
           <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
         </div>
 
-        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
+        <div
+          className={`${
+            !isEdit && "mb-5 border-b border-gray-50"
+          } grid 2xl:grid-cols-2 gap-x-5`}
+        >
           <FormInput
             label="First Name"
             placeholder="First Name"
@@ -34,7 +38,7 @@ const ApplicantBasicInfo = () => {
             className="pb-3"
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Father Name"
             placeholder="Father Name"
@@ -42,7 +46,7 @@ const ApplicantBasicInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Mother Name"
             placeholder="Mother Name"
@@ -50,7 +54,7 @@ const ApplicantBasicInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Date of Birth"
             value="5-June-1998"
@@ -58,7 +62,7 @@ const ApplicantBasicInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <RadioInput
             label="Select Gender"
             value="male"
@@ -70,7 +74,7 @@ const ApplicantBasicInfo = () => {
             ]}
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <SelectBox
             label="Nationality"
             options={["Pakistan", "Bangladesh", "Nepal"]}
@@ -78,7 +82,7 @@ const ApplicantBasicInfo = () => {
             value="Pakistan"
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <SelectBox
             label="Position"
             options={["Rider", "Car", "Driver"]}
@@ -86,7 +90,7 @@ const ApplicantBasicInfo = () => {
             value="Rider"
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Reference Number"
             placeholder="First Name"

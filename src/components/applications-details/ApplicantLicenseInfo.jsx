@@ -1,6 +1,7 @@
 import { useState } from "react";
 import EditButtons from "../EditButtons";
 import FormInput from "../FormInput";
+import RadioInput from "../RadioInput";
 import ApplicantPhoto from "./ApplicantPhoto";
 
 const ApplicantLicenseInfo = () => {
@@ -16,7 +17,11 @@ const ApplicantLicenseInfo = () => {
           <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
         </div>
 
-        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
+        <div
+          className={`${
+            !isEdit && "mb-5 border-b border-gray-50"
+          } grid 2xl:grid-cols-2 gap-x-5`}
+        >
           <FormInput
             label="Driving License"
             placeholder="Driving License"
@@ -25,18 +30,26 @@ const ApplicantLicenseInfo = () => {
             className="pb-3"
           />
           <FormInput
-            label="Expiry Date"
-            placeholder="Father Name"
-            value="10-June-24"
+            label="Date of Birth"
+            value="5-June-1998"
+            type="date"
+            isEdit={isEdit}
             className="pb-3"
           />
         </div>
-        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
-          <FormInput
-            label="UAE License"
-            placeholder="First Name"
-            value="Yes"
+        <div
+          className={`${
+            !isEdit && "mb-5 border-b border-gray-50"
+          } grid 2xl:grid-cols-2 gap-x-5`}
+        >
+          <RadioInput
+            label="UAE resident"
+            value="yes"
             isEdit={isEdit}
+            options={[
+              { value: "yes", label: "Yes" },
+              { value: "no", label: "No" },
+            ]}
             className="pb-3"
           />
           <FormInput
@@ -47,7 +60,11 @@ const ApplicantLicenseInfo = () => {
             className="pb-3"
           />
         </div>
-        <div className="grid 2xl:grid-cols-2 mb-5 border-b border-gray-50">
+        <div
+          className={`${
+            !isEdit && "mb-5 border-b border-gray-50"
+          } grid 2xl:grid-cols-2 gap-x-5`}
+        >
           <FormInput
             label="UAE Resident Visa  Number"
             placeholder="UAE Resident Visa  Number"
@@ -63,7 +80,7 @@ const ApplicantLicenseInfo = () => {
             className="pb-3"
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Eye Test Result"
             placeholder="Eye Test Result"
@@ -71,7 +88,7 @@ const ApplicantLicenseInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Bike Number"
             placeholder="Bike Number"
@@ -79,7 +96,7 @@ const ApplicantLicenseInfo = () => {
             isEdit={isEdit}
           />
         </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
+        <div className={`${!isEdit && "mb-5 border-b border-gray-50"} pb-3`}>
           <FormInput
             label="Data Sim"
             placeholder="Data Sim"
