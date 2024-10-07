@@ -1,6 +1,7 @@
 import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
+import SelectInput from "@/components/inputs/SelectInput";
 import { useState } from "react";
 import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
 import ApplicantPhoto from "./ApplicantPhoto";
@@ -10,7 +11,7 @@ const ApplicantBasicInfo = () => {
 	const {
 		register,
 		handleSubmit,
-		setValue,
+		control,
 		formState: { errors },
 	} = useForm({
 		defaultValues: {
@@ -19,7 +20,7 @@ const ApplicantBasicInfo = () => {
 			fatherName: "Anika",
 			motherName: "Anika",
 			dob: "1998-06-05",
-			gender: "male",
+			gender: "Male",
 			nationality: "Pakistan",
 			position: "Rider",
 			referenceNumber: "4552212",
@@ -28,8 +29,7 @@ const ApplicantBasicInfo = () => {
 	});
 
 	const onSubmit = (data) => {
-		console.log(data); // Handle form submission
-		// Here you can send the data to your API or handle it accordingly
+		console.log(data);
 	};
 
 	return (
@@ -150,9 +150,53 @@ const ApplicantBasicInfo = () => {
 										{ label: "Others", value: "Others" },
 									]}
 									register={register}
+									required
 									rules={{ required: "Please select an option" }} // Validation rule
 									errors={errors}
+								/>
+							</div>
+
+							<div className="pt-8">
+								<SelectInput
+									name="nationality"
+									label="Nationality"
+									placeholder="Select Nationality"
 									required={true}
+									options={[
+										{ value: "Bangladesh", label: "Bangladesh" },
+										{ value: "Pakistan", label: "Pakistan" },
+									]}
+									control={control}
+									rules={{ required: "Nationality is required" }}
+									errors={errors}
+								/>
+							</div>
+
+							<div className="pt-8">
+								<SelectInput
+									name="position"
+									label="Position"
+									placeholder="Select Position"
+									required={true}
+									options={[{ value: "Rider", label: "Rider" }]}
+									control={control}
+									rules={{ required: "Position is required" }}
+									errors={errors}
+								/>
+							</div>
+
+							<div className="pt-4">
+								<InputField
+									name="referenceNumber"
+									label="Reference Number"
+									type="number"
+									placeholder="Enter your reference number"
+									register={register}
+									required
+									rules={{
+										required: "Reference number is required",
+									}}
+									errors={errors}
 								/>
 							</div>
 						</div>
