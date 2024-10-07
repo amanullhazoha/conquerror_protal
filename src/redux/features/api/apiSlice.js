@@ -21,6 +21,7 @@ const apiSlice = createApi({
 		}
 		return result;
 	},
+	tagTypes: ['Applications'],
 	endpoints: (builder) => ({}),
 	keepUnusedDataFor: 0,
 });

@@ -1,7 +1,7 @@
 import PrivateRoute from "@/components/guards/PrivateRoute";
-import ApplicationDetailsPage from "@/pages/ApplicationDetailsPage";
-import NewApplication from "@/pages/NewApplication";
 import NotFound from "@/pages/NotFoundPage";
+import ApplicationDetails from "@/pages/applications/ApplicationDetails";
+import Applications from "@/pages/applications/Applications";
 import { Outlet } from "react-router-dom";
 
 const AuthenticatedRoutes = {
@@ -14,20 +14,20 @@ const AuthenticatedRoutes = {
 	children: [
 		{
 			path: "/dashboard",
-			element: <NewApplication />,
+			element: <Applications />,
 		},
 		{
-			path: "/new-application",
-			element: <NewApplication />,
+			path: "/applications",
+			element: <Applications />,
 		},
 		{
-			path: "/application-details",
-			element: <ApplicationDetailsPage />,
+			path: "/applications/:id",
+			element: <ApplicationDetails />,
 		},
-    {
-      path: "*",
-      element: <NotFound />,
-    },
+		{
+			path: "*",
+			element: <NotFound />,
+		},
 	],
 };
 

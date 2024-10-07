@@ -1,7 +1,8 @@
+import EditButtons from "@/components/EditButtons";
+import FormInput from "@/components/FormInput";
+import NumberInput from "@/components/NumberInput";
 import { useState } from "react";
-import EditButtons from "../EditButtons";
-import FormInput from "../FormInput";
-import NumberInput from "../NumberInput";
+
 
 const ApplicationContactInfo = () => {
   const [isEdit, setIsEdit] = useState(false);

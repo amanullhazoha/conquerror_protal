@@ -1,7 +1,7 @@
 import { useState } from "react";
-import EditButtons from "../EditButtons";
-import FormInput from "../FormInput";
 import ApplicantPhoto from "./ApplicantPhoto";
+import EditButtons from "@/components/EditButtons";
+import FormInput from "@/components/FormInput";
 
 const ApplicantPassportInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
