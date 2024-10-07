@@ -14,16 +14,10 @@ const Login = () => {
 	const navigate = useNavigate();
 
 	const [isViewable, setIsViewable] = useState(false);
-	const { showSuccess, showError, showInfo, showLoading } = useToast();
+	const { showSuccess, showError } = useToast();
 
-	const [
-		userLogin,
-		{ data: responseData, isLoading, isSuccess, isError, error },
-	] = useUserLoginMutation();
-
-	console.log("isSuccess: ", isSuccess);
-	console.log("Error: ", error);
-	console.log("responseData: ", responseData);
+	const [userLogin, { isLoading, isSuccess, isError, error }] =
+		useUserLoginMutation();
 
 	const {
 		register,
@@ -33,9 +27,8 @@ const Login = () => {
 		mode: "onChange",
 	});
 
+	// Handle form submission
 	const onSubmit = (formData) => {
-		console.log(formData);
-
 		const data = {
 			email: formData.email,
 			password: formData.password,
@@ -118,8 +111,8 @@ const Login = () => {
 									{...register("password", {
 										required: "Password is required",
 										minLength: {
-											value: 6,
-											message: "Password must be at least 6 characters long",
+											value: 8,
+											message: "Password must be at least 8 characters long",
 										},
 									})}
 								/>
@@ -148,10 +141,7 @@ const Login = () => {
 								<p className="text-[#6B7280] text-sm">Remember me</p>
 							</div>
 
-							<Link
-								className="text-[#1C64F2] text-sm"
-								to={"/auth/forgot-password"}
-							>
+							<Link className="text-[#1C64F2] text-sm" to={"/forgot-password"}>
 								<p>Forgot Password</p>
 							</Link>
 						</div>
