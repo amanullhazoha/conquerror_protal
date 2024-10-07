@@ -31,7 +31,7 @@ const RadioInput = ({
 							className="hidden peer"
 						/>
 						<CheckMarkIcon />
-						<div className="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center peer-checked:hidden"/>
+						<div className="w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center peer-checked:hidden" />
 						<span className="ml-2">{option.label}</span>
 					</label>
 				))}
