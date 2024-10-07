@@ -9,7 +9,7 @@ import ApplicantPhoto from "./ApplicantPhoto";
 const ApplicationNidInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
   return (
-    <div className="grid grid-cols-[55%_45%] gap-x-6">
+    <div className="grid grid-cols-2 gap-6">
       <div className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]">
         <div className="flex items-center justify-between mb-[24px]">
           <h2 className="text-[18px] leading-[27px] font-semibold">

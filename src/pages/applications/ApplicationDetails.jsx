@@ -5,11 +5,11 @@ import PrivateLayout from "@/components/layouts/PrivateLayout";
 const ApplicationDetails = () => {
 	return (
 		<PrivateLayout>
-			<div className="flex gap-x-[24px]">
-				<div className="self-start">
+			<div className="grid grid-cols-12 gap-6">
+				<div className="col-span-4">
 					<UserInfoCard />
 				</div>
-				<div className="flex-1">
+				<div className="col-span-8">
 					<ApplicationDetailsTabs />
 				</div>
 			</div>

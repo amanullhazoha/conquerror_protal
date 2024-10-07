@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const UserInfoCard = () => {
 	return (
-		<div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6 max-w-[430px] w-full h-auto">
+		<div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6  w-full h-auto">
 			<Link to="/applications">
 				<Button
 					className="rounded-[32px] p-[8px_12px] bg-white"
