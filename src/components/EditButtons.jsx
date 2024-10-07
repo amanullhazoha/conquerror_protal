@@ -12,7 +12,8 @@ const EditButtons = ({isEdit, setIsEdit}) => {
                 Undo changes
               </button>
               <button
-                onClick={() => setIsEdit(false)}
+                // onClick={() => setIsEdit(false)}
+                type='submit'
                 className="border-[1px] border-primary-700 text-primary-700 p-[8px_12px] rounded-[32px] font-medium text-[12px]"
               >
                 Submit
