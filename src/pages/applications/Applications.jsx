@@ -5,13 +5,17 @@ import PrivateLayout from "@/components/layouts/PrivateLayout";
 import { useGetAllApplicationsQuery } from "@/redux/features/applications/applications";
 
 const Applications = () => {
-	const { data: applicationsData, isLoading } = useGetAllApplicationsQuery();
+	const {
+		data: applicationsData,
+		isLoading,
+		isSuccess,
+	} = useGetAllApplicationsQuery();
 
 	return (
 		<PrivateLayout>
 			{isLoading && <p>Loading...</p>}
 
-			{!isLoading && (
+			{!isLoading && isSuccess && (
 				<div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
 					<ApplicationsHeading />
 

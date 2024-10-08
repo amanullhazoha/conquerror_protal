@@ -2,33 +2,42 @@ import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
 import SelectInput from "@/components/inputs/SelectInput";
+import { countries } from "@/data/countryList";
 import { InfoCard } from "@/shared/InfoCard";
-import { useState } from "react";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
 import ApplicantPhoto from "./ApplicantPhoto";
 
-const ApplicantBasicInfo = () => {
+const ApplicantBasicInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		control,
+		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues: {
-			firstName: "Anik",
-			lastName: "Molla",
-			fatherName: "Anika",
-			motherName: "Anika",
-			dob: "1998-06-05",
-			gender: "Male",
-			nationality: "Pakistan",
-			position: "Rider",
-			referenceNumber: "4552212",
-		},
 		mode: "onChange",
 	});
+
+	// Update form values when 'application' data is available
+	useEffect(() => {
+		if (application) {
+			reset({
+				firstName: application.first_name,
+				lastName: application.last_name,
+				fatherName: application.father_name,
+				motherName: application.mother_name,
+				dob: application.date_of_birth,
+				gender: application.gender,
+				nationality: application.nationality,
+				position: application.position_id,
+				referenceNumber: application.reference,
+			});
+		}
+	}, [application, reset]);
 
 	const onSubmit = (data) => {
 		console.log(data);
@@ -164,10 +173,7 @@ const ApplicantBasicInfo = () => {
 									label="Nationality"
 									placeholder="Select Nationality"
 									required={true}
-									options={[
-										{ value: "Bangladesh", label: "Bangladesh" },
-										{ value: "Pakistan", label: "Pakistan" },
-									]}
+									options={countries}
 									control={control}
 									rules={{ required: "Nationality is required" }}
 									errors={errors}
@@ -205,17 +211,37 @@ const ApplicantBasicInfo = () => {
 					) : (
 						<div>
 							<div className="grid grid-cols-2 gap-6">
-								<InfoCard title="First Name" content="Test Name" />
-								<InfoCard title="Last Name" content="Test Name" />
+								<InfoCard
+									title="First Name"
+									content={application?.first_name}
+								/>
+								<InfoCard title="Last Name" content={application?.last_name} />
 							</div>
 
-							<InfoCard title="Father Name" content="Test Name" />
-							<InfoCard title="Mother Name" content="Test Name" />
-							<InfoCard title="Date of Birth" content="5-June-1998" />
-							<InfoCard title="Gender" content="Male" />
-							<InfoCard title="Nationality" content="Bangladeshi" />
-							<InfoCard title="Position" content="Rider" />
-							<InfoCard title="Reference Number" content="12345678" />
+							<InfoCard
+								title="Father Name"
+								content={application?.father_name || ""}
+							/>
+							<InfoCard
+								title="Mother Name"
+								content={application?.mother_name}
+							/>
+							<InfoCard
+								title="Date of Birth"
+								content={moment(
+									application?.date_of_birth || new Date()
+								).format("D-MMMM-YYYY")}
+							/>
+							<InfoCard title="Gender" content={application?.gender} />
+							<InfoCard
+								title="Nationality"
+								content={application?.nationality}
+							/>
+							<InfoCard title="Position" content={application?.position_id} />
+							<InfoCard
+								title="Reference Number"
+								content={application?.reference}
+							/>
 						</div>
 					)}
 				</div>

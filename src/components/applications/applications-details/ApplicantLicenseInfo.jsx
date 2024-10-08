@@ -2,32 +2,39 @@ import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
 import { InfoCard } from "@/shared/InfoCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ApplicantPhoto from "./ApplicantPhoto";
 
-const ApplicantLicenseInfo = () => {
+const ApplicantLicenseInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		control,
+		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues: {
-			drivingLicense: "12345678945612",
-			expiryDate: "2024-06-20",
-			uaeResident: "Yes",
-			uaeLicense: "12345678945612",
-			uaeResidentVisaNumber: "12345678945612",
-			simNumber: "12345678945612",
-			eyeTestResult: "Test",
-			bikeNumber: "1487455",
-			dataSim: "123456789",
-		},
 		mode: "onChange",
 	});
+
+	// Update form values when 'application' data is available
+	useEffect(() => {
+		if (application) {
+			reset({
+				drivingLicense: application?.driving_license,
+				expiryDate: application?.date_of_expiry,
+				uaeResident: application?.uaeresident,
+				uaeLicense: application?.UAE_License_No,
+				uaeResidentVisaNumber: application?.UAE_Resident_Visa_No,
+				simNumber: application?.SIM_No,
+				eyeTestResult: application?.eye_test_result,
+				bikeNumber: application?.bike_number,
+				dataSim: application?.data_sim,
+			});
+		}
+	}, [application, reset]);
 
 	const onSubmit = (data) => {
 		console.log(data);
@@ -35,7 +42,10 @@ const ApplicantLicenseInfo = () => {
 
 	return (
 		<div className="grid grid-cols-2 gap-6">
-			<form className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]">
+			<form
+				onSubmit={handleSubmit(onSubmit)}
+				className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]"
+			>
 				{/* Header */}
 				<div className="flex items-center justify-between mb-[24px]">
 					<h2 className="text-[18px] leading-[27px] font-semibold">
