@@ -73,6 +73,6 @@
 
 @layer components {
 	.custom-phone-input {
-		@apply w-full border border-blue-500 rounded-md;
+		@apply w-full border rounded-md;
 	}
 }

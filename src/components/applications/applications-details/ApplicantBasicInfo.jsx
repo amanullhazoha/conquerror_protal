@@ -2,10 +2,10 @@ import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
 import SelectInput from "@/components/inputs/SelectInput";
+import { InfoCard } from "@/shared/InfoCard";
 import { useState } from "react";
 import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
 import ApplicantPhoto from "./ApplicantPhoto";
-import { InfoCard } from "@/shared/InfoCard";
 
 const ApplicantBasicInfo = () => {
 	const [isEdit, setIsEdit] = useState(false);
@@ -174,7 +174,7 @@ const ApplicantBasicInfo = () => {
 								/>
 							</div>
 
-							<div className="pt-8">
+							<div className="pt-4">
 								<SelectInput
 									name="position"
 									label="Position"
@@ -204,16 +204,9 @@ const ApplicantBasicInfo = () => {
 						</div>
 					) : (
 						<div>
-							<div className="grid grid-cols-2 gap-10 border-b-2 border-b-[#F9FAFB] pb-4 mb-4">
-								<div>
-									<p className="text-[#9CA3AF] pb-2">First Name</p>
-									<p>Anik</p>
-								</div>
-
-								<div>
-									<p className="text-[#9CA3AF] pb-2">Last Name</p>
-									<p>Molla</p>
-								</div>
+							<div className="grid grid-cols-2 gap-6">
+								<InfoCard title="First Name" content="Test Name" />
+								<InfoCard title="Last Name" content="Test Name" />
 							</div>
 
 							<InfoCard title="Father Name" content="Test Name" />

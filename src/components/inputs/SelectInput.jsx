@@ -34,7 +34,7 @@ const SelectInput = ({
 							value={field.value}
 							defaultValue=""
 						>
-							<SelectTrigger className="py-5 border-[#1C64F2]">
+							<SelectTrigger className="py-5 border-gray-300 focus:border-blue-500">
 								<SelectValue placeholder={placeholder} />
 							</SelectTrigger>
 							<SelectContent>
