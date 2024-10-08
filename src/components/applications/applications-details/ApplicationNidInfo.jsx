@@ -3,35 +3,43 @@ import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
 import SelectInput from "@/components/inputs/SelectInput";
 import { InfoCard } from "@/shared/InfoCard";
-import { useState } from "react";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ApplicantPhoto from "./ApplicantPhoto";
 
-const ApplicationNidInfo = () => {
+const ApplicationNidInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		control,
+		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues: {
-			nidNumber: "4878754",
-			maritalStatus: "Married",
-			spouseName: "Monika",
-			uaeResident: "Yes",
-			emiratesId: "787487",
-			expiryDate: "2024-06-20",
-			religion: "Islam",
-			permanentAddress: "Dhaka",
-			state: "Dhaka",
-			city: "Dhaka",
-			policeStation: "Dhaka",
-			postalCode: "4522",
-		},
 		mode: "onChange",
 	});
+
+	// Update form values when 'application' data is available
+	useEffect(() => {
+		if (application) {
+			reset({
+				nidNumber: application?.nidorcnicnumber,
+				maritalStatus: application?.martialstatus,
+				spouseName: application?.spouse,
+				uaeResident: application?.uaeresident,
+				emiratesId: application?.emiratesid,
+				expiryDate: application?.date_of_expiry,
+				religion: application?.religion,
+				permanentAddress: application?.permanent_address,
+				state: application?.province,
+				city: application?.city,
+				policeStation: application?.policeStation,
+				postalCode: application?.zip,
+			});
+		}
+	}, [application, reset]);
 
 	const onSubmit = (data) => {
 		console.log(data);
@@ -245,30 +253,62 @@ const ApplicationNidInfo = () => {
 						</div>
 					) : (
 						<div>
-							<InfoCard title="NID/CNIC Number" content="4552212" />
+							<InfoCard
+								title="NID/CNIC Number"
+								content={application?.nidorcnicnumber || ""}
+							/>
 
 							<div className="grid grid-cols-2 gap-6">
-								<InfoCard title="Marital Status" content="Married" />
-								<InfoCard title="Spouse Name" content="Monika" />
+								<InfoCard
+									title="Marital Status"
+									content={application?.martialstatus || ""}
+								/>
+								<InfoCard
+									title="Spouse Name"
+									content={application?.spouse || ""}
+								/>
 							</div>
 
 							<div className="grid grid-cols-3 gap-6">
-								<InfoCard title="UAE Resident" content="Yes" />
-								<InfoCard title="Emirates ID" content="4875546" />
-								<InfoCard title="Expiry Date" content="10-June-24" />
+								<InfoCard
+									title="UAE Resident"
+									content={application?.aue_resident || ""}
+								/>
+								<InfoCard
+									title="Emirates ID"
+									content={application?.emiratesid || ""}
+								/>
+								<InfoCard
+									title="Expiry Date"
+									content={moment(
+										application?.emirates_expiry || new Date()
+									).format("D-MMMM-YYYY")}
+								/>
 							</div>
 
-							<InfoCard title="Religion" content="Islam" />
-							<InfoCard title="Permanent Address" content="Dhaka, Bangladesh" />
+							<InfoCard title="Religion" content={application?.religion} />
+							<InfoCard
+								title="Permanent Address"
+								content={application?.permanent_address || ""}
+							/>
 
 							<div className="grid grid-cols-2 gap-6">
-								<InfoCard title="State/Province" content="Dhaka" />
-								<InfoCard title="City" content="Dhaka" />
+								<InfoCard
+									title="State/Province"
+									content={application?.province || ""}
+								/>
+								<InfoCard title="City" content={application?.city || ""} />
 							</div>
 
 							<div className="grid grid-cols-2 gap-6">
-								<InfoCard title="Police Station" content="Dhaka" />
-								<InfoCard title="Postal Code" content="7850" />
+								<InfoCard
+									title="Police Station"
+									content={application?.policeStation || ""}
+								/>
+								<InfoCard
+									title="Postal Code"
+									content={application?.zip || ""}
+								/>
 							</div>
 						</div>
 					)}

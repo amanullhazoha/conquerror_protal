@@ -1,25 +1,33 @@
 import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import { InfoCard } from "@/shared/InfoCard";
-import { useState } from "react";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ApplicantPhoto from "./ApplicantPhoto";
 
-const ApplicantPassportInfo = () => {
+const ApplicantPassportInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		control,
+		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues: {
-			passportNumber: "7845798745",
-			expiryDate: "2024-06-20",
-		},
 		mode: "onChange",
 	});
+
+	// Update form values when 'application' data is available
+	useEffect(() => {
+		if (application) {
+			reset({
+				passportNumber: application?.passportno,
+				expiryDate: application?.date_of_expiry,
+			});
+		}
+	}, [application, reset]);
 
 	const onSubmit = (data) => {
 		console.log(data);
@@ -77,8 +85,16 @@ const ApplicantPassportInfo = () => {
 					</div>
 				) : (
 					<div>
-						<InfoCard title="Passport Number" content="7875489745" />
-						<InfoCard title="Expiry Date" content="10-June-24" />
+						<InfoCard
+							title="Passport Number"
+							content={application?.passportno || ""}
+						/>
+						<InfoCard
+							title="Expiry Date"
+							content={moment(application?.date_of_expiry || new Date()).format(
+								"D-MMMM-YYYY"
+							)}
+						/>
 					</div>
 				)}
 			</form>

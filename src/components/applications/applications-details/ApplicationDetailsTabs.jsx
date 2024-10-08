@@ -5,7 +5,7 @@ import ApplicantPassportInfo from "./ApplicantPassportInfo";
 import ApplicationContactInfo from "./ApplicationContactInfo";
 import ApplicationNidInfo from "./ApplicationNidInfo";
 
-const ApplicationDetailsTabs = () => {
+const ApplicationDetailsTabs = ({ application }) => {
 	return (
 		<div className="w-full">
 			<h2 className="mb-[28px] text-2xl text-gray-900 font-semibold">
@@ -21,19 +21,19 @@ const ApplicationDetailsTabs = () => {
 					<TabsTrigger value="License">License</TabsTrigger>
 				</TabsList>
 				<TabsContent value="Basic" className="mt-[24px]">
-					<ApplicantBasicInfo />
+					<ApplicantBasicInfo application={application} />
 				</TabsContent>
 				<TabsContent value="Contact" className="mt-[24px]">
-					<ApplicationContactInfo />
+					<ApplicationContactInfo application={application} />
 				</TabsContent>
 				<TabsContent value="NID/CNIC" className="mt-[24px]">
-					<ApplicationNidInfo />
+					<ApplicationNidInfo application={application} />
 				</TabsContent>
 				<TabsContent value="Passport" className="mt-[24px]">
-					<ApplicantPassportInfo />
+					<ApplicantPassportInfo application={application} />
 				</TabsContent>
 				<TabsContent value="License" className="mt-[24px]">
-					<ApplicantLicenseInfo />
+					<ApplicantLicenseInfo application={application} />
 				</TabsContent>
 			</Tabs>
 		</div>

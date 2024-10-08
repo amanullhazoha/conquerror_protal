@@ -1,5 +1,4 @@
 import PrivateRoute from "@/components/guards/PrivateRoute";
-import NotFound from "@/pages/NotFoundPage";
 import ApplicationDetails from "@/pages/applications/ApplicationDetails";
 import Applications from "@/pages/applications/Applications";
 import { Outlet } from "react-router-dom";
@@ -23,10 +22,6 @@ const AuthenticatedRoutes = {
 		{
 			path: "/applications/:id",
 			element: <ApplicationDetails />,
-		},
-		{
-			path: "*",
-			element: <NotFound />,
 		},
 	],
 };

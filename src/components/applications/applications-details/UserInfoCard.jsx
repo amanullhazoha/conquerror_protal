@@ -12,9 +12,10 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import moment from "moment";
 import { Link } from "react-router-dom";
 
-const UserInfoCard = () => {
+const UserInfoCard = ({ application }) => {
 	return (
 		<div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6  w-full h-auto">
 			<Link to="/applications">
@@ -35,13 +36,13 @@ const UserInfoCard = () => {
 					/>
 					<div>
 						<h3 className="text-[20px] leading-[30px] font-semibold text-primary-100 mb-2">
-							Abu Taher Molla
+							{`${application?.first_name} ${application?.last_name}`}
 						</h3>
 						<h4 className="text-gray-100 text-sm font-semibold mb-[2px]">
-							+8801770066585
+							{application?.contact_number}
 						</h4>
 						<h4 className="text-gray-100 text-sm font-semibold">
-							molla.ux@gmail.com
+							{application?.email}
 						</h4>
 					</div>
 				</div>
@@ -49,10 +50,11 @@ const UserInfoCard = () => {
 					New Application
 				</button>
 				<h4 className="flex items-center gap-x-2 text-gray-500 my-4">
-					<CalendarIcon /> Submitted: Sun, Jul 28, 2024, 3:00 AM
+					<CalendarIcon /> Submitted:{" "}
+					{moment(application?.updated_at).format("ddd, MMM D, YYYY, h:mm A")}
 				</h4>
 				<h4 className="flex items-center gap-x-2 text-gray-500">
-					<AddUserIcon /> Submission ID: 7845545545
+					<AddUserIcon /> Submission ID: {application?.submissionid || "123456"}
 				</h4>
 
 				<div className="mt-4 grid grid-cols-2 gap-6">

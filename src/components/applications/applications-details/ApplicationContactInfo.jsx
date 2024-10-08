@@ -2,25 +2,32 @@ import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import NumberInput from "@/components/inputs/NumberInput";
 import { InfoCard } from "@/shared/InfoCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const ApplicationContactInfo = () => {
+const ApplicationContactInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
 
 	const {
 		register,
 		handleSubmit,
 		control,
+		reset,
 		formState: { errors },
 	} = useForm({
-		defaultValues: {
-			email: "molla.ux@gmail.com",
-			contactNumber: "+8801587987784",
-			whatsappNumber: "+8801587987784",
-		},
 		mode: "onChange",
 	});
+
+	// Update form values when 'application' data is available
+	useEffect(() => {
+		if (application) {
+			reset({
+				email: application?.email,
+				contactNumber: application?.contact_number,
+				whatsappNumber: application?.whatsapp_number,
+			});
+		}
+	}, [application, reset]);
 
 	const onSubmit = (data) => {
 		console.log(data);
@@ -93,26 +100,17 @@ const ApplicationContactInfo = () => {
 					</div>
 				) : (
 					<div>
-						<InfoCard title="Email" content="molla.ux@gmail.com" />
-						<InfoCard title="Contact Number" content="+88015879874" />
-						<InfoCard title="WhatsApp Number" content="+88015879874" />
+						<InfoCard title="Email" content={application?.email || ""} />
+						<InfoCard
+							title="Contact Number"
+							content={application?.contact_number || ""}
+						/>
+						<InfoCard
+							title="WhatsApp Number"
+							content={application?.whatsapp_number || ""}
+						/>
 					</div>
 				)}
-
-				{/* <div className="border-b border-gray-50 pb-3">
-          <FormInput
-            label="Email"
-            placeholder="Enter Email"
-            value="molla.ux@gmail.com"
-            isEdit={isEdit}
-          />
-        </div>
-        <div className="border-b border-gray-50 pb-3">
-          <NumberInput isEdit={isEdit} label="Contact Number" />
-        </div>
-        <div className="mb-5 border-b border-gray-50 pb-3">
-          <NumberInput isEdit={isEdit} label="WhatsApp Number" />
-        </div> */}
 			</form>
 		</div>
 	);
