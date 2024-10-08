@@ -1,4 +1,4 @@
-const { default: apiSlice } = require("../api/apiSlice");
+import apiSlice from "../api/apiSlice";
 
 const applicationsApi = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
