@@ -2,6 +2,8 @@ import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
 import SelectInput from "@/components/inputs/SelectInput";
+import useToast from "@/hooks/useToast";
+import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -10,6 +12,10 @@ import ApplicantPhoto from "./ApplicantPhoto";
 
 const ApplicationNidInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
+	const { showSuccess, showError } = useToast();
+
+	const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
+		useUpdateApplicationByIdMutation();
 
 	const {
 		register,
@@ -30,9 +36,9 @@ const ApplicationNidInfo = ({ application }) => {
 				spouseName: application?.spouse,
 				uaeResident: application?.uaeresident,
 				emiratesId: application?.emiratesid,
-				expiryDate: application?.date_of_expiry,
+				expiryDate: application?.nidorcnicexpiry,
 				religion: application?.religion,
-				permanentAddress: application?.permanent_address,
+				permanentAddress: application?.homeaddrss,
 				state: application?.province,
 				city: application?.city,
 				policeStation: application?.policeStation,
@@ -41,9 +47,37 @@ const ApplicationNidInfo = ({ application }) => {
 		}
 	}, [application, reset]);
 
-	const onSubmit = (data) => {
+	const onSubmit = (formData) => {
+		const data = {
+			nidorcnicnumber: formData.nidNumber,
+			martialstatus: formData.maritalStatus,
+			spouse: formData.spouseName,
+			uaeresident: formData.uaeResident,
+			emiratesid: formData.emiratesId,
+			nidorcnicexpiry: formData.expiryDate,
+			religion: formData.religion,
+			homeaddrss: formData.permanentAddress,
+			province: formData.state,
+			city: formData.city,
+			policeStation: formData.policeStation,
+			zip: formData.postalCode,
+		};
+
 		console.log(data);
+
+		updateApplicationById({ id: application?.id, data });
 	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			showSuccess("NID/CNIC information updated successful");
+			setIsEdit(false);
+		}
+
+		if (isError) {
+			showError(error?.data);
+		}
+	}, [isError, isSuccess]);
 
 	return (
 		<div className="grid grid-cols-12 gap-6">
@@ -86,8 +120,9 @@ const ApplicationNidInfo = ({ application }) => {
 									name="maritalStatus"
 									label="Marital Status"
 									options={[
-										{ label: "Married", value: "Married" },
-										{ label: "Unmarried", value: "Unmarried" },
+										{ label: "Married", value: "married" },
+										{ label: "Unmarried", value: "unmarried" },
+										{ label: "Divorced", value: "divorced" },
 									]}
 									register={register}
 									required
@@ -120,8 +155,8 @@ const ApplicationNidInfo = ({ application }) => {
 									name="uaeResident"
 									label="UAE Resident"
 									options={[
-										{ label: "Yes", value: "Yes" },
-										{ label: "No", value: "No" },
+										{ label: "Yes", value: "yes" },
+										{ label: "No", value: "no" },
 									]}
 									register={register}
 									required
@@ -272,7 +307,7 @@ const ApplicationNidInfo = ({ application }) => {
 							<div className="grid grid-cols-3 gap-6">
 								<InfoCard
 									title="UAE Resident"
-									content={application?.aue_resident || ""}
+									content={application?.uaeresident || ""}
 								/>
 								<InfoCard
 									title="Emirates ID"
@@ -289,7 +324,7 @@ const ApplicationNidInfo = ({ application }) => {
 							<InfoCard title="Religion" content={application?.religion} />
 							<InfoCard
 								title="Permanent Address"
-								content={application?.permanent_address || ""}
+								content={application?.homeaddrss || ""}
 							/>
 
 							<div className="grid grid-cols-2 gap-6">

@@ -3,6 +3,8 @@ import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
 import SelectInput from "@/components/inputs/SelectInput";
 import { countries } from "@/data/countryList";
+import useToast from "@/hooks/useToast";
+import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -11,6 +13,13 @@ import ApplicantPhoto from "./ApplicantPhoto";
 
 const ApplicantBasicInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
+	const { showSuccess, showError } = useToast();
+
+	const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
+		useUpdateApplicationByIdMutation();
+
+	// TODO: Clear later
+	console.log("Application: ", application);
 
 	const {
 		register,
@@ -39,9 +48,34 @@ const ApplicantBasicInfo = ({ application }) => {
 		}
 	}, [application, reset]);
 
-	const onSubmit = (data) => {
+	const onSubmit = (formData) => {
+		const data = {
+			first_name: formData.firstName,
+			last_name: formData.lastName,
+			father_name: formData.fatherName,
+			mother_name: formData.motherName,
+			date_of_birth: formData.dob,
+			gender: formData.gender,
+			nationality: formData.nationality,
+			position_id: formData.position,
+			reference: formData.referenceNumber,
+		};
+
 		console.log(data);
+
+		updateApplicationById({ id: application?.id, data });
 	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			showSuccess("Basic information updated successful");
+			setIsEdit(false);
+		}
+
+		if (isError) {
+			showError(error?.data);
+		}
+	}, [isError, isSuccess]);
 
 	return (
 		<div className="grid grid-cols-12 gap-6">
@@ -156,9 +190,9 @@ const ApplicantBasicInfo = ({ application }) => {
 									name="gender"
 									label="Gender"
 									options={[
-										{ label: "Male", value: "Male" },
-										{ label: "Female", value: "Female" },
-										{ label: "Others", value: "Others" },
+										{ label: "Male", value: "male" },
+										{ label: "Female", value: "female" },
+										{ label: "Others", value: "others" },
 									]}
 									register={register}
 									required
@@ -181,14 +215,16 @@ const ApplicantBasicInfo = ({ application }) => {
 							</div>
 
 							<div className="pt-4">
-								<SelectInput
+								<InputField
 									name="position"
 									label="Position"
-									placeholder="Select Position"
-									required={true}
-									options={[{ value: "Rider", label: "Rider" }]}
-									control={control}
-									rules={{ required: "Position is required" }}
+									type="number"
+									placeholder="Enter position number"
+									register={register}
+									required
+									rules={{
+										required: "Position number is required",
+									}}
 									errors={errors}
 								/>
 							</div>

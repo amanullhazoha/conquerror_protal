@@ -1,6 +1,8 @@
 import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import RadioInput from "@/components/inputs/RadioInput";
+import useToast from "@/hooks/useToast";
+import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,6 +10,10 @@ import ApplicantPhoto from "./ApplicantPhoto";
 
 const ApplicantLicenseInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
+	const { showSuccess, showError } = useToast();
+
+	const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
+		useUpdateApplicationByIdMutation();
 
 	const {
 		register,
@@ -23,8 +29,8 @@ const ApplicantLicenseInfo = ({ application }) => {
 	useEffect(() => {
 		if (application) {
 			reset({
-				drivingLicense: application?.driving_license,
-				expiryDate: application?.date_of_expiry,
+				drivingLicense: application?.appli_dri_number,
+				expiryDate: application?.appli_dri_expiry,
 				uaeResident: application?.uaeresident,
 				uaeLicense: application?.UAE_License_No,
 				uaeResidentVisaNumber: application?.UAE_Resident_Visa_No,
@@ -36,9 +42,34 @@ const ApplicantLicenseInfo = ({ application }) => {
 		}
 	}, [application, reset]);
 
-	const onSubmit = (data) => {
+	const onSubmit = (formData) => {
+		const data = {
+			appli_dri_number: formData.drivingLicense,
+			appli_dri_expiry: formData.expiryDate,
+			uaeresident: formData.uaeResident,
+			UAE_License_No: formData.uaeLicense,
+			UAE_Resident_Visa_No: formData.uaeResidentVisaNumber,
+			SIM_No: formData.simNumber,
+			eye_test_result: formData.eyeTestResult,
+			bike_number: formData.bikeNumber,
+			data_sim: formData.dataSim,
+		};
+
 		console.log(data);
+
+		updateApplicationById({ id: application?.id, data });
 	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			showSuccess("License information updated successful");
+			setIsEdit(false);
+		}
+
+		if (isError) {
+			showError(error?.data);
+		}
+	}, [isError, isSuccess]);
 
 	return (
 		<div className="grid grid-cols-2 gap-6">
@@ -95,8 +126,8 @@ const ApplicantLicenseInfo = ({ application }) => {
 								name="uaeResident"
 								label="UAE Resident"
 								options={[
-									{ label: "Yes", value: "Yes" },
-									{ label: "No", value: "No" },
+									{ label: "Yes", value: "yes" },
+									{ label: "No", value: "no" },
 								]}
 								register={register}
 								required
