@@ -2,20 +2,28 @@ import ApplicationCard from "@/components/applications/ApplicationCard";
 import ApplicationsHeading from "@/components/applications/ApplicationsHeading";
 import ApplicationsPagination from "@/components/applications/ApplicationsPagination";
 import PrivateLayout from "@/components/layouts/PrivateLayout";
+import { useGetAllApplicationsQuery } from "@/redux/features/applications/applications";
 
 const Applications = () => {
+	const { data: applicationsData, isLoading } = useGetAllApplicationsQuery();
+
 	return (
 		<PrivateLayout>
-			<div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
-				<ApplicationsHeading />
+			{isLoading && <p>Loading...</p>}
 
-				<div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
-					{[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(() => (
-						<ApplicationCard />
-					))}
+			{!isLoading && (
+				<div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
+					<ApplicationsHeading />
+
+					<div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
+						{applicationsData?.applicants?.map((applicant, idx) => (
+							<ApplicationCard key={idx} applicant={applicant} />
+						))}
+					</div>
+
+					<ApplicationsPagination />
 				</div>
-				<ApplicationsPagination />
-			</div>
+			)}
 		</PrivateLayout>
 	);
 };
