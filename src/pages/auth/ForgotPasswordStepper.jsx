@@ -57,7 +57,7 @@ const ForgotPasswordStepper = () => {
 					<div className="flex flex-col gap-6 justify-center items-center text-sm mt-5">
 						<Link
 							className="text-[#6B7280] text-sm font-semibold"
-							to={"/login"}
+							to={"/"}
 						>
 							<p>← Back to login</p>
 						</Link>
@@ -66,8 +66,7 @@ const ForgotPasswordStepper = () => {
 							{steps.map((stepLabel, idx) => (
 								<div
 									key={idx}
-									onClick={() => setCurrentStep(idx)}
-									className={`w-2 h-2 cursor-pointer ${
+									className={`w-2 h-2 ${
 										currentStep === idx ? "bg-[#E3A008]" : "bg-[#E5E7EB]"
 									} rounded-full`}
 								/>
