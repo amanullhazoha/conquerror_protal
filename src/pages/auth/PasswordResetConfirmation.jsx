@@ -15,7 +15,7 @@ const PasswordResetConfirmation = () => {
 			/>
 
 			<div className=" bg-white w-full shadow-custom-sm p-4 lg:p-[20px] border rounded-lg">
-				<Link to={"/login"}>
+				<Link to={"/"}>
 					<button className="w-full bg-[#1A56DB] text-white rounded-lg py-2">
 						Continue
 					</button>
