@@ -41,8 +41,8 @@ const InputField = ({
 
 			<input
 				className={`outline-none border ${
-					errors?.[name] || inputError ? "border-red-500" : "border-[#1C64F2]"
-				} py-2 px-4 rounded-lg mt-2 w-full`}
+					errors?.[name] || inputError ? "border-red-500" : "border-gray-300"
+				} focus:border-blue-500 py-2 px-4 rounded-lg mt-2 w-full`}
 				id={name}
 				type={type}
 				placeholder={placeholder}
@@ -51,12 +51,10 @@ const InputField = ({
 				{...register(name, rules)}
 			/>
 
-			{/* Display form errors from react-hook-form */}
 			{errors?.[name] && (
 				<p className="text-red-500 text-sm mt-1">{errors[name].message}</p>
 			)}
 
-			{/* Display custom input error */}
 			{inputError && <p className="text-red-500 text-sm mt-1">{inputError}</p>}
 		</div>
 	);

@@ -3,10 +3,15 @@ import UserImg from "@/assets/images/user.png";
 import AddUserIcon from "@/assets/icons/AddUserIcon";
 import ArrowLeftIcon from "@/assets/icons/ArrowLeftIcon";
 import CalendarIcon from "@/assets/icons/CalendarIcon";
-import DownIcon from "@/assets/icons/DownIcon";
 import SendIcon from "@/assets/icons/SendIcon";
-import ButtonV2 from "@/components/ButtonV2";
 import { Button } from "@/components/ui/button";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 import { Link } from "react-router-dom";
 
 const UserInfoCard = () => {
@@ -50,13 +55,23 @@ const UserInfoCard = () => {
 					<AddUserIcon /> Submission ID: 7845545545
 				</h4>
 
-				<div className="mt-4 flex items-center justify-between">
-					<ButtonV2 text="Inperson" icon={<DownIcon />} />
-					<ButtonV2
-						text="Invite Interview"
-						icon={<SendIcon />}
-						className="text-primary-700 border-primary-700"
-					/>
+				<div className="mt-4 grid grid-cols-2 gap-6">
+					<Select>
+						<SelectTrigger className="w-full rounded-full py-5">
+							<SelectValue placeholder="Select Option" />
+						</SelectTrigger>
+						<SelectContent>
+							<SelectItem value="inperson">Inperson</SelectItem>
+							<SelectItem value="rider">Rider</SelectItem>
+						</SelectContent>
+					</Select>
+
+					<Button
+						className="flex gap-2 bg-white hover:bg-white text-[#1A56DB] hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
+						variant="outline"
+					>
+						Invite Interview <SendIcon />
+					</Button>
 				</div>
 			</div>
 		</div>
