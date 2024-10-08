@@ -47,7 +47,7 @@ const UserInfoCard = ({ application }) => {
 					</div>
 				</div>
 				<button className="absolute top-2 right-2 bg-yellow-200 p-[2px_8px] rounded-full text-yellow-800 text-[12px] font-medium">
-					New Application
+					{application?.applicant_status}
 				</button>
 				<h4 className="flex items-center gap-x-2 text-gray-500 my-4">
 					<CalendarIcon /> Submitted:{" "}

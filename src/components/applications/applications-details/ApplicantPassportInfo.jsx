@@ -1,13 +1,19 @@
 import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
+import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ApplicantPhoto from "./ApplicantPhoto";
+import useToast from "@/hooks/useToast";
 
 const ApplicantPassportInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
+	const { showSuccess, showError } = useToast();
+
+	const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
+		useUpdateApplicationByIdMutation();
 
 	const {
 		register,
@@ -29,9 +35,27 @@ const ApplicantPassportInfo = ({ application }) => {
 		}
 	}, [application, reset]);
 
-	const onSubmit = (data) => {
+	const onSubmit = (formData) => {
+		const data = {
+			passportno: formData.passportNumber,
+			date_of_expiry: formData.expiryDate,
+		};
+
 		console.log(data);
+
+		updateApplicationById({ id: application?.id, data });
 	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			showSuccess("Passport information updated successful");
+			setIsEdit(false);
+		}
+
+		if (isError) {
+			showError(error?.data);
+		}
+	}, [isError, isSuccess]);
 
 	return (
 		<div className="grid grid-cols-2 gap-6">

@@ -1,12 +1,15 @@
 import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import NumberInput from "@/components/inputs/NumberInput";
+import useToast from "@/hooks/useToast";
+import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const ApplicationContactInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
+	whatsappNumber
 
 	const {
 		register,
@@ -29,9 +32,28 @@ const ApplicationContactInfo = ({ application }) => {
 		}
 	}, [application, reset]);
 
-	const onSubmit = (data) => {
+	const onSubmit = (formData) => {
+		const data = {
+			email: formData.email,
+			contact_number: formData.contactNumber,
+			whatsapp_number: formData.whatsappNumber,
+		};
+
 		console.log(data);
+
+		updateApplicationById({ id: application?.id, data });
 	};
+
+	useEffect(() => {
+		if (isSuccess) {
+			showSuccess("Contact information updated successful");
+			setIsEdit(false);
+		}
+
+		if (isError) {
+			showError(error?.data);
+		}
+	}, [isError, isSuccess]);
 
 	return (
 		<div className="grid grid-cols-2">
