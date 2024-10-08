@@ -15,6 +15,14 @@ const ResetPassword = ({ nextStep, token }) => {
 	const [isConfirmPasswordViewable, setIsConfirmPasswordViewable] =
 		useState(false);
 
+	const [passwordValidations, setPasswordValidations] = useState({
+		length: false,
+		uppercase: false,
+		lowercase: false,
+		number: false,
+		specialChar: false,
+	});
+
 	const [
 		resetPassword,
 		{ data: response, isLoading, isSuccess, isError, error },
@@ -24,6 +32,7 @@ const ResetPassword = ({ nextStep, token }) => {
 		register,
 		handleSubmit,
 		getValues,
+		watch,
 		formState: { errors },
 	} = useForm({
 		mode: "onChange",
@@ -38,6 +47,24 @@ const ResetPassword = ({ nextStep, token }) => {
 
 		resetPassword(data);
 	};
+
+	// Monitor password input and update validation rules
+	const password = watch("password");
+	useEffect(() => {
+		const lengthValid = password?.length >= 8;
+		const uppercaseValid = /[A-Z]/.test(password);
+		const lowercaseValid = /[a-z]/.test(password);
+		const numberValid = /\d/.test(password);
+		const specialCharValid = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+		setPasswordValidations({
+			length: lengthValid,
+			uppercase: uppercaseValid,
+			lowercase: lowercaseValid,
+			number: numberValid,
+			specialChar: specialCharValid,
+		});
+	}, [password]);
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -81,9 +108,22 @@ const ResetPassword = ({ nextStep, token }) => {
 							placeholder="Password"
 							{...register("password", {
 								required: "Password is required",
-								minLength: {
-									value: 8,
-									message: "Password must be at least 8 characters long",
+								validate: {
+									length: (value) =>
+										value.length >= 8 ||
+										"Password must be at least 8 characters long",
+									uppercase: (value) =>
+										/[A-Z]/.test(value) ||
+										"Password must contain at least one uppercase letter",
+									lowercase: (value) =>
+										/[a-z]/.test(value) ||
+										"Password must contain at least one lowercase letter",
+									number: (value) =>
+										/\d/.test(value) ||
+										"Password must contain at least one number",
+									specialChar: (value) =>
+										/[!@#$%^&*(),.?":{}|<>]/.test(value) ||
+										"Password must contain at least one special character",
 								},
 							})}
 						/>
@@ -150,9 +190,14 @@ const ResetPassword = ({ nextStep, token }) => {
 					)}
 				</div>
 
+				{/* Password validation checks */}
 				<div className="flex flex-col gap-4 py-2">
 					<div className="flex gap-2 items-center">
-						<div className="flex justify-center items-center w-[20px] h-[20px] rounded-full bg-[#0E9F6E]">
+						<div
+							className={`flex justify-center items-center w-[20px] h-[20px] rounded-full ${
+								passwordValidations.length ? "bg-[#0E9F6E]" : "bg-[#D1D5DB]"
+							}`}
+						>
 							<FaCheck className="text-white text-sm" />
 						</div>
 						<p className="text-[#6B7280] text-sm">
@@ -161,11 +206,56 @@ const ResetPassword = ({ nextStep, token }) => {
 					</div>
 
 					<div className="flex gap-2 items-center">
-						<div className="flex justify-center items-center w-[20px] h-[20px] rounded-full bg-[#D1D5DB]">
+						<div
+							className={`flex justify-center items-center w-[20px] h-[20px] rounded-full ${
+								passwordValidations.uppercase ? "bg-[#0E9F6E]" : "bg-[#D1D5DB]"
+							}`}
+						>
 							<FaCheck className="text-white text-sm" />
 						</div>
 						<p className="text-[#6B7280] text-sm">
-							Must be at least 8 characters
+							Must contain at least one uppercase
+						</p>
+					</div>
+
+					<div className="flex gap-2 items-center">
+						<div
+							className={`flex justify-center items-center w-[20px] h-[20px] rounded-full ${
+								passwordValidations.lowercase ? "bg-[#0E9F6E]" : "bg-[#D1D5DB]"
+							}`}
+						>
+							<FaCheck className="text-white text-sm" />
+						</div>
+						<p className="text-[#6B7280] text-sm">
+							Must contain at least one lowercase
+						</p>
+					</div>
+
+					<div className="flex gap-2 items-center">
+						<div
+							className={`flex justify-center items-center w-[20px] h-[20px] rounded-full ${
+								passwordValidations.number ? "bg-[#0E9F6E]" : "bg-[#D1D5DB]"
+							}`}
+						>
+							<FaCheck className="text-white text-sm" />
+						</div>
+						<p className="text-[#6B7280] text-sm">
+							Must contain at least one number
+						</p>
+					</div>
+
+					<div className="flex gap-2 items-center">
+						<div
+							className={`flex justify-center items-center w-[20px] h-[20px] rounded-full ${
+								passwordValidations.specialChar
+									? "bg-[#0E9F6E]"
+									: "bg-[#D1D5DB]"
+							}`}
+						>
+							<FaCheck className="text-white text-sm" />
+						</div>
+						<p className="text-[#6B7280] text-sm">
+							Must contain at least one special character
 						</p>
 					</div>
 				</div>
