@@ -5,9 +5,11 @@ import SelectInput from "@/components/inputs/SelectInput";
 import { useState } from "react";
 import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
 import ApplicantPhoto from "./ApplicantPhoto";
+import { InfoCard } from "@/shared/InfoCard";
 
 const ApplicantBasicInfo = () => {
 	const [isEdit, setIsEdit] = useState(false);
+
 	const {
 		register,
 		handleSubmit,
@@ -233,16 +235,6 @@ const ApplicantBasicInfo = () => {
 
 				<ApplicantPhoto title="Applicant Photo" />
 			</div>
-		</div>
-	);
-};
-
-// User name card
-const InfoCard = ({ title, content }) => {
-	return (
-		<div className="border-b-2 border-b-[#F9FAFB] pb-4 mb-4">
-			<p className="text-[#9CA3AF] pb-2">{title}</p>
-			<p>{content}</p>
 		</div>
 	);
 };

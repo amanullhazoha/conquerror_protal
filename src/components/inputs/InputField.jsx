@@ -51,12 +51,10 @@ const InputField = ({
 				{...register(name, rules)}
 			/>
 
-			{/* Display form errors from react-hook-form */}
 			{errors?.[name] && (
 				<p className="text-red-500 text-sm mt-1">{errors[name].message}</p>
 			)}
 
-			{/* Display custom input error */}
 			{inputError && <p className="text-red-500 text-sm mt-1">{inputError}</p>}
 		</div>
 	);
