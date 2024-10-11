@@ -1,7 +1,6 @@
 import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
 import NumberInput from "@/components/inputs/NumberInput";
-import useToast from "@/hooks/useToast";
 import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
 import { useEffect, useState } from "react";
@@ -9,16 +8,18 @@ import { useForm } from "react-hook-form";
 
 const ApplicationContactInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
-	whatsappNumber
+
+	const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
+	useUpdateApplicationByIdMutation();
 
 	const {
 		register,
 		handleSubmit,
 		control,
 		reset,
-		formState: { errors },
+		formState: { errors }
 	} = useForm({
-		mode: "onChange",
+		mode: "onChange"
 	});
 
 	// Update form values when 'application' data is available
@@ -27,7 +28,7 @@ const ApplicationContactInfo = ({ application }) => {
 			reset({
 				email: application?.email,
 				contactNumber: application?.contact_number,
-				whatsappNumber: application?.whatsapp_number,
+				whatsappNumber: application?.whatsapp_number
 			});
 		}
 	}, [application, reset]);
@@ -36,7 +37,7 @@ const ApplicationContactInfo = ({ application }) => {
 		const data = {
 			email: formData.email,
 			contact_number: formData.contactNumber,
-			whatsapp_number: formData.whatsappNumber,
+			whatsapp_number: formData.whatsappNumber
 		};
 
 		console.log(data);
@@ -85,8 +86,8 @@ const ApplicationContactInfo = ({ application }) => {
 									required: "Email is required",
 									pattern: {
 										value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-										message: "Please enter a valid email address",
-									},
+										message: "Please enter a valid email address"
+									}
 								}}
 								errors={errors}
 							/>
@@ -100,7 +101,7 @@ const ApplicationContactInfo = ({ application }) => {
 								required
 								control={control}
 								rules={{
-									required: "Contact number is required",
+									required: "Contact number is required"
 								}}
 								errors={errors}
 							/>
@@ -114,7 +115,7 @@ const ApplicationContactInfo = ({ application }) => {
 								required
 								control={control}
 								rules={{
-									required: "WhatsApp number is required",
+									required: "WhatsApp number is required"
 								}}
 								errors={errors}
 							/>

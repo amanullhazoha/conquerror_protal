@@ -10,6 +10,7 @@ import moment from "moment";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
 import ApplicantPhoto from "./ApplicantPhoto";
+import { downloadImage } from "@/utils/downloadImage";
 
 const ApplicantBasicInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
@@ -18,17 +19,14 @@ const ApplicantBasicInfo = ({ application }) => {
 	const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
 		useUpdateApplicationByIdMutation();
 
-	// TODO: Clear later
-	console.log("Application: ", application);
-
 	const {
 		register,
 		handleSubmit,
 		control,
 		reset,
-		formState: { errors },
+		formState: { errors }
 	} = useForm({
-		mode: "onChange",
+		mode: "onChange"
 	});
 
 	// Update form values when 'application' data is available
@@ -43,7 +41,7 @@ const ApplicantBasicInfo = ({ application }) => {
 				gender: application.gender,
 				nationality: application.nationality,
 				position: application.position_id,
-				referenceNumber: application.reference,
+				referenceNumber: application.reference
 			});
 		}
 	}, [application, reset]);
@@ -58,13 +56,15 @@ const ApplicantBasicInfo = ({ application }) => {
 			gender: formData.gender,
 			nationality: formData.nationality,
 			position_id: formData.position,
-			reference: formData.referenceNumber,
+			reference: formData.referenceNumber
 		};
 
 		console.log(data);
 
 		updateApplicationById({ id: application?.id, data });
 	};
+
+	const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -108,8 +108,8 @@ const ApplicantBasicInfo = ({ application }) => {
 										required: "First name is required",
 										maxLength: {
 											value: 50,
-											message: "Maximum length is 50 characters",
-										},
+											message: "Maximum length is 50 characters"
+										}
 									}}
 									errors={errors}
 								/>
@@ -125,8 +125,8 @@ const ApplicantBasicInfo = ({ application }) => {
 										required: "Last name is required",
 										maxLength: {
 											value: 50,
-											message: "Maximum length is 50 characters",
-										},
+											message: "Maximum length is 50 characters"
+										}
 									}}
 									errors={errors}
 								/>
@@ -144,8 +144,8 @@ const ApplicantBasicInfo = ({ application }) => {
 										required: "Father name is required",
 										maxLength: {
 											value: 50,
-											message: "Maximum length is 50 characters",
-										},
+											message: "Maximum length is 50 characters"
+										}
 									}}
 									errors={errors}
 								/>
@@ -163,8 +163,8 @@ const ApplicantBasicInfo = ({ application }) => {
 										required: "Mother name is required",
 										maxLength: {
 											value: 50,
-											message: "Maximum length is 50 characters",
-										},
+											message: "Maximum length is 50 characters"
+										}
 									}}
 									errors={errors}
 								/>
@@ -179,7 +179,7 @@ const ApplicantBasicInfo = ({ application }) => {
 									register={register}
 									required
 									rules={{
-										required: "Date of Birth is required",
+										required: "Date of Birth is required"
 									}}
 									errors={errors}
 								/>
@@ -192,7 +192,7 @@ const ApplicantBasicInfo = ({ application }) => {
 									options={[
 										{ label: "Male", value: "male" },
 										{ label: "Female", value: "female" },
-										{ label: "Others", value: "others" },
+										{ label: "Others", value: "others" }
 									]}
 									register={register}
 									required
@@ -223,7 +223,7 @@ const ApplicantBasicInfo = ({ application }) => {
 									register={register}
 									required
 									rules={{
-										required: "Position number is required",
+										required: "Position number is required"
 									}}
 									errors={errors}
 								/>
@@ -238,7 +238,7 @@ const ApplicantBasicInfo = ({ application }) => {
 									register={register}
 									required
 									rules={{
-										required: "Reference number is required",
+										required: "Reference number is required"
 									}}
 									errors={errors}
 								/>
@@ -288,7 +288,14 @@ const ApplicantBasicInfo = ({ application }) => {
 					Documents
 				</h2>
 
-				<ApplicantPhoto title="Applicant Photo" />
+				<ApplicantPhoto
+					title="Applicant Photo"
+					downloadImage={downloadImage}
+					image={`${apiUrl}/uploads/${
+						application?.applicant_image
+					}`}
+
+				/>
 			</div>
 		</div>
 	);

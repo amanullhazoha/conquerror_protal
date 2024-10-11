@@ -6,7 +6,6 @@ const EyeIcon = () => {
       viewBox="0 0 37 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
-      className="cursor-pointer"
     >
       <rect x="1" y="0.5" width="35" height="23" rx="11.5" stroke="#1A56DB" />
       <path

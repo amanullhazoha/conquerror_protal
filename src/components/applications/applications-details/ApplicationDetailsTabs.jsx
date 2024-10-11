@@ -6,6 +6,8 @@ import ApplicationContactInfo from "./ApplicationContactInfo";
 import ApplicationNidInfo from "./ApplicationNidInfo";
 
 const ApplicationDetailsTabs = ({ application }) => {
+	console.log("application: ", application);
+
 	return (
 		<div className="w-full">
 			<h2 className="mb-[28px] text-2xl text-gray-900 font-semibold">
