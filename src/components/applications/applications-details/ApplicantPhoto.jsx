@@ -1,25 +1,44 @@
 import DownloadIcon from "@/assets/icons/DownloadIcon";
 import EditImgIcon from "@/assets/icons/EditImgIcon";
 import EyeIcon from "@/assets/icons/EyeIcon";
-import Img from "@/assets/images/applicant.png";
 import BorderImg from "@/assets/images/border.png";
+import { useState } from "react";
+import Lightbox from "react-18-image-lightbox";
 
-const ApplicantPhoto = ({ title, className }) => {
-  return (
-    <div className={className}>
-      <h2 className="text-sm text-gray-900 font-medium mb-2">{title}</h2>
+const ApplicantPhoto = ({ title, downloadImage, image, className }) => {
+	const [viewImage, setViewImage] = useState("");
 
-      <div className="w-[183px] h-[183px] flex items-center justify-center relative">
-        <img className="w-[175px] h-[175px]" src={Img} alt="applicant" />
-        <img className="absolute inset-0" src={BorderImg} alt="border" />
-      </div>
-      <div className="flex items-center gap-x-4 mt-2">
-        <EyeIcon />
-        <EditImgIcon />
-        <DownloadIcon />
-      </div>
-    </div>
-  );
+	return (
+		<div>
+			<div className={className}>
+				<h2 className="text-sm text-gray-900 font-medium mb-2">{title}</h2>
+
+				<div className="w-[183px] h-[183px] flex items-center justify-center relative  rounded-lg">
+					<img className="w-[175px] h-[175px]" src={image} alt="applicant" />
+					<img className="absolute inset-0" src={BorderImg} alt="border" />
+				</div>
+				<div className="flex items-center gap-x-4 mt-2">
+					<div onClick={() => setViewImage(image)} className="cursor-pointer">
+						<EyeIcon className="cursor-pointer" />
+					</div>
+					<div className="cursor-pointer">
+						<EditImgIcon />
+					</div>
+
+					<div
+						onClick={() => downloadImage(image, "image.jpg")}
+						className="cursor-pointer"
+					>
+						<DownloadIcon className="cursor-pointer" />
+					</div>
+				</div>
+			</div>
+
+			{viewImage && (
+				<Lightbox mainSrc={image} onCloseRequest={() => setViewImage(false)} />
+			)}
+		</div>
+	);
 };
 
 export default ApplicantPhoto;
