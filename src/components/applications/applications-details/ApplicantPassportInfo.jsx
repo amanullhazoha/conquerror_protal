@@ -1,12 +1,13 @@
 import EditButtons from "@/components/EditButtons";
 import InputField from "@/components/inputs/InputField";
+import useToast from "@/hooks/useToast";
 import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
+import { downloadImage } from "@/utils/downloadImage";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ApplicantPhoto from "./ApplicantPhoto";
-import useToast from "@/hooks/useToast";
 
 const ApplicantPassportInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
@@ -20,9 +21,9 @@ const ApplicantPassportInfo = ({ application }) => {
 		handleSubmit,
 		control,
 		reset,
-		formState: { errors },
+		formState: { errors }
 	} = useForm({
-		mode: "onChange",
+		mode: "onChange"
 	});
 
 	// Update form values when 'application' data is available
@@ -30,7 +31,7 @@ const ApplicantPassportInfo = ({ application }) => {
 		if (application) {
 			reset({
 				passportNumber: application?.passportno,
-				expiryDate: application?.date_of_expiry,
+				expiryDate: application?.date_of_expiry
 			});
 		}
 	}, [application, reset]);
@@ -38,13 +39,15 @@ const ApplicantPassportInfo = ({ application }) => {
 	const onSubmit = (formData) => {
 		const data = {
 			passportno: formData.passportNumber,
-			date_of_expiry: formData.expiryDate,
+			date_of_expiry: formData.expiryDate
 		};
 
 		console.log(data);
 
 		updateApplicationById({ id: application?.id, data });
 	};
+
+	const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -86,8 +89,8 @@ const ApplicantPassportInfo = ({ application }) => {
 								required: "Passport number is required",
 								maxLength: {
 									value: 18,
-									message: "Maximum length is 18 characters",
-								},
+									message: "Maximum length is 18 characters"
+								}
 							}}
 							errors={errors}
 						/>
@@ -101,7 +104,7 @@ const ApplicantPassportInfo = ({ application }) => {
 								register={register}
 								required
 								rules={{
-									required: "Expiry date is required",
+									required: "Expiry date is required"
 								}}
 								errors={errors}
 							/>
@@ -128,8 +131,27 @@ const ApplicantPassportInfo = ({ application }) => {
 					Documents
 				</h2>
 
-				<ApplicantPhoto title="Passport Front Page" className="mb-5" />
-				<ApplicantPhoto title="Signature Page" />
+				<ApplicantPhoto
+					title="Passport Front Page"
+					className="mb-5"
+					downloadImage={() =>
+						downloadImage(
+							`${apiUrl}/uploads/${application?.applicant_passport}`,
+							application?.applicant_passport
+						)
+					}
+					image={`${apiUrl}/uploads/${application?.applicant_passport}`}
+				/>
+				<ApplicantPhoto
+					title="Signature Page"
+					downloadImage={() =>
+						downloadImage(
+							`${apiUrl}/uploads/${application?.applicant_resume}`,
+							application?.applicant_resume
+						)
+					}
+					image={`${apiUrl}/uploads/${application?.applicant_resume}`}
+				/>
 			</div>
 		</div>
 	);
