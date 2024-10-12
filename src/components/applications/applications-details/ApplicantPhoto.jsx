@@ -25,10 +25,7 @@ const ApplicantPhoto = ({ title, downloadImage, image, className }) => {
 						<EditImgIcon />
 					</div>
 
-					<div
-						onClick={() => downloadImage(image, "image.jpg")}
-						className="cursor-pointer"
-					>
+					<div onClick={downloadImage} className="cursor-pointer">
 						<DownloadIcon className="cursor-pointer" />
 					</div>
 				</div>

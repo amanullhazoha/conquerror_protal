@@ -3,28 +3,29 @@ import apiSlice from "../api/apiSlice";
 const applicationsApi = apiSlice.injectEndpoints({
 	endpoints: (builder) => ({
 		getAllApplications: builder.query({
-			query: () => "/api/v1/secure/career/jobs",
-			providesTags: ["Applications"],
+			query: ({ searchQuery = "", page = 1, size = 10 }) =>
+				`/api/v1/secure/career/jobs?search=${searchQuery}&page=${page}&size=${size}`,
+			providesTags: ["Applications"]
 		}),
 		getApplicationById: builder.query({
 			query: (id) => `/api/v1/secure/career/jobs/${id}`,
-			providesTags: ["Applications"],
+			providesTags: ["Applications"]
 		}),
 		updateApplicationById: builder.mutation({
 			query: ({ id, data }) => ({
 				url: `/api/v1/secure/career/jobs/${id}`,
 				method: "PUT",
-				body: data,
+				body: data
 			}),
-			invalidatesTags: ["Applications"],
-		}),
-	}),
+			invalidatesTags: ["Applications"]
+		})
+	})
 });
 
 export const {
 	useGetAllApplicationsQuery,
 	useGetApplicationByIdQuery,
-	useUpdateApplicationByIdMutation,
+	useUpdateApplicationByIdMutation
 } = applicationsApi;
 
 export default applicationsApi;

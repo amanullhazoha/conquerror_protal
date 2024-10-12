@@ -5,6 +5,7 @@ import SelectInput from "@/components/inputs/SelectInput";
 import useToast from "@/hooks/useToast";
 import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
+import { downloadImage } from "@/utils/downloadImage";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -22,9 +23,9 @@ const ApplicationNidInfo = ({ application }) => {
 		handleSubmit,
 		control,
 		reset,
-		formState: { errors },
+		formState: { errors }
 	} = useForm({
-		mode: "onChange",
+		mode: "onChange"
 	});
 
 	// Update form values when 'application' data is available
@@ -42,7 +43,7 @@ const ApplicationNidInfo = ({ application }) => {
 				state: application?.province,
 				city: application?.city,
 				policeStation: application?.policeStation,
-				postalCode: application?.zip,
+				postalCode: application?.zip
 			});
 		}
 	}, [application, reset]);
@@ -60,13 +61,15 @@ const ApplicationNidInfo = ({ application }) => {
 			province: formData.state,
 			city: formData.city,
 			policeStation: formData.policeStation,
-			zip: formData.postalCode,
+			zip: formData.postalCode
 		};
 
 		console.log(data);
 
 		updateApplicationById({ id: application?.id, data });
 	};
+
+	const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -109,8 +112,8 @@ const ApplicationNidInfo = ({ application }) => {
 									required: "NID/CNIC number is required",
 									maxLength: {
 										value: 20,
-										message: "Maximum length is 20 characters",
-									},
+										message: "Maximum length is 20 characters"
+									}
 								}}
 								errors={errors}
 							/>
@@ -122,7 +125,7 @@ const ApplicationNidInfo = ({ application }) => {
 									options={[
 										{ label: "Married", value: "married" },
 										{ label: "Unmarried", value: "unmarried" },
-										{ label: "Divorced", value: "divorced" },
+										{ label: "Divorced", value: "divorced" }
 									]}
 									register={register}
 									required
@@ -143,8 +146,8 @@ const ApplicationNidInfo = ({ application }) => {
 										required: "Spouse name is required",
 										maxLength: {
 											value: 50,
-											message: "Maximum length is 50 characters",
-										},
+											message: "Maximum length is 50 characters"
+										}
 									}}
 									errors={errors}
 								/>
@@ -156,7 +159,7 @@ const ApplicationNidInfo = ({ application }) => {
 									label="UAE Resident"
 									options={[
 										{ label: "Yes", value: "yes" },
-										{ label: "No", value: "no" },
+										{ label: "No", value: "no" }
 									]}
 									register={register}
 									required
@@ -177,8 +180,8 @@ const ApplicationNidInfo = ({ application }) => {
 										required: "Emirates id is required",
 										maxLength: {
 											value: 20,
-											message: "Maximum length is 20 characters",
-										},
+											message: "Maximum length is 20 characters"
+										}
 									}}
 									errors={errors}
 								/>
@@ -191,7 +194,7 @@ const ApplicationNidInfo = ({ application }) => {
 									register={register}
 									required
 									rules={{
-										required: "Expiry date is required",
+										required: "Expiry date is required"
 									}}
 									errors={errors}
 								/>
@@ -219,7 +222,7 @@ const ApplicationNidInfo = ({ application }) => {
 									register={register}
 									required
 									rules={{
-										required: "Permanent address is required",
+										required: "Permanent address is required"
 									}}
 									errors={errors}
 								/>
@@ -233,7 +236,7 @@ const ApplicationNidInfo = ({ application }) => {
 									required={true}
 									options={[
 										{ value: "Dhaka", label: "Dhaka" },
-										{ value: "Cumilla", label: "Cumilla" },
+										{ value: "Cumilla", label: "Cumilla" }
 									]}
 									control={control}
 									rules={{ required: "State/Province is required" }}
@@ -247,7 +250,7 @@ const ApplicationNidInfo = ({ application }) => {
 									required={true}
 									options={[
 										{ value: "Dhaka", label: "Dhaka" },
-										{ value: "Cumilla", label: "Cumilla" },
+										{ value: "Cumilla", label: "Cumilla" }
 									]}
 									control={control}
 									rules={{ required: "City is required" }}
@@ -264,7 +267,7 @@ const ApplicationNidInfo = ({ application }) => {
 									register={register}
 									required
 									rules={{
-										required: "Police station address is required",
+										required: "Police station address is required"
 									}}
 									errors={errors}
 								/>
@@ -279,8 +282,8 @@ const ApplicationNidInfo = ({ application }) => {
 										required: "Postal code is required",
 										maxLength: {
 											value: 6,
-											message: "Maximum length is 6 characters",
-										},
+											message: "Maximum length is 6 characters"
+										}
 									}}
 									errors={errors}
 								/>
@@ -355,8 +358,27 @@ const ApplicationNidInfo = ({ application }) => {
 					Documents
 				</h2>
 
-				<ApplicantPhoto title="NID/CNIC Front Page" className="mb-5" />
-				<ApplicantPhoto title="NID/CNIC Back Page" />
+				<ApplicantPhoto
+					title="NID/CNIC Front Page"
+					className="mb-5"
+					downloadImage={() =>
+						downloadImage(
+							`${apiUrl}/uploads/${application?.nid_cnic_front}`,
+							application?.nid_cnic_front
+						)
+					}
+					image={`${apiUrl}/uploads/${application?.nid_cnic_front}`}
+				/>
+				<ApplicantPhoto
+					title="NID/CNIC Back Page"
+					downloadImage={() =>
+						downloadImage(
+							`${apiUrl}/uploads/${application?.nid_cnic_back}`,
+							application?.nid_cnic_back
+						)
+					}
+					image={`${apiUrl}/uploads/${application?.nid_cnic_back}`}
+				/>
 			</div>
 		</div>
 	);

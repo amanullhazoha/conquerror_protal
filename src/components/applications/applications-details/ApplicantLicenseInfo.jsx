@@ -4,6 +4,7 @@ import RadioInput from "@/components/inputs/RadioInput";
 import useToast from "@/hooks/useToast";
 import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
+import { downloadImage } from "@/utils/downloadImage";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import ApplicantPhoto from "./ApplicantPhoto";
@@ -20,9 +21,9 @@ const ApplicantLicenseInfo = ({ application }) => {
 		handleSubmit,
 		control,
 		reset,
-		formState: { errors },
+		formState: { errors }
 	} = useForm({
-		mode: "onChange",
+		mode: "onChange"
 	});
 
 	// Update form values when 'application' data is available
@@ -37,7 +38,7 @@ const ApplicantLicenseInfo = ({ application }) => {
 				simNumber: application?.SIM_No,
 				eyeTestResult: application?.eye_test_result,
 				bikeNumber: application?.bike_number,
-				dataSim: application?.data_sim,
+				dataSim: application?.data_sim
 			});
 		}
 	}, [application, reset]);
@@ -52,13 +53,15 @@ const ApplicantLicenseInfo = ({ application }) => {
 			SIM_No: formData.simNumber,
 			eye_test_result: formData.eyeTestResult,
 			bike_number: formData.bikeNumber,
-			data_sim: formData.dataSim,
+			data_sim: formData.dataSim
 		};
 
 		console.log(data);
 
 		updateApplicationById({ id: application?.id, data });
 	};
+
+	const apiUrl = import.meta.env.VITE_APP_API_URL;
 
 	useEffect(() => {
 		if (isSuccess) {
@@ -101,8 +104,8 @@ const ApplicantLicenseInfo = ({ application }) => {
 									required: "Driving license number is required",
 									maxLength: {
 										value: 20,
-										message: "Maximum length is 20 characters",
-									},
+										message: "Maximum length is 20 characters"
+									}
 								}}
 								errors={errors}
 							/>
@@ -115,7 +118,7 @@ const ApplicantLicenseInfo = ({ application }) => {
 								register={register}
 								required
 								rules={{
-									required: "Expiry date is required",
+									required: "Expiry date is required"
 								}}
 								errors={errors}
 							/>
@@ -127,7 +130,7 @@ const ApplicantLicenseInfo = ({ application }) => {
 								label="UAE Resident"
 								options={[
 									{ label: "Yes", value: "yes" },
-									{ label: "No", value: "no" },
+									{ label: "No", value: "no" }
 								]}
 								register={register}
 								required
@@ -148,8 +151,8 @@ const ApplicantLicenseInfo = ({ application }) => {
 									required: "UAE resident visa number is required",
 									maxLength: {
 										value: 20,
-										message: "Maximum length is 20 characters",
-									},
+										message: "Maximum length is 20 characters"
+									}
 								}}
 								errors={errors}
 							/>
@@ -165,8 +168,8 @@ const ApplicantLicenseInfo = ({ application }) => {
 									required: "Sim number is required",
 									maxLength: {
 										value: 15,
-										message: "Maximum length is 15 characters",
-									},
+										message: "Maximum length is 15 characters"
+									}
 								}}
 								errors={errors}
 							/>
@@ -181,7 +184,7 @@ const ApplicantLicenseInfo = ({ application }) => {
 								register={register}
 								required
 								rules={{
-									required: "Eye test result is required",
+									required: "Eye test result is required"
 								}}
 								errors={errors}
 							/>
@@ -199,8 +202,8 @@ const ApplicantLicenseInfo = ({ application }) => {
 									required: "Bike number is required",
 									maxLength: {
 										value: 20,
-										message: "Maximum length is 20 characters",
-									},
+										message: "Maximum length is 20 characters"
+									}
 								}}
 								errors={errors}
 							/>
@@ -218,8 +221,8 @@ const ApplicantLicenseInfo = ({ application }) => {
 									required: "Data sim number is required",
 									maxLength: {
 										value: 20,
-										message: "Maximum length is 20 characters",
-									},
+										message: "Maximum length is 20 characters"
+									}
 								}}
 								errors={errors}
 							/>
@@ -253,12 +256,50 @@ const ApplicantLicenseInfo = ({ application }) => {
 				</h2>
 
 				<div className="grid grid-cols-1 gap-x-4 2xl:grid-cols-2">
-					<ApplicantPhoto title="Driving License Front" className="mb-5" />
-					<ApplicantPhoto title="Driving License Back" />
+					<ApplicantPhoto
+						title="Driving License Front"
+						className="mb-5"
+						downloadImage={() =>
+							downloadImage(
+								`${apiUrl}/uploads/${application?.applicant_passport}`,
+								application?.applicant_passport
+							)
+						}
+						image={`${apiUrl}/uploads/${application?.applicant_passport}`}
+					/>
+					<ApplicantPhoto
+						title="Driving License Back"
+						downloadImage={() =>
+							downloadImage(
+								`${apiUrl}/uploads/${application?.applicant_passport}`,
+								application?.applicant_passport
+							)
+						}
+						image={`${apiUrl}/uploads/${application?.applicant_passport}`}
+					/>
 				</div>
 				<div className="grid grid-cols-1 gap-x-4 2xl:grid-cols-2">
-					<ApplicantPhoto title="UAE DL Front" className="mb-5" />
-					<ApplicantPhoto title="UAE DL Back" />
+					<ApplicantPhoto
+						title="UAE DL Front"
+						className="mb-5"
+						downloadImage={() =>
+							downloadImage(
+								`${apiUrl}/uploads/${application?.applicant_passport}`,
+								application?.applicant_passport
+							)
+						}
+						image={`${apiUrl}/uploads/${application?.applicant_passport}`}
+					/>
+					<ApplicantPhoto
+						title="UAE DL Back"
+						downloadImage={() =>
+							downloadImage(
+								`${apiUrl}/uploads/${application?.applicant_passport}`,
+								application?.applicant_passport
+							)
+						}
+						image={`${apiUrl}/uploads/${application?.applicant_passport}`}
+					/>
 				</div>
 			</div>
 		</div>

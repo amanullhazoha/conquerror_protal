@@ -6,11 +6,11 @@ import { countries } from "@/data/countryList";
 import useToast from "@/hooks/useToast";
 import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard } from "@/shared/InfoCard";
+import { downloadImage } from "@/utils/downloadImage";
 import moment from "moment";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"; // Import useForm from react-hook-form
 import ApplicantPhoto from "./ApplicantPhoto";
-import { downloadImage } from "@/utils/downloadImage";
 
 const ApplicantBasicInfo = ({ application }) => {
 	const [isEdit, setIsEdit] = useState(false);
@@ -290,11 +290,13 @@ const ApplicantBasicInfo = ({ application }) => {
 
 				<ApplicantPhoto
 					title="Applicant Photo"
-					downloadImage={downloadImage}
-					image={`${apiUrl}/uploads/${
-						application?.applicant_image
-					}`}
-
+					downloadImage={() =>
+						downloadImage(
+							`${apiUrl}/uploads/${application?.applicant_image}`,
+							application?.applicant_image
+						)
+					}
+					image={`${apiUrl}/uploads/${application?.applicant_image}`}
 				/>
 			</div>
 		</div>
