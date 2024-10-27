@@ -13,8 +13,8 @@ const applicationsApi = apiSlice.injectEndpoints({
       providesTags: ["Applications"],
     }),
     getAllInterviewApplications: builder.query({
-      query: ({ searchQuery = "", page = 1, size = 24 }) =>
-        `/api/v1/secure/career/jobs/interview?search=${searchQuery}&page=${page}&size=${size}`,
+      query: ({ searchQuery = "", page = 1, size = 24, status }) =>
+        `/api/v1/secure/career/jobs/interview?search=${searchQuery}&page=${page}&size=${size}&status=${status}`,
       providesTags: ["Applications"],
     }),
     getApplicationById: builder.query({

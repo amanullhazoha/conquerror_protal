@@ -17,7 +17,7 @@ const AllApplicantInterviewList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(24);
-  const [activeTab, setActiveTab] = useState("Accepted");
+  const [activeTab, setActiveTab] = useState("accepted");
 
   const {
     data: applicationsData,
@@ -25,6 +25,7 @@ const AllApplicantInterviewList = () => {
     isSuccess,
   } = useGetAllInterviewApplicationsQuery(
     {
+      status: activeTab,
       searchQuery: searchTerm,
       page: currentPage,
       size: itemsPerPage,
@@ -62,35 +63,35 @@ const AllApplicantInterviewList = () => {
             <Tabs defaultValue={activeTab} className="max-w-full">
               <TabsList>
                 <TabsTrigger
-                  value="Accepted"
-                  onClick={() => setActiveTab("Accepted")}
+                  value="accepted"
+                  onClick={() => setActiveTab("accepted")}
                 >
                   Accepted
                 </TabsTrigger>
                 <TabsTrigger
-                  value="Hired"
-                  onClick={() => setActiveTab("Hired")}
+                  value="hired"
+                  onClick={() => setActiveTab("hired")}
                 >
                   Hired
                 </TabsTrigger>
 
                 <TabsTrigger
-                  value="Pending"
-                  onClick={() => setActiveTab("Pending")}
+                  value="pending"
+                  onClick={() => setActiveTab("pending")}
                 >
                   Pending
                 </TabsTrigger>
 
                 <TabsTrigger
-                  value="Under Review"
-                  onClick={() => setActiveTab("Under Review")}
+                  value="under_review"
+                  onClick={() => setActiveTab("under_review")}
                 >
                   Under Review
                 </TabsTrigger>
 
                 <TabsTrigger
-                  value="Rejected"
-                  onClick={() => setActiveTab("Rejected")}
+                  value="rejected"
+                  onClick={() => setActiveTab("rejected")}
                 >
                   Rejected
                 </TabsTrigger>
@@ -106,15 +107,23 @@ const AllApplicantInterviewList = () => {
               totals={applicationsData?.meta?.totalRecords}
             />
 
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
-              {applicationsData?.applicants?.map((applicant, idx) => (
-                <ApplicationCard
-                  key={idx}
-                  application={applicant}
-                  link="/applicant-interview-list"
-                />
-              ))}
-            </div>
+            {applicationsData?.meta?.totalRecords > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
+                {applicationsData?.applicants?.map((applicant, idx) => (
+                  <ApplicationCard
+                    key={idx}
+                    application={applicant}
+                    link="/applicant-interview-list"
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="flex gap-3 flex-col justify-center items-center min-h-[48vh]">
+                <h3 className="text-base text-black font-medium">
+                  404 - Application Not Found
+                </h3>
+              </div>
+            )}
 
             <div className="flex px-6 py-4">
               <div className="flex items-center gap-2 w-full">

@@ -23,6 +23,7 @@ const ApplicantInterviewList = () => {
     isSuccess,
   } = useGetAllInterviewApplicationsQuery(
     {
+      status: "invited",
       searchQuery: searchTerm,
       page: currentPage,
       size: itemsPerPage,
@@ -59,15 +60,23 @@ const ApplicantInterviewList = () => {
             totals={applicationsData?.meta?.totalRecords}
           />
 
-          <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
-            {applicationsData?.applicants?.map((applicant, idx) => (
-              <ApplicationCard
-                key={idx}
-                application={applicant}
-                link="/applicant-invited-list"
-              />
-            ))}
-          </div>
+          {applicationsData?.meta?.totalRecords > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
+              {applicationsData?.applicants?.map((applicant, idx) => (
+                <ApplicationCard
+                  key={idx}
+                  application={applicant}
+                  link="/applicant-invited-list"
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-3 flex-col justify-center items-center min-h-[60vh]">
+              <h3 className="text-base text-black font-medium">
+                404 - Application Not Found
+              </h3>
+            </div>
+          )}
 
           <div className="flex px-6 py-4">
             <div className="flex items-center gap-2 w-full">
