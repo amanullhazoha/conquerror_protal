@@ -54,18 +54,14 @@ const Applications = () => {
         <div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
           <ApplicationsHeading
             searchTerm={searchTerm}
-            heading="New Entry Application"
+            heading="All Application"
             handleSearchTerm={handleSearchTerm}
             totals={applicationsData?.meta?.totalRecords}
           />
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
             {applicationsData?.applicants?.map((applicant, idx) => (
-              <ApplicationCard
-                key={idx}
-                application={applicant}
-                link="/applications"
-              />
+              <ApplicationCard key={idx} application={applicant} />
             ))}
           </div>
 

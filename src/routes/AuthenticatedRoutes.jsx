@@ -5,6 +5,8 @@ import NewApplications from "@/pages/applications/NewApplication";
 import ApplicationDetails from "@/pages/applications/ApplicationDetails";
 import ApplicantInterviewList from "@/pages/applications/ApplicantInterviewList";
 import ApplicationInterviewDetails from "@/pages/applications/ApplicationIterviewDetail";
+import AllApplicantInterviewList from "@/pages/applications/AllApplicantInterviewList";
+import InvitedApplicantDetail from "@/pages/applications/InvitedApplicantDetial";
 
 const AuthenticatedRoutes = {
   path: "/",
@@ -27,6 +29,14 @@ const AuthenticatedRoutes = {
       element: <NewApplications />,
     },
     {
+      path: "/applicant-interview-list",
+      element: <AllApplicantInterviewList />,
+    },
+    {
+      path: "/applicant-interview-list/:id",
+      element: <InvitedApplicantDetail />,
+    },
+    {
       path: "/applicant-invited-list",
       element: <ApplicantInterviewList />,
     },
@@ -35,7 +45,7 @@ const AuthenticatedRoutes = {
       element: <ApplicationInterviewDetails />,
     },
     {
-      path: "/applications/:id",
+      path: "/new-application/:id",
       element: <ApplicationDetails />,
     },
   ],

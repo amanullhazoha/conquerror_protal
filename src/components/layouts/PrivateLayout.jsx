@@ -1,28 +1,40 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import AnalyticsIcon from "../../assets/icons/AnalyticsIcon";
-import ArrowDown from "../../assets/icons/ArrowDown";
+import { useDispatch } from "react-redux";
+import { Link, NavLink } from "react-router-dom";
 import BellIcon from "../../assets/icons/BellIcon";
-import ContactInfoIcon from "../../assets/icons/ContactInfoIcon";
-import DashboardIcon from "../../assets/icons/DashboardIcon";
-import DataIcon from "../../assets/icons/DataIcon";
-import FinancialIcon from "../../assets/icons/FinancialIcon";
+import UserIcon from "../../assets/icons/UserIcon";
 import HomeIcon from "../../assets/icons/HomeIcon";
-import MainCategoryIcon from "../../assets/icons/MainCategoryIcon";
-import MessageIcon from "../../assets/icons/MessageIcon";
-import NotificationManagementIcon from "../../assets/icons/NotificationManagementIcon";
-import OccasionalOfferIcon from "../../assets/icons/OccasionalOfferIcon";
+import DataIcon from "../../assets/icons/DataIcon";
+import ArrowDown from "../../assets/icons/ArrowDown";
 import RoundArrow from "../../assets/icons/RoundArrow";
 import SearchIcon from "../../assets/icons/SearchIcon";
+import { logout } from "@/redux/features/auth/authSlice";
 import SettingIcon from "../../assets/icons/SettingIcon";
+import MessageIcon from "../../assets/icons/MessageIcon";
 import SupportIcon from "../../assets/icons/SupportIcon";
-import UploadBannerIcon from "../../assets/icons/UploadBannerIcon";
-import UserIcon from "../../assets/icons/UserIcon";
-import UserManagementIcon from "../../assets/icons/UserManagementIcon";
 import logo from "../../assets/images/conqueror_logo.png";
+import DashboardIcon from "../../assets/icons/DashboardIcon";
+import FinancialIcon from "../../assets/icons/FinancialIcon";
+import AnalyticsIcon from "../../assets/icons/AnalyticsIcon";
+import ContactInfoIcon from "../../assets/icons/ContactInfoIcon";
+import MainCategoryIcon from "../../assets/icons/MainCategoryIcon";
+import UploadBannerIcon from "../../assets/icons/UploadBannerIcon";
+import UserManagementIcon from "../../assets/icons/UserManagementIcon";
+import OccasionalOfferIcon from "../../assets/icons/OccasionalOfferIcon";
+import NotificationManagementIcon from "../../assets/icons/NotificationManagementIcon";
 
 const PrivateLayout = ({ children }) => {
+  const dispatch = useDispatch();
   const [openSidebar, setOpenSidebar] = useState(true);
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
+  const isActiveLink = ({ isActive }) =>
+    isActive
+      ? "flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group bg-[#E6F7EF]"
+      : "flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group";
 
   return (
     <section className="bg-white min-h-screen">
@@ -282,9 +294,9 @@ const PrivateLayout = ({ children }) => {
           } h-[calc(100vh-83px)] duration-300 border-r border-gray-200 py-6 sticky left-0 top-[82px]`}
         >
           <div className="flex flex-col gap-2 border-b border-gray-200 px-6 pb-6">
-            <Link
+            <NavLink
               to="/dashboard"
-              className="flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group"
+              className={(isActive) => isActiveLink(isActive)}
             >
               <div className="duration-500">
                 <DashboardIcon />
@@ -297,11 +309,11 @@ const PrivateLayout = ({ children }) => {
               >
                 Dashboard
               </span>
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/applications"
-              className="flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group"
+              className={(isActive) => isActiveLink(isActive)}
             >
               <div>
                 <DataIcon />
@@ -313,11 +325,11 @@ const PrivateLayout = ({ children }) => {
               >
                 All Application
               </span>
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/new-application"
-              className="flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group"
+              className={(isActive) => isActiveLink(isActive)}
             >
               <div>
                 <MainCategoryIcon />
@@ -329,11 +341,27 @@ const PrivateLayout = ({ children }) => {
               >
                 New Application
               </span>
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
+              to="/applicant-interview-list"
+              className={(isActive) => isActiveLink(isActive)}
+            >
+              <div>
+                <UserManagementIcon />
+              </div>
+              <span
+                className={`text-base font-medium text-gray-500 group-hover:text-gray-900 ${
+                  !openSidebar && "scale-0"
+                }`}
+              >
+                Applicant Interview List
+              </span>
+            </NavLink>
+
+            <NavLink
               to="/applicant-invited-list"
-              className="flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group"
+              className={(isActive) => isActiveLink(isActive)}
             >
               <div>
                 <UserManagementIcon />
@@ -345,14 +373,11 @@ const PrivateLayout = ({ children }) => {
               >
                 Applicant Invited List
               </span>
-            </Link>
+            </NavLink>
           </div>
 
           <div className="flex h-10 flex-col gap-2 px-6 pt-[90px]">
-            <Link
-              to="/"
-              className="flex gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group"
-            >
+            <NavLink to="/" className={(isActive) => isActiveLink(isActive)}>
               <div>
                 <SupportIcon />
               </div>
@@ -363,9 +388,9 @@ const PrivateLayout = ({ children }) => {
               >
                 Support
               </span>
-            </Link>
+            </NavLink>
 
-            <Link
+            <NavLink
               to="/"
               className="flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group"
             >
@@ -379,10 +404,11 @@ const PrivateLayout = ({ children }) => {
               >
                 Settings
               </span>
-            </Link>
+            </NavLink>
 
-            <Link
-              to="/"
+            <button
+              type="button"
+              onClick={handleLogout}
               className="flex h-10 gap-x-4 items-center p-2 rounded-lg hover:bg-[#E6F7EF] group"
             >
               <div>
@@ -395,7 +421,7 @@ const PrivateLayout = ({ children }) => {
               >
                 Logout
               </span>
-            </Link>
+            </button>
           </div>
         </aside>
 

@@ -15,7 +15,12 @@ import {
 import moment from "moment";
 import { Link } from "react-router-dom";
 
-const UserInfoCard = ({ application, backLink, backTitle }) => {
+const UserInfoCard = ({
+  backLink,
+  backTitle,
+  application,
+  invateForInterView,
+}) => {
   return (
     <div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6  w-full h-auto">
       <Link to={backLink}>
@@ -57,24 +62,30 @@ const UserInfoCard = ({ application, backLink, backTitle }) => {
           <AddUserIcon /> Submission ID: {application?.submissionid || "123456"}
         </h4>
 
-        <div className="mt-4 grid grid-cols-2 gap-6">
-          <Select>
-            <SelectTrigger className="w-full rounded-full py-5">
-              <SelectValue placeholder="Select Option" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="inperson">Inperson</SelectItem>
-              <SelectItem value="rider">Rider</SelectItem>
-            </SelectContent>
-          </Select>
+        {invateForInterView ? (
+          <div className="mt-4 grid grid-cols-2 gap-6">
+            <Select>
+              <SelectTrigger className="w-full rounded-full py-5">
+                <SelectValue placeholder="Select Option" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="inperson">Inperson</SelectItem>
+                <SelectItem value="rider">Rider</SelectItem>
+              </SelectContent>
+            </Select>
 
-          <Button
-            className="flex gap-2 bg-white hover:bg-white text-[#1A56DB] hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
-            variant="outline"
-          >
-            Invite Interview <SendIcon />
-          </Button>
-        </div>
+            <Button
+              className="flex gap-2 bg-white hover:bg-white text-[#1A56DB] hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
+              variant="outline"
+            >
+              Invite Interview <SendIcon />
+            </Button>
+          </div>
+        ) : (
+          <h4 className="flex items-center gap-x-2 text-gray-500">
+            <AddUserIcon /> by Zahid Sultan | 05:02 17/07/2024
+          </h4>
+        )}
       </div>
     </div>
   );
