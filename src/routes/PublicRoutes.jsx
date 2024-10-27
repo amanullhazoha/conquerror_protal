@@ -8,12 +8,12 @@ import ResetPassword from "@/pages/auth/ResetPassword";
 import { Outlet } from "react-router-dom";
 
 const PublicRoutes = {
-	path: "/",
-	element: (
-		<PublicRoute>
-			<Outlet />
-		</PublicRoute>
-	),
+  path: "/",
+  element: (
+    <PublicRoute>
+      <Outlet />
+    </PublicRoute>
+  ),
   children: [
     {
       path: "/",
@@ -35,7 +35,7 @@ const PublicRoutes = {
       path: "/password-reset-confirmation",
       element: <PasswordResetConfirmation />,
     },
-  ]
+  ],
 };
 
 export default PublicRoutes;

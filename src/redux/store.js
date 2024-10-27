@@ -5,21 +5,21 @@ import apiSlice from "./features/api/apiSlice";
 import rootReducer from "./features/rootReducer";
 
 const persistConfig = {
-	key: "root",
-	version: 1,
-	storage,
+  key: "root",
+  version: 1,
+  storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-	reducer: persistedReducer,
-	middleware: (getDefaultMiddleware) =>
-		getDefaultMiddleware({
-			serializableCheck: false,
-			immutableCheck: false,
-		}).concat(apiSlice.middleware),
-	devTools: process.env.NODE_ENV !== "production",
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+      immutableCheck: false,
+    }).concat(apiSlice.middleware),
+  devTools: process.env.NODE_ENV !== "production",
 });
 
 export const persister = persistStore(store);
