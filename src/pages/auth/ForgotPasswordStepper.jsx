@@ -53,7 +53,10 @@ const ForgotPasswordStepper = () => {
           {renderStepContent()}
 
           <div className="flex flex-col gap-6 justify-center items-center text-sm mt-5">
-            <Link className="text-[#6B7280] text-sm font-semibold" to={"/"}>
+            <Link
+              className="text-[#6B7280] text-sm font-semibold"
+              to={"/login"}
+            >
               <p>← Back to login</p>
             </Link>
 

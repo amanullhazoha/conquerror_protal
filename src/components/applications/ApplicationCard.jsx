@@ -1,7 +1,6 @@
 import moment from "moment";
 import { Link } from "react-router-dom";
 import UserImage from "../../assets/images/new-applicant.png";
-import { list } from "postcss";
 
 const CardContent = ({ application }) => {
   const apiUrl = import.meta.env.VITE_APP_API_URL;
@@ -10,8 +9,12 @@ const CardContent = ({ application }) => {
     <div className="rounded-2xl border-[1px] border-[#F2F2F2] relative">
       <img
         className="rounded-t-2xl w-full"
-        // src={`${apiUrl}/uploads/${application?.applicant_image}`}
-        src={UserImage}
+        src={
+          application?.applicant_image
+            ? `${apiUrl}/uploads/${application?.applicant_image}`
+            : UserImage
+        }
+        // src={UserImage}
         alt="applicant"
       />
       <span className="absolute right-2 top-2 inline-block bg-[#9061F9] text-white rounded-[32px] p-[2px_8px] text-[12px] font-medium">

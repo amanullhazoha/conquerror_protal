@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import BellIcon from "../../assets/icons/BellIcon";
 import UserIcon from "../../assets/icons/UserIcon";
 import HomeIcon from "../../assets/icons/HomeIcon";
 import DataIcon from "../../assets/icons/DataIcon";
 import ArrowDown from "../../assets/icons/ArrowDown";
+import { useDispatch, useSelector } from "react-redux";
 import RoundArrow from "../../assets/icons/RoundArrow";
 import SearchIcon from "../../assets/icons/SearchIcon";
 import { logout } from "@/redux/features/auth/authSlice";
@@ -25,7 +25,10 @@ import NotificationManagementIcon from "../../assets/icons/NotificationManagemen
 
 const PrivateLayout = ({ children }) => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const [openSidebar, setOpenSidebar] = useState(true);
+
+  console.log(user);
 
   const handleLogout = () => {
     dispatch(logout());
@@ -77,7 +80,9 @@ const PrivateLayout = ({ children }) => {
 
             <div className="flex gap-3 border border-gray-300 rounded-lg p-2">
               <UserIcon />
-              <p className="text-gray-500 font-medium">Molla Bhai</p>
+              <p className="text-gray-500 font-medium">
+                {user?.first_name} {user?.last_name}
+              </p>
               <ArrowDown />
             </div>
           </div>
