@@ -8,7 +8,7 @@ const CardContent = ({ application }) => {
   return (
     <div className="rounded-2xl border-[1px] border-[#F2F2F2] relative">
       <img
-        className="rounded-t-2xl w-full"
+        className="rounded-t-2xl w-full h-[200px] object-contain"
         src={
           application?.applicant_image
             ? `${apiUrl}/uploads/${application?.applicant_image}`
