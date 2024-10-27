@@ -3,7 +3,7 @@ import PrivateLayout from "@/components/layouts/PrivateLayout";
 import PaginationComponent from "@/shared/PaginationComponent";
 import ApplicationCard from "@/components/applications/ApplicationCard";
 import ApplicationsHeading from "@/components/applications/ApplicationsHeading";
-import { useGetAllApplicationsQuery } from "@/redux/features/applications/applications";
+import { useGetAllInterviewApplicationsQuery } from "@/redux/features/applications/applications";
 import {
   Select,
   SelectItem,
@@ -12,7 +12,7 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
-const Applications = () => {
+const ApplicantInterviewList = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(24);
@@ -21,7 +21,7 @@ const Applications = () => {
     data: applicationsData,
     isLoading,
     isSuccess,
-  } = useGetAllApplicationsQuery(
+  } = useGetAllInterviewApplicationsQuery(
     {
       searchQuery: searchTerm,
       page: currentPage,
@@ -54,7 +54,7 @@ const Applications = () => {
         <div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
           <ApplicationsHeading
             searchTerm={searchTerm}
-            heading="New Entry Application"
+            heading="Invited For Interview"
             handleSearchTerm={handleSearchTerm}
             totals={applicationsData?.meta?.totalRecords}
           />
@@ -64,7 +64,7 @@ const Applications = () => {
               <ApplicationCard
                 key={idx}
                 application={applicant}
-                link="/applications"
+                link="/applicant-invited-list"
               />
             ))}
           </div>
@@ -85,8 +85,8 @@ const Applications = () => {
             </div>
 
             <PaginationComponent
-              totalPages={meta?.totalPages}
               currentPage={currentPage}
+              totalPages={meta?.totalPages}
               handlePageChange={handlePageChange}
             />
           </div>
@@ -96,4 +96,4 @@ const Applications = () => {
   );
 };
 
-export default Applications;
+export default ApplicantInterviewList;

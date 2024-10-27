@@ -3,7 +3,7 @@ import PrivateLayout from "@/components/layouts/PrivateLayout";
 import PaginationComponent from "@/shared/PaginationComponent";
 import ApplicationCard from "@/components/applications/ApplicationCard";
 import ApplicationsHeading from "@/components/applications/ApplicationsHeading";
-import { useGetAllApplicationsQuery } from "@/redux/features/applications/applications";
+import { useGetAllNewApplicationsQuery } from "@/redux/features/applications/applications";
 import {
   Select,
   SelectItem,
@@ -12,7 +12,7 @@ import {
   SelectContent,
 } from "@/components/ui/select";
 
-const Applications = () => {
+const NewApplications = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(24);
@@ -21,7 +21,7 @@ const Applications = () => {
     data: applicationsData,
     isLoading,
     isSuccess,
-  } = useGetAllApplicationsQuery(
+  } = useGetAllNewApplicationsQuery(
     {
       searchQuery: searchTerm,
       page: currentPage,
@@ -46,6 +46,8 @@ const Applications = () => {
     setCurrentPage(1);
   };
 
+  console.log(applicationsData?.meta?.totalRecords);
+
   return (
     <PrivateLayout>
       {isLoading && <p>Loading...</p>}
@@ -61,11 +63,7 @@ const Applications = () => {
 
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
             {applicationsData?.applicants?.map((applicant, idx) => (
-              <ApplicationCard
-                key={idx}
-                application={applicant}
-                link="/applications"
-              />
+              <ApplicationCard key={idx} application={applicant} />
             ))}
           </div>
 
@@ -96,4 +94,4 @@ const Applications = () => {
   );
 };
 
-export default Applications;
+export default NewApplications;
