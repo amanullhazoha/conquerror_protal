@@ -34,7 +34,8 @@ const ApplicationsHeading = ({
             <SearchIcon color="#046C4E" />
           </div>
         </div>
-        <Select>
+
+        {/* <Select>
           <SelectTrigger className="w-[180px]">
             <SelectValue placeholder="Sort By: New" />
           </SelectTrigger>
@@ -43,7 +44,7 @@ const ApplicationsHeading = ({
             <SelectItem value="dark">Dark</SelectItem>
             <SelectItem value="system">System</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
       </div>
     </div>
   );

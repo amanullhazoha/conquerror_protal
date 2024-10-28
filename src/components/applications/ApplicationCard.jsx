@@ -14,7 +14,6 @@ const CardContent = ({ application }) => {
             ? `${apiUrl}/uploads/${application?.applicant_image}`
             : UserImage
         }
-        // src={UserImage}
         alt="applicant"
       />
       <span className="absolute right-2 top-2 inline-block bg-[#9061F9] text-white rounded-[32px] p-[2px_8px] text-[12px] font-medium">
@@ -24,15 +23,15 @@ const CardContent = ({ application }) => {
         <h3 className="text-[18px] text-[#515151] font-bold">
           {`${application?.first_name} ${application?.last_name}`}
         </h3>
-        <h4 className="text-[16px] text-[#717171] my-2">Rider</h4>
-        <h4 className="text-[16px] text-[#717171]">
+        <h4 className="text-[14px] text-[#717171] my-0.5">Rider</h4>
+        <h4 className="text-[14px] text-[#717171]">
           {application?.nationality}
         </h4>
-        <h5 className="text-[16px] text-[#717171] my-2">
+        <h5 className="text-[14px] text-[#717171] my-0.5">
           {application?.contact_number}
         </h5>
         <h5 className="text-[16px] text-[#717171]">
-          {moment(application?.created_at).format("D-MMMM-YYYY")}
+          {moment(application?.updated_at).format("D-MMMM-YYYY")}
         </h5>
       </div>
     </div>

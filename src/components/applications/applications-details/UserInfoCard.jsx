@@ -1,19 +1,18 @@
-import UserImg from "@/assets/images/user.png";
-
-import AddUserIcon from "@/assets/icons/AddUserIcon";
-import ArrowLeftIcon from "@/assets/icons/ArrowLeftIcon";
-import CalendarIcon from "@/assets/icons/CalendarIcon";
-import SendIcon from "@/assets/icons/SendIcon";
-import { Button } from "@/components/ui/button";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import UserImg from "@/assets/images/user.png";
+import SendIcon from "@/assets/icons/SendIcon";
+import { Button } from "@/components/ui/button";
+import AddUserIcon from "@/assets/icons/AddUserIcon";
+import CalendarIcon from "@/assets/icons/CalendarIcon";
+import ArrowLeftIcon from "@/assets/icons/ArrowLeftIcon";
+import {
+  Select,
+  SelectItem,
+  SelectValue,
+  SelectContent,
+  SelectTrigger,
+} from "@/components/ui/select";
 
 const UserInfoCard = ({
   backLink,
@@ -21,6 +20,8 @@ const UserInfoCard = ({
   application,
   invateForInterView,
 }) => {
+  const apiUrl = import.meta.env.VITE_APP_API_URL;
+
   return (
     <div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6  w-full h-auto">
       <Link to={backLink}>
@@ -35,9 +36,13 @@ const UserInfoCard = ({
       <div className="bg-custom-gradient relative p-4 rounded-[16px] mt-[48px]">
         <div className="flex items-center gap-x-3">
           <img
-            className="w-[100px] h-[100px] rounded-full"
-            src={UserImg}
             alt="user"
+            className="w-[100px] h-[100px] rounded-full"
+            src={
+              application?.applicant_image
+                ? `${apiUrl}/uploads/${application?.applicant_image}`
+                : UserImg
+            }
           />
           <div>
             <h3 className="text-[20px] leading-[30px] font-semibold text-primary-100 mb-2">

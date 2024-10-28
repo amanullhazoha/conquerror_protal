@@ -60,7 +60,7 @@ const PrivateLayout = ({ children }) => {
         <div className="py-5 pr-6 flex justify-between flex-grow items-center border-b border-gray-200">
           <div></div>
 
-          <div className="relative flex items-center">
+          {/* <div className="relative flex items-center">
             <input
               type="text"
               placeholder="Search"
@@ -71,7 +71,7 @@ const PrivateLayout = ({ children }) => {
             <div className="absolute left-2">
               <SearchIcon color="#046C4E" />
             </div>
-          </div>
+          </div> */}
 
           <div className="flex gap-5 items-center">
             <HomeIcon className="w-6 h-6" />
