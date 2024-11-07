@@ -1,9 +1,10 @@
 import Head from "./Head";
 import useToast from "@/hooks/useToast";
 import { useForm } from "react-hook-form";
-import { useEffect, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { IoMailOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import logo from "../../assets/images/conqueror_logo.png";
@@ -11,9 +12,12 @@ import { useUserLoginMutation } from "@/redux/features/auth/authApi";
 import PublicLayout from "../../components/layouts/PublicLayout";
 
 const Login = () => {
+  const recaptchaRef = useRef();
   const navigate = useNavigate();
 
+  const [isSubmit, setIsSubmit] = useState(true);
   const [isViewable, setIsViewable] = useState(false);
+
   const { showSuccess, showError } = useToast();
 
   const [userLogin, { isLoading, isSuccess, isError, error }] =
@@ -26,6 +30,12 @@ const Login = () => {
   } = useForm({
     mode: "onChange",
   });
+
+  function onChange(value) {
+    if (value) {
+      setIsSubmit(false);
+    }
+  }
 
   const onSubmit = (formData) => {
     const data = {
@@ -46,6 +56,10 @@ const Login = () => {
       showError(error?.data?.message);
     }
   }, [isError, isSuccess]);
+
+  useEffect(() => {
+    console.log(recaptchaRef);
+  }, []);
 
   return (
     <PublicLayout>
@@ -150,6 +164,15 @@ const Login = () => {
             >
               {isLoading ? "Loading..." : "Log in"}
             </Button>
+
+            {/* <div className="flex justify-center mb-6">
+              <ReCAPTCHA
+                size="normal"
+                ref={recaptchaRef}
+                onChange={onChange}
+                sitekey={import.meta.env.VITE_APP_RECAPTUCHA_SITE_KEY}
+              />
+            </div> */}
           </form>
 
           <div className="flex gap-1 justify-center items-center text-sm mt-5">
