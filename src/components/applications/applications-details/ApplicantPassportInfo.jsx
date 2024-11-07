@@ -26,7 +26,6 @@ const ApplicantPassportInfo = ({ application }) => {
     mode: "onChange",
   });
 
-  // Update form values when 'application' data is available
   useEffect(() => {
     if (application) {
       reset({
@@ -64,7 +63,6 @@ const ApplicantPassportInfo = ({ application }) => {
         onSubmit={handleSubmit(onSubmit)}
         className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]"
       >
-        {/* Header */}
         <div className="flex items-center justify-between mb-[24px]">
           <h2 className="text-[18px] leading-[27px] font-semibold">
             Passport information
@@ -73,13 +71,12 @@ const ApplicantPassportInfo = ({ application }) => {
           <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
         </div>
 
-        {/* Main component */}
         {isEdit ? (
           <div>
             <InputField
               name="passportNumber"
               label="Passport Number"
-              type="number"
+              type="text"
               placeholder="Enter your passport number"
               register={register}
               required
@@ -112,13 +109,17 @@ const ApplicantPassportInfo = ({ application }) => {
           <div>
             <InfoCard
               title="Passport Number"
-              content={application?.passportno || ""}
+              content={application?.passportno}
             />
             <InfoCard
               title="Expiry Date"
-              content={moment(application?.date_of_expiry || new Date()).format(
-                "D-MMMM-YYYY"
-              )}
+              content={
+                application?.date_of_expiry
+                  ? moment(application?.date_of_expiry || new Date()).format(
+                      "D-MMMM-YYYY"
+                    )
+                  : "Null"
+              }
             />
           </div>
         )}
@@ -140,16 +141,19 @@ const ApplicantPassportInfo = ({ application }) => {
           }
           image={`${apiUrl}/uploads/${application?.applicant_passport}`}
         />
-        <ApplicantPhoto
-          title="Signature Page"
-          downloadImage={() =>
-            downloadImage(
-              `${apiUrl}/uploads/${application?.applicant_resume}`,
-              application?.applicant_resume
-            )
-          }
-          image={`${apiUrl}/uploads/${application?.applicant_resume}`}
-        />
+
+        {application?.applicant_resume && (
+          <ApplicantPhoto
+            title="Signature Page"
+            downloadImage={() =>
+              downloadImage(
+                `${apiUrl}/uploads/${application?.applicant_resume}`,
+                application?.applicant_resume
+              )
+            }
+            image={`${apiUrl}/uploads/${application?.applicant_resume}`}
+          />
+        )}
       </div>
     </div>
   );

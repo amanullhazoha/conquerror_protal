@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import UserImg from "@/assets/images/user.png";
 import SendIcon from "@/assets/icons/SendIcon";
 import { Button } from "@/components/ui/button";
+import { Status } from "@/components/ui/Status";
 import AddUserIcon from "@/assets/icons/AddUserIcon";
 import CalendarIcon from "@/assets/icons/CalendarIcon";
 import ArrowLeftIcon from "@/assets/icons/ArrowLeftIcon";
@@ -51,14 +52,12 @@ const UserInfoCard = ({
             <h4 className="text-gray-100 text-sm font-semibold mb-[2px]">
               {application?.contact_number}
             </h4>
-            <h4 className="text-gray-100 text-sm font-semibold">
-              {application?.email}
-            </h4>
           </div>
         </div>
-        <button className="absolute top-2 right-2 bg-yellow-200 p-[2px_8px] rounded-full text-yellow-800 text-[12px] font-medium">
+
+        <Status variant={application?.applicant_status}>
           {application?.applicant_status}
-        </button>
+        </Status>
         <h4 className="flex items-center gap-x-2 text-gray-500 my-4">
           <CalendarIcon /> Submitted:{" "}
           {moment(application?.updated_at).format("ddd, MMM D, YYYY, h:mm A")}
