@@ -1,10 +1,10 @@
 import Head from "./Head";
 import useToast from "@/hooks/useToast";
 import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { IoMailOutline } from "react-icons/io5";
 import { Button } from "@/components/ui/button";
-import { useEffect, useState, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import logo from "../../assets/images/conqueror_logo.png";
@@ -12,11 +12,11 @@ import { useUserLoginMutation } from "@/redux/features/auth/authApi";
 import PublicLayout from "../../components/layouts/PublicLayout";
 
 const Login = () => {
-  const recaptchaRef = useRef();
   const navigate = useNavigate();
 
   const [isSubmit, setIsSubmit] = useState(true);
   const [isViewable, setIsViewable] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
 
   const { showSuccess, showError } = useToast();
 
@@ -31,11 +31,12 @@ const Login = () => {
     mode: "onChange",
   });
 
-  function onChange(value) {
+  const onChange = (value) => {
     if (value) {
+      setSubmitError(null);
       setIsSubmit(false);
     }
-  }
+  };
 
   const onSubmit = (formData) => {
     const data = {
@@ -43,7 +44,11 @@ const Login = () => {
       password: formData.password,
     };
 
-    userLogin(data);
+    if (!isSubmit) {
+      userLogin(data);
+    } else {
+      setSubmitError("Please verify your are not a robot");
+    }
   };
 
   useEffect(() => {
@@ -56,10 +61,6 @@ const Login = () => {
       showError(error?.data?.message);
     }
   }, [isError, isSuccess]);
-
-  useEffect(() => {
-    console.log(recaptchaRef);
-  }, []);
 
   return (
     <PublicLayout>
@@ -165,14 +166,17 @@ const Login = () => {
               {isLoading ? "Loading..." : "Log in"}
             </Button>
 
-            {/* <div className="flex justify-center mb-6">
+            <div className="flex justify-center">
               <ReCAPTCHA
                 size="normal"
-                ref={recaptchaRef}
                 onChange={onChange}
                 sitekey={import.meta.env.VITE_APP_RECAPTUCHA_SITE_KEY}
               />
-            </div> */}
+            </div>
+
+            {submitError && (
+              <p className="text-sm text-red-500 text-center">{submitError}</p>
+            )}
           </form>
 
           <div className="flex gap-1 justify-center items-center text-sm mt-5">

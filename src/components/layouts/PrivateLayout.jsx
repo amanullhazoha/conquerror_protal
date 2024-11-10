@@ -28,8 +28,6 @@ const PrivateLayout = ({ children }) => {
   const user = useSelector((state) => state.auth.user);
   const [openSidebar, setOpenSidebar] = useState(true);
 
-  console.log(user);
-
   const handleLogout = () => {
     dispatch(logout());
   };

@@ -10,12 +10,12 @@ import "./index.css";
 import { persister, store } from "./redux/store";
 
 createRoot(document.getElementById("root")).render(
-	<StrictMode>
-		<Provider store={store}>
-			<PersistGate loading={null} persistor={persister}>
-				<Toaster />
-				<App />
-			</PersistGate>
-		</Provider>
-	</StrictMode>
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persister}>
+        <Toaster />
+        <App />
+      </PersistGate>
+    </Provider>
+  </StrictMode>
 );
