@@ -19,6 +19,7 @@ const UserInfoCard = ({
   backLink,
   backTitle,
   application,
+  createMeeting,
   invateForInterView,
 }) => {
   const apiUrl = import.meta.env.VITE_APP_API_URL;
@@ -60,10 +61,10 @@ const UserInfoCard = ({
         </Status>
         <h4 className="flex items-center gap-x-2 text-gray-500 my-4">
           <CalendarIcon /> Submitted:{" "}
-          {moment(application?.updated_at).format("ddd, MMM D, YYYY, h:mm A")}
+          {moment(application?.created_at).format("ddd, MMM D, YYYY, h:mm A")}
         </h4>
         <h4 className="flex items-center gap-x-2 text-gray-500">
-          <AddUserIcon /> Submission ID: {application?.submissionid || "123456"}
+          <AddUserIcon /> Submission ID: {application?.submissionid || "Null"}
         </h4>
 
         {invateForInterView ? (
@@ -72,15 +73,24 @@ const UserInfoCard = ({
               <SelectTrigger className="w-full rounded-full py-5">
                 <SelectValue placeholder="Select Option" />
               </SelectTrigger>
+
               <SelectContent>
                 <SelectItem value="inperson">Inperson</SelectItem>
-                <SelectItem value="rider">Rider</SelectItem>
+                <SelectItem value="rider">Online</SelectItem>
               </SelectContent>
             </Select>
 
             <Button
-              className="flex gap-2 bg-white hover:bg-white text-[#1A56DB] hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
               variant="outline"
+              onClick={() =>
+                createMeeting(
+                  application?.id,
+                  "CodingWithAdo new meeting",
+                  "2023-11-20T10:00:00",
+                  45
+                )
+              }
+              className="flex gap-2 bg-white hover:bg-white text-[#1A56DB] hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
             >
               Invite Interview <SendIcon />
             </Button>

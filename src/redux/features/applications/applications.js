@@ -19,7 +19,7 @@ const applicationsApi = apiSlice.injectEndpoints({
     }),
     getApplicationById: builder.query({
       query: (id) => `/api/v1/secure/career/jobs/${id}`,
-      providesTags: ["Applications"],
+      providesTags: ["Application"],
     }),
     updateApplicationById: builder.mutation({
       query: ({ id, data }) => ({
@@ -27,7 +27,15 @@ const applicationsApi = apiSlice.injectEndpoints({
         method: "PUT",
         body: data,
       }),
-      invalidatesTags: ["Applications"],
+      invalidatesTags: ["Applications", "Application"],
+    }),
+    createZoomMeetingByUserId: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/api/v1/secure/zoom-meeting/${id}`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Applications", "Application"],
     }),
   }),
 });
@@ -38,6 +46,7 @@ export const {
   useGetAllNewApplicationsQuery,
   useUpdateApplicationByIdMutation,
   useGetAllInterviewApplicationsQuery,
+  useCreateZoomMeetingByUserIdMutation,
 } = applicationsApi;
 
 export default applicationsApi;

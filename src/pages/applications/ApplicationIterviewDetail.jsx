@@ -1,7 +1,10 @@
 import { useParams } from "react-router-dom";
 import PrivateLayout from "@/components/layouts/PrivateLayout";
 import UserInfoCard from "@/components/applications/applications-details/UserInfoCard";
-import { useGetApplicationByIdQuery } from "@/redux/features/applications/applications";
+import {
+  useCreateZoomMeetingByUserIdMutation,
+  useGetApplicationByIdQuery,
+} from "@/redux/features/applications/applications";
 import ApplicantInvitedDetail from "@/components/applications/applications-details/ApplicantInvitedDetail";
 
 const ApplicationInterviewDetails = () => {
@@ -14,6 +17,7 @@ const ApplicationInterviewDetails = () => {
   } = useGetApplicationByIdQuery(params?.id, {
     refetchOnMountOrArgChange: true,
   });
+  const [] = useCreateZoomMeetingByUserIdMutation();
 
   return (
     <PrivateLayout>
