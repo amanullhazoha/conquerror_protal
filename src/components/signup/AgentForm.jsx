@@ -25,7 +25,7 @@ const INITIALVALUES = {
   hiring_position: "",
 };
 
-const AgentForm = () => {
+const AgentForm = ({ setStep }) => {
   return (
     <Formik
       enableReinitialize={true}
@@ -131,7 +131,8 @@ const AgentForm = () => {
               </div>
 
               <button
-                type="submit"
+                type="button"
+                onClick={() => setStep((prev) => prev + 1)}
                 className="text-white bg-[#1A56DB] rounded-lg px-5 py-2.5 text-sm font-medium"
               >
                 Continue

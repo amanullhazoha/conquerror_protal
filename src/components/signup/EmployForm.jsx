@@ -1,15 +1,9 @@
-import agent from "@/assets/images/agent_bg.png";
-import AgentIcon from "@/assets/icons/AgentIcon";
-import employ from "@/assets/images/employ_bg.png";
-import EmployIcon from "@/assets/icons/EmployIcon";
 import { Formik, Form, ErrorMessage } from "formik";
+import DateInputField from "../inputs/DateInputField";
 import CountryInput from "@/components/inputs/CountryInput";
-import AgentActiveIcon from "@/assets/icons/AgentActiveIcon";
 import InputFieldNew from "@/components/inputs/InputFielNew";
 import { countries, countryCode } from "@/assets/staticData/countryInfo";
 import PhoneNumberInputField from "@/components/inputs/PhoneNumberInputField";
-import EmployActiveIcon from "@/assets/icons/EmployActiveIcon";
-import DateInputField from "../inputs/DateInputField";
 
 const INITIALVALUES = {
   first_name: "",
@@ -26,7 +20,7 @@ const INITIALVALUES = {
   hiring_position: "",
 };
 
-const EmployForm = () => {
+const EmployForm = ({ setStep }) => {
   return (
     <Formik
       enableReinitialize={true}
@@ -139,7 +133,8 @@ const EmployForm = () => {
               </div>
 
               <button
-                type="submit"
+                type="button"
+                onClick={() => setStep((prev) => prev + 1)}
                 className="text-white bg-[#1A56DB] rounded-lg px-5 py-2.5 text-sm font-medium"
               >
                 Continue

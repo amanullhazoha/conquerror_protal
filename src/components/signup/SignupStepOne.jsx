@@ -12,7 +12,7 @@ import EmployActiveIcon from "@/assets/icons/EmployActiveIcon";
 import AgentForm from "./AgentForm";
 import EmployForm from "./EmployForm";
 
-const SignupStepOne = ({ accountType, setAccountType }) => {
+const SignupStepOne = ({ accountType, setAccountType, setStep }) => {
   const activeAccountType = (type) => {
     return type === accountType ? true : false;
   };
@@ -209,7 +209,11 @@ const SignupStepOne = ({ accountType, setAccountType }) => {
             }}
           </Formik> */}
 
-          {activeAccountType("agent") ? <AgentForm /> : <EmployForm />}
+          {activeAccountType("agent") ? (
+            <AgentForm setStep={setStep} />
+          ) : (
+            <EmployForm setStep={setStep} />
+          )}
         </div>
       </div>
 

@@ -1,22 +1,31 @@
 import { useState } from "react";
+import SignUpStep from "@/components/steps/SignUpStep";
 import PublicLayout from "@/components/layouts/PublicLayout";
 import SignupStepOne from "@/components/signup/SignupStepOne";
-import SignUpStep from "@/components/steps/SignUpStep";
 
 const SignUp = () => {
-  const [step, setStep] = useState(0);
-  const [accountType, setAccountType] = useState("agent");
+  const [step, setStep] = useState(2);
+  const [accountType, setAccountType] = useState("employ");
 
   return (
     <PublicLayout>
       <div className="flex justify-center items-center px-4">
         <div className="container mx-auto py-[72px]">
-          {/* <SignupStepOne
-            accountType={accountType}
-            setAccountType={setAccountType}
-          /> */}
+          {step <= 1 && (
+            <SignupStepOne
+              setStep={setStep}
+              accountType={accountType}
+              setAccountType={setAccountType}
+            />
+          )}
 
-          <SignUpStep />
+          {step > 1 && (
+            <SignUpStep
+              step={step}
+              setStep={setStep}
+              accountType={accountType}
+            />
+          )}
         </div>
       </div>
     </PublicLayout>

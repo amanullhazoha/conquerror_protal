@@ -19,7 +19,7 @@ const INITIALVALUES = {
   hiring_position: "",
 };
 
-const AgentContactInfoForm = () => {
+const AgentContactInfoForm = ({ setStep }) => {
   return (
     <div className="pt-[48px] px-[48px]">
       <h2 className="mb-5 font-bold text-2xl text-[#111928]">
@@ -211,14 +211,16 @@ const AgentContactInfoForm = () => {
 
                 <div className="flex justify-between">
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={() => setStep((prev) => prev - 1)}
                     className="text-black bg-white rounded-lg px-5 py-2.5 text-sm font-medium border border-[# E5E7EB]"
                   >
                     Back
                   </button>
 
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={() => setStep((prev) => prev + 1)}
                     className="text-white bg-[#1A56DB] rounded-lg px-5 py-2.5 text-sm font-medium"
                   >
                     Continue
