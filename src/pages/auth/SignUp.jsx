@@ -4,7 +4,7 @@ import PublicLayout from "@/components/layouts/PublicLayout";
 import SignupStepOne from "@/components/signup/SignupStepOne";
 
 const SignUp = () => {
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(1);
   const [accountType, setAccountType] = useState("employ");
 
   return (

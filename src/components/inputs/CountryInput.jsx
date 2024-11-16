@@ -96,7 +96,7 @@ const CountryInput = ({
                   key={index}
                   className="px-0.5 py-0.5 hover:bg-[#D0D5DD] cursor-pointer rounded w-full text-left"
                   onClick={() => {
-                    handleSelect(name, item.name);
+                    handleSelect(item.name);
                     setIsOpen(false);
                   }}
                 >

@@ -181,7 +181,10 @@ const Login = () => {
 
           <div className="flex gap-1 justify-center items-center text-sm mt-5">
             <p className="text-[#6B7280]">Don't have an account?</p>
-            <Link className="text-[#1C64F2] text-sm font-semibold" to={"#"}>
+            <Link
+              className="text-[#1C64F2] text-sm font-semibold"
+              to={"/sign-up"}
+            >
               <p>Sign up</p>
             </Link>
           </div>

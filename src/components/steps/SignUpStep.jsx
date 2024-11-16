@@ -4,6 +4,9 @@ import AgentActiveIcon from "@/assets/icons/AgentActiveIcon";
 import EmployPassportForm from "../signup/EmployPassportForm";
 import EmployActiveIcon from "@/assets/icons/EmployActiveIcon";
 import AgentContactInfoForm from "../signup/AgentContactInfoForm";
+import AgentDocumentForm from "../signup/AgentDocumentForm";
+import EmployDocumentForm from "../signup/EmployDocumentForm";
+import EmployAddressForm from "../signup/EmployAddressForm";
 
 const SignUpStep = ({ step, setStep, accountType }) => {
   return (
@@ -29,13 +32,13 @@ const SignUpStep = ({ step, setStep, accountType }) => {
       {accountType === "agent" ? (
         <>
           {step === 2 && <AgentContactInfoForm setStep={setStep} />}
-          {step === 3 && <AgentContactInfoForm setStep={setStep} />}
+          {step === 3 && <AgentDocumentForm setStep={setStep} />}
         </>
       ) : (
         <>
           {step === 2 && <EmployPassportForm setStep={setStep} />}
-          {step === 3 && <AgentContactInfoForm setStep={setStep} />}
-          {step === 4 && <AgentContactInfoForm setStep={setStep} />}
+          {step === 3 && <EmployAddressForm setStep={setStep} />}
+          {step === 4 && <EmployDocumentForm setStep={setStep} />}
         </>
       )}
     </div>

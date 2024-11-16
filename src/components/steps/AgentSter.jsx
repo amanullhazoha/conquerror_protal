@@ -46,8 +46,8 @@ const AgentStep = ({ activeStep = 2 }) => {
       <div class="flex items-center">
         <div class="flex items-center space-x-2">
           {activeStep > 3 && <GreenCheckStepper />}
-          {activeStep === 3 && <ActiveStep count={1} />}
-          {activeStep < 3 && <InactiveStep count={1} />}
+          {activeStep === 3 && <ActiveStep count={3} />}
+          {activeStep < 3 && <InactiveStep count={3} />}
 
           <span class="text-gray-500">Documents</span>
         </div>
