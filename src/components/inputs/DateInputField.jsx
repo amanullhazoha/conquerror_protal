@@ -15,6 +15,7 @@ const DateInputField = ({
 }) => {
   const selectRef = useRef(null);
   const dropdownRef = useRef(null);
+  const [positionH, setPositionH] = useState(0);
   const [isOpenMM, setIsOpenMM] = useState(false);
   const [isOpenYY, setIsOpenYY] = useState(false);
   const [isOpenDay, setIsOpenDay] = useState(false);
@@ -68,6 +69,9 @@ const DateInputField = ({
     if (selectRef.current) {
       const { top, bottom } = selectRef.current.getBoundingClientRect();
       const viewportHeight = window.innerHeight;
+
+      setPositionH(dropdownRef?.current?.clientHeight);
+
       if (bottom > viewportHeight) {
         setPosition("top");
       } else {
@@ -143,11 +147,13 @@ const DateInputField = ({
               className={`absolute bg-white border border-[#D0D5DD] rounded-lg w-[250px] px-2 z-50
                             py-1.5 text-sm text-[#27303F] outline-none mt-0.5 transition-transform max-h-[250px] overflow-y-auto
                             duration-300 ease-in-out ${
-                              position === "top" ? "bottom-full" : "top-full"
+                              position === "top"
+                                ? `bottom-full`
+                                : `-top-[228px]`
                             }
                             ${
                               position === "top"
-                                ? "transform -translate-y-full"
+                                ? "transform"
                                 : "transform translate-y-0"
                             } grid grid-cols-6 gap-2`}
             >
@@ -202,7 +208,9 @@ const DateInputField = ({
               className={`absolute bg-white border border-[#D0D5DD] rounded-lg w-full px-2 z-50
                             py-1.5 text-sm text-[#27303F] outline-none mt-0.5 transition-transform max-h-[250px] overflow-y-auto
                             duration-300 ease-in-out ${
-                              position === "top" ? "bottom-full" : "top-full"
+                              position === "top"
+                                ? "bottom-full"
+                                : "-top-[252px]"
                             }
                             ${
                               position === "top"
@@ -261,7 +269,9 @@ const DateInputField = ({
               className={`absolute bg-white border border-[#D0D5DD] rounded-lg w-full max-h-[250px] overflow-y-auto px-2 z-50
                             py-1.5 text-sm text-[#27303F] outline-none mt-0.5 transition-transform
                             duration-300 ease-in-out ${
-                              position === "top" ? "bottom-full" : "top-full"
+                              position === "top"
+                                ? "bottom-full"
+                                : "-top-[252px]"
                             }
                             ${
                               position === "top"

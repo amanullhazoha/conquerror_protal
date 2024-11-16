@@ -6,16 +6,16 @@ import { countries, countryCode } from "@/assets/staticData/countryInfo";
 import PhoneNumberInputField from "@/components/inputs/PhoneNumberInputField";
 
 const INITIALVALUES = {
-  first_name: "",
-  last_name: "",
-  mother_name: "",
-  gender: "",
-  date_of_birth: "",
-  nationality: "",
   email: "",
+  gender: "",
+  last_name: "",
+  first_name: "",
+  position_id: "",
+  mother_name: "",
+  nationality: "",
+  date_of_birth: "",
   contact_number: "",
   whatsapp_number: "",
-  position_id: "",
   applicant_image: "",
   hiring_position: "",
 };
@@ -65,11 +65,11 @@ const EmployForm = ({ setStep }) => {
               <PhoneNumberInputField
                 type="number"
                 errors={errors}
-                keyValue="shortName"
                 touched={touched}
-                name="contact_number"
-                label="Phone Number"
                 items={countryCode}
+                label="Phone Number"
+                keyValue="shortName"
+                name="contact_number"
                 changeDisable={false}
                 placeholder="000000000"
                 value={values?.contact_number}

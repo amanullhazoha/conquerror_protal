@@ -1,4 +1,5 @@
 import moment from "moment";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import UserImg from "@/assets/images/user.png";
 import SendIcon from "@/assets/icons/SendIcon";
@@ -14,7 +15,9 @@ import {
   SelectContent,
   SelectTrigger,
 } from "@/components/ui/select";
+import MeetingModal from "@/components/modal/MeetingModal";
 
+const apiUrl = import.meta.env.VITE_APP_API_URL;
 const UserInfoCard = ({
   backLink,
   backTitle,
@@ -22,7 +25,7 @@ const UserInfoCard = ({
   createMeeting,
   invateForInterView,
 }) => {
-  const apiUrl = import.meta.env.VITE_APP_API_URL;
+  const [openModal, setOpenModal] = useState(false);
 
   return (
     <div className="bg-[#EBF5FF] border-[1px] border-[#E5E7EB] rounded-2xl p-6  w-full h-auto">
@@ -68,8 +71,8 @@ const UserInfoCard = ({
         </h4>
 
         {invateForInterView ? (
-          <div className="mt-4 grid grid-cols-2 gap-6">
-            <Select>
+          <div className="mt-4 grid grid-cols- gap-6">
+            {/* <Select>
               <SelectTrigger className="w-full rounded-full py-5">
                 <SelectValue placeholder="Select Option" />
               </SelectTrigger>
@@ -78,17 +81,18 @@ const UserInfoCard = ({
                 <SelectItem value="inperson">Inperson</SelectItem>
                 <SelectItem value="rider">Online</SelectItem>
               </SelectContent>
-            </Select>
+            </Select> */}
 
             <Button
               variant="outline"
-              onClick={() =>
-                createMeeting(
-                  application?.id,
-                  "CodingWithAdo new meeting",
-                  "2023-11-20T10:00:00",
-                  45
-                )
+              onClick={
+                () => setOpenModal((prev) => !prev)
+                // createMeeting(
+                //   application?.id,
+                //   "CodingWithAdo new meeting",
+                //   "2023-11-20T10:00:00",
+                //   45
+                // )
               }
               className="flex gap-2 bg-white hover:bg-white text-[#1A56DB] hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
             >
@@ -101,6 +105,8 @@ const UserInfoCard = ({
           </h4>
         )}
       </div>
+
+      <MeetingModal openModal={openModal} setOpenModal={setOpenModal} />
     </div>
   );
 };

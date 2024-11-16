@@ -7,6 +7,15 @@ export const countries = [
   { id: "6", name: "Bangladesh" },
 ];
 
+export const timeZones = [
+  { id: "1", name: "Nepal", timeZone: "Asia/Kathmandu" },
+  { id: "2", name: "Pakistan", timeZone: "Asia/Karachi" },
+  { id: "3", name: "India", timeZone: "Asia/Kolkata" },
+  { id: "4", name: "Philippine", timeZone: "Asia/Manila" },
+  { id: "5", name: "Sri Lanka", timeZone: "Asia/Colombo" },
+  { id: "6", name: "Bangladesh", timeZone: "Asia/Dhaka" },
+];
+
 export const allCountry = [
   { id: "1", name: "Afghanistan" },
   { id: "2", name: "Albania" },

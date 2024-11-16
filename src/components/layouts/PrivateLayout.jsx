@@ -39,7 +39,7 @@ const PrivateLayout = ({ children }) => {
 
   return (
     <section className="bg-white min-h-screen">
-      <header className="pl-6 bg-white flex flex-grow items-center sticky top-0 z-[999999]">
+      <header className="pl-6 bg-white flex flex-grow items-center sticky top-0 z-[10]">
         <div className={`w-[263px] py-4 flex items-center justify-between`}>
           <Link to="/">
             <img src={logo} alt="logo" className="w-[150px]" />
