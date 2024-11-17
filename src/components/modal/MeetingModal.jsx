@@ -139,10 +139,18 @@ const MeetingModal = ({ application, openModal, setOpenModal }) => {
   ] = useCreateZoomMeetingByUserIdMutation();
 
   const handleSubmit = (data) => {
+    console.log(interviewType);
+
     if (interviewType === "in-person") {
-      createInPersonMeeting({ data, id: application.id });
+      createInPersonMeeting({
+        data: { ...data, interview_method: "in-person" },
+        id: application.id,
+      });
     } else if (interviewType === "online") {
-      createOnlineMeeting({ id: application?.id, data });
+      createOnlineMeeting({
+        id: application?.id,
+        data: { ...data, interview_method: "online" },
+      });
     }
   };
 
@@ -151,6 +159,7 @@ const MeetingModal = ({ application, openModal, setOpenModal }) => {
       showSuccess("Create in-person meeting scheduled successfully");
 
       setOpenModal(false);
+      setInterviewType("in-person");
     }
 
     if (isError) {
@@ -163,6 +172,7 @@ const MeetingModal = ({ application, openModal, setOpenModal }) => {
       showSuccess("Create online meeting scheduled successfully");
 
       setOpenModal(false);
+      setInterviewType("in-person");
     }
 
     if (isErrorOnline) {
@@ -199,7 +209,6 @@ const MeetingModal = ({ application, openModal, setOpenModal }) => {
               police_station: "",
               required_document: "",
               applicant_id: application?.id,
-              interview_method: interviewType,
               nationality: application?.nationality,
             }}
             validationSchema={inPersonInterviewSchema}
@@ -364,7 +373,6 @@ const MeetingModal = ({ application, openModal, setOpenModal }) => {
               zonecountry: "",
               scheduled_at: "",
               applicant_id: application?.id,
-              interview_method: interviewType,
             }}
             validationSchema={onlineInterviewSchema}
             onSubmit={handleSubmit}
