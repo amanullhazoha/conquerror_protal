@@ -9,14 +9,6 @@ export const inPersonInterviewSchema = () =>
     city: Yup.string().required("City is required"),
     time: Yup.string()
       .required("Time is required")
-      .test("isValidTime", "Time must be in the format HH:mm", (value) => {
-        if (!value) return false;
-
-        console.log(value);
-
-        const parsedTime = parse(value, "h:mm", new Date());
-        return isValid(parsedTime);
-      })
       .test(
         "isFutureOrCurrentTime",
         "Time must not be in the past",
@@ -58,12 +50,6 @@ export const onlineInterviewSchema = () =>
     message: Yup.string().required("Note is required"),
     time: Yup.string()
       .required("Time is required")
-      .test("isValidTime", "Time must be in the format HH:mm", (value) => {
-        if (!value) return false;
-
-        const parsedTime = parse(value, "h:mm", new Date());
-        return isValid(parsedTime);
-      })
       .test(
         "isFutureOrCurrentTime",
         "Time must not be in the past",
