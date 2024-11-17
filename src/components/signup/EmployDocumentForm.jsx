@@ -41,15 +41,19 @@ const EmployDocumentForm = ({ setStep }) => {
   );
 
   const handleSubmit = async (values, { resetForm }) => {
-    const agentForm = JSON.parse(localStorage.getItem("agentForm"));
-    const agentContactInfoForm = JSON.parse(
-      localStorage.getItem("agentContactInfoForm")
+    const employForm = JSON.parse(localStorage.getItem("employForm"));
+    const employPassportForm = JSON.parse(
+      localStorage.getItem("employPassportForm")
+    );
+    const employAddressForm = JSON.parse(
+      localStorage.getItem("employAddressForm")
     );
 
     const payload = {
       ...values,
-      ...agentForm,
-      ...agentContactInfoForm,
+      ...employForm,
+      ...employPassportForm,
+      ...employAddressForm,
     };
 
     const formData = new FormData();
@@ -127,7 +131,7 @@ const EmployDocumentForm = ({ setStep }) => {
       localStorage.removeItem("employForm");
       localStorage.removeItem("employPassportForm");
       localStorage.removeItem("employAddressForm");
-      localStorage.removeItem("agentDocumentForm");
+      localStorage.removeItem("employeeDocumentForm");
 
       navigate("/login");
 
@@ -257,8 +261,8 @@ const EmployDocumentForm = ({ setStep }) => {
                   <SelectInputField
                     required={true}
                     items={[
-                      { name: "Test 1", value: "test_1" },
-                      { name: "Test 2", value: "test_2" },
+                      { name: "Test 1", value: 1 },
+                      { name: "Test 2", value: 2 },
                     ]}
                     errors={errors}
                     name="position_id"
@@ -284,6 +288,7 @@ const EmployDocumentForm = ({ setStep }) => {
 
                   <button
                     type="submit"
+                    disabled={isLoading}
                     className="text-white bg-[#1A56DB] rounded-lg px-5 py-2.5 text-sm font-medium"
                   >
                     Submit

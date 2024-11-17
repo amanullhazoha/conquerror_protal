@@ -1,10 +1,7 @@
 import { useParams } from "react-router-dom";
 import PrivateLayout from "@/components/layouts/PrivateLayout";
 import UserInfoCard from "@/components/applications/applications-details/UserInfoCard";
-import {
-  useCreateZoomMeetingByUserIdMutation,
-  useGetApplicationByIdQuery,
-} from "@/redux/features/applications/applications";
+import { useGetApplicantInterviewDetailQuery } from "@/redux/features/applications/applications";
 import ApplicantInvitedDetail from "@/components/applications/applications-details/ApplicantInvitedDetail";
 
 const ApplicationInterviewDetails = () => {
@@ -14,10 +11,14 @@ const ApplicationInterviewDetails = () => {
     data: singleApplication,
     isLoading,
     isSuccess,
-  } = useGetApplicationByIdQuery(params?.id, {
-    refetchOnMountOrArgChange: true,
-  });
-  const [] = useCreateZoomMeetingByUserIdMutation();
+  } = useGetApplicantInterviewDetailQuery(
+    { id: params?.id },
+    {
+      refetchOnMountOrArgChange: true,
+    }
+  );
+
+  console.log(singleApplication);
 
   return (
     <PrivateLayout>
@@ -28,8 +29,10 @@ const ApplicationInterviewDetails = () => {
           <div className="col-span-4">
             <UserInfoCard
               backTitle="Back To list"
-              application={singleApplication}
               backLink="/applicant-invited-list"
+              invitedBy={singleApplication?.data?.invitedBy}
+              application={singleApplication?.data?.jobApplicant}
+              applicantInterview={singleApplication?.data?.applicantInterview}
             />
           </div>
           <div className="col-span-8">
@@ -37,7 +40,10 @@ const ApplicationInterviewDetails = () => {
               Invited details
             </h2>
 
-            <ApplicantInvitedDetail application={singleApplication} />
+            <ApplicantInvitedDetail
+              application={singleApplication?.data?.jobApplicant}
+              applicantInterview={singleApplication?.data?.applicantInterview}
+            />
           </div>
         </div>
       )}

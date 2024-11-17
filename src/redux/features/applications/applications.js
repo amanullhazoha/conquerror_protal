@@ -29,9 +29,21 @@ const applicationsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Applications", "Application"],
     }),
+    getApplicantInterviewDetail: builder.query({
+      query: ({ id }) => `/api/v1/secure/meeting/${id}`,
+      providesTags: ["Applications", "Application"],
+    }),
     createZoomMeetingByUserId: builder.mutation({
       query: ({ id, data }) => ({
         url: `/api/v1/secure/zoom-meeting/${id}`,
+        method: "POST",
+        body: data,
+      }),
+      invalidatesTags: ["Applications", "Application"],
+    }),
+    createInPersonMeetingByUserId: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/api/v1/secure/in-person-meeting/${id}`,
         method: "POST",
         body: data,
       }),
@@ -45,8 +57,10 @@ export const {
   useGetApplicationByIdQuery,
   useGetAllNewApplicationsQuery,
   useUpdateApplicationByIdMutation,
+  useGetApplicantInterviewDetailQuery,
   useGetAllInterviewApplicationsQuery,
   useCreateZoomMeetingByUserIdMutation,
+  useCreateInPersonMeetingByUserIdMutation,
 } = applicationsApi;
 
 export default applicationsApi;

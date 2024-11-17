@@ -111,7 +111,7 @@ const EmployPassportForm = ({ setStep }) => {
                     touched={touched}
                     name="passport_expiry_date"
                     label="Passport Date of Expiry"
-                    value={values?.date_of_birth}
+                    value={values?.passport_expiry_date}
                     handleSelect={(date) =>
                       setFieldValue("passport_expiry_date", date)
                     }

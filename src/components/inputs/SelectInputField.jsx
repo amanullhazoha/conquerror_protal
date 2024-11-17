@@ -13,6 +13,7 @@ const SelectInputField = ({
   placeholder,
   handleSelect,
   required = true,
+  disabled = false,
 }) => {
   const selectRef = useRef(null);
   const dropdownRef = useRef(null);
@@ -61,6 +62,7 @@ const SelectInputField = ({
         <button
           type="button"
           ref={selectRef}
+          disabled={disabled}
           onClick={toggleDropdown}
           className={`border border-[#D0D5DD] bg-[#F9FAFB] rounded-lg w-full px-4 
                     py-3 text-sm text-[#27303F] outline-none mt-0.5 flex

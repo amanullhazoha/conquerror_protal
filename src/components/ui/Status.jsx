@@ -18,7 +18,7 @@ const statusVariant = cva(
 
         checked: "",
         editted: "",
-        invited: "",
+        invited: "bg-[#FCD9BD] text-[#4B5563]",
         shortlisted: "",
         offer_extended: "",
         offer_declined: "",
@@ -34,8 +34,6 @@ const statusVariant = cva(
 
 const Status = React.forwardRef(({ className, variant, ...props }, ref) => {
   const Comp = "p";
-
-  console.log(variant);
 
   return (
     <Comp

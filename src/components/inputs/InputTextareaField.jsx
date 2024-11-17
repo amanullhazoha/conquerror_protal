@@ -6,6 +6,7 @@ const InputTextareaField = ({
   label,
   errors,
   touched,
+  onChange,
   className,
   placeholder,
   required = true,
@@ -21,6 +22,7 @@ const InputTextareaField = ({
       <textarea
         id={name}
         name={name}
+        onChange={onChange}
         placeholder={placeholder}
         className={`${className} border border-[#D1D5DB] bg-[#F9FAFB] rounded-lg w-full px-4 py-3 text-sm text-[#27303F] outline-none mt-2
                 ${touched[name] && errors[name] ? "border-red-500" : ""}`}
