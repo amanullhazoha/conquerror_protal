@@ -49,6 +49,14 @@ const applicationsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Applications", "Application"],
     }),
+    applicationStatusUpdateByID: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/api/v1/secure/career/jobs-status-update/${id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Applications", "Application"],
+    }),
   }),
 });
 
@@ -60,6 +68,7 @@ export const {
   useGetApplicantInterviewDetailQuery,
   useGetAllInterviewApplicationsQuery,
   useCreateZoomMeetingByUserIdMutation,
+  useApplicationStatusUpdateByIDMutation,
   useCreateInPersonMeetingByUserIdMutation,
 } = applicationsApi;
 

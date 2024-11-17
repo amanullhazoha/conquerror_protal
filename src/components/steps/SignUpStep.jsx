@@ -1,12 +1,12 @@
 import AgentStep from "./AgentSter";
 import EmployStepper from "./EmployStepper";
+import AgentDocumentForm from "../signup/AgentDocumentForm";
+import EmployAddressForm from "../signup/EmployAddressForm";
 import AgentActiveIcon from "@/assets/icons/AgentActiveIcon";
 import EmployPassportForm from "../signup/EmployPassportForm";
+import EmployDocumentForm from "../signup/EmployDocumentForm";
 import EmployActiveIcon from "@/assets/icons/EmployActiveIcon";
 import AgentContactInfoForm from "../signup/AgentContactInfoForm";
-import AgentDocumentForm from "../signup/AgentDocumentForm";
-import EmployDocumentForm from "../signup/EmployDocumentForm";
-import EmployAddressForm from "../signup/EmployAddressForm";
 
 const SignUpStep = ({ step, setStep, accountType }) => {
   return (

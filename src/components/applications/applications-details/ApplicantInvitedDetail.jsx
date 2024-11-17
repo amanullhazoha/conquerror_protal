@@ -1,18 +1,60 @@
+import { format } from "date-fns";
+import useToast from "@/hooks/useToast";
+import { useState, useEffect } from "react";
 import { InfoCard } from "@/shared/InfoCard";
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
+import { useApplicationStatusUpdateByIDMutation } from "@/redux/features/applications/applications";
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from "@/components/ui/select";
+
+const formatDateTime = (dateInput, timeInput) => {
+  if (dateInput && timeInput) {
+    const [year, month, day] = dateInput?.split("-").map(Number);
+    const [hours, minutes] = timeInput?.split(":").map(Number);
+
+    const date = new Date(year, month - 1, day, hours, minutes);
+
+    return format(date, "d MMMM yyyy h:mm a");
+  }
+
+  return "Null";
+};
 
 const ApplicantInvitedDetail = ({
   application,
   applicantInterview,
   updateInterviewStatus = false,
 }) => {
+  const navigate = useNavigate();
+
+  const { showSuccess, showError } = useToast();
+  const [status, setStatus] = useState("accept");
+
+  const [applicationStatusUpdate, { isLoading, isSuccess, error, isError }] =
+    useApplicationStatusUpdateByIDMutation();
+
+  const handleStatusChange = () => {
+    applicationStatusUpdate({ status, id: application.id });
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      showSuccess("Application status update successfully");
+
+      navigate("/applicant-interview-list");
+    }
+
+    if (isError) {
+      showError(error?.data?.message);
+    }
+  }, [isError, isSuccess]);
+
   return (
     <div className="grid grid-cols-2 gap-6">
       <div className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]">
@@ -43,20 +85,28 @@ const ApplicantInvitedDetail = ({
             </h2>
 
             <div className="mt-4 grid grid-cols-2 gap-6">
-              <Select defaultValue="Accept">
+              <Select
+                defaultValue={status}
+                disabled={isLoading}
+                onValueChange={(value) => setStatus(value)}
+              >
                 <SelectTrigger className="w-full rounded-full py-5">
                   <SelectValue placeholder="Select Option" />
                 </SelectTrigger>
 
                 <SelectContent>
-                  <SelectItem value="Accept">Accept</SelectItem>
-                  <SelectItem value="rider">Rider</SelectItem>
+                  <SelectItem value="accept">Accept</SelectItem>
+                  <SelectItem value="hired">Hired</SelectItem>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="under_review">Under Review</SelectItem>
+                  <SelectItem value="rejected">Rejected</SelectItem>
                 </SelectContent>
               </Select>
 
               <Button
-                className="flex gap-2 bg-[#1A56DB] hover:bg-white text-white hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
                 variant="outline"
+                onClick={handleStatusChange}
+                className="flex gap-2 bg-[#1A56DB] hover:bg-white text-white hover:text-[#1A56DB] font-medium border-[#1A56DB] rounded-full py-5"
               >
                 Update
               </Button>
@@ -77,7 +127,10 @@ const ApplicantInvitedDetail = ({
 
             <InfoCard
               title="Meeting Time"
-              content={`17 August 2024 9:02 AM , Time Zone by ${
+              content={`${formatDateTime(
+                applicantInterview?.scheduled_at,
+                applicantInterview?.time
+              )} , Time Zone by ${
                 applicantInterview?.zonecountry
                   ? applicantInterview?.zonecountry
                   : "null"
