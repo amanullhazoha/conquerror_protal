@@ -61,7 +61,7 @@ const ApplicantInterviewList = () => {
           />
 
           {applicationsData?.meta?.totalRecords > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-[20px] px-[20px]">
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-[20px] px-[20px]">
               {applicationsData?.applicants?.map((applicant, idx) => (
                 <ApplicationCard
                   key={idx}

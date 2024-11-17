@@ -21,14 +21,15 @@ const InvitedApplicantDetail = () => {
 
       {!isLoading && isSuccess && (
         <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-4">
+          <div className="col-span-12 xl:col-span-4">
             <UserInfoCard
               backTitle="Back To list"
               application={singleApplication}
               backLink="/applicant-interview-list"
             />
           </div>
-          <div className="col-span-8">
+
+          <div className="col-span-12 xl:col-span-8">
             <h2 className="mb-[28px] text-2xl text-gray-900 font-semibold">
               Applicant Accepted details
             </h2>
