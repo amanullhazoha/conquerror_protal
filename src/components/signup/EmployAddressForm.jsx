@@ -1,27 +1,54 @@
 import { Formik, Form } from "formik";
 import InputFieldNew from "../inputs/InputFielNew";
-import InputFieldRadio from "../inputs/InputFieldRadio";
-import { countryCode } from "@/assets/staticData/countryInfo";
-import PhoneNumberInputField from "../inputs/PhoneNumberInputField";
-import FileInputField from "../inputs/FileInputFiled";
+import { useState, useCallback, useEffect } from "react";
 import SelectInputField from "../inputs/SelectInputField";
+import { employAddressFormSchema } from "@/schema/auth/signup.schema";
+import { getStatesByCountry, getCitiesByState } from "@/lib/addressFind";
 
 const INITIALVALUES = {
-  email: "",
-  gender: "",
-  last_name: "",
-  first_name: "",
-  mother_name: "",
-  position_id: "",
-  nationality: "",
-  date_of_birth: "",
-  contact_number: "",
-  whatsapp_number: "",
-  applicant_image: "",
-  hiring_position: "",
+  home_address: "",
+  city: "",
+  state: "",
+  police_station: "",
+  zip: "",
+  reference_name: "",
 };
 
 const EmployAddressForm = ({ setStep }) => {
+  let count = 0;
+  const [initialValues, setInitialValues] = useState(INITIALVALUES);
+
+  const handleSetLocalStorageValue = useCallback(
+    (values) => {
+      count = count + 1;
+
+      if (count > 3) {
+        localStorage.setItem("employAddressForm", JSON.stringify(values));
+      }
+    },
+    [initialValues]
+  );
+
+  const handleSubmit = async (values, { resetForm }) => {
+    setStep((prev) => prev + 1);
+  };
+
+  useEffect(() => {
+    const storedValues = localStorage.getItem("employAddressForm");
+    const employFormValues = localStorage.getItem("employForm");
+
+    console.log(employFormValues);
+
+    if (storedValues) {
+      const parseValues = JSON.parse(storedValues);
+
+      setInitialValues({
+        ...parseValues,
+        nationality: JSON?.parse(employFormValues)?.nationality,
+      });
+    }
+  }, []);
+
   return (
     <div className="pt-[48px] px-[48px]">
       <h2 className="mb-5 font-bold text-2xl text-[#111928]">
@@ -29,77 +56,79 @@ const EmployAddressForm = ({ setStep }) => {
       </h2>
 
       <Formik
+        onSubmit={handleSubmit}
         enableReinitialize={true}
-        initialValues={INITIALVALUES}
-        // validationSchema={jobApplyBasicSchema(id)}
-        onSubmit={(value) => console.log(value)}
+        initialValues={initialValues}
+        validationSchema={employAddressFormSchema}
       >
         {({ handleSubmit, values, touched, errors, setFieldValue }) => {
+          handleSetLocalStorageValue(values);
+
           return (
             <Form onSubmit={handleSubmit}>
               <div className="grid gap-5 grid-cols-1">
                 <div className="grid grid-cols-1 gap-5">
                   <InputFieldNew
-                    type="email"
                     errors={errors}
-                    name="last_name"
-                    onlyLetter={true}
+                    name="home_address"
                     touched={touched}
                     label="Home Address"
-                    placeholder="Enter your passport number"
+                    placeholder="Enter home address"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-5">
                   <SelectInputField
+                    name="state"
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
-                    touched={touched}
-                    label="City"
-                    placeholder="Enter your mother name"
-                  />
-
-                  <SelectInputField
-                    errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
+                    keyValue="name"
                     touched={touched}
                     label="State/District"
-                    placeholder="Enter your mother name"
+                    value={values.state}
+                    placeholder="Enter your state"
+                    items={getStatesByCountry(values?.nationality)}
+                    handleSelect={(item) => setFieldValue("state", item?.name)}
+                  />
+
+                  <SelectInputField
+                    name="city"
+                    label="City"
+                    keyValue="name"
+                    errors={errors}
+                    touched={touched}
+                    value={values.city}
+                    placeholder="Enter your city"
+                    items={getCitiesByState(values.state)}
+                    handleSelect={(item) => setFieldValue("city", item.name)}
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-5">
                   <InputFieldNew
-                    type="email"
                     errors={errors}
-                    name="last_name"
-                    onlyLetter={true}
+                    name="police_station"
                     touched={touched}
                     label="Police Station"
-                    placeholder="Enter your passport number"
+                    placeholder="Enter police station name"
                   />
 
                   <InputFieldNew
-                    type="email"
                     errors={errors}
-                    name="last_name"
-                    onlyLetter={true}
+                    name="zip"
                     touched={touched}
                     label="Zip/Postal Code"
-                    placeholder="Enter your passport number"
+                    placeholder="Enter zip/postal code"
                   />
                 </div>
 
                 <div className="grid grid-cols-1 gap-5">
-                  <SelectInputField
+                  <InputFieldNew
+                    type="text"
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
                     touched={touched}
+                    placeholder="Select"
+                    name="reference_name"
                     label="Reference Name"
-                    placeholder="Enter your mother name"
                   />
                 </div>
 
@@ -113,8 +142,7 @@ const EmployAddressForm = ({ setStep }) => {
                   </button>
 
                   <button
-                    type="button"
-                    onClick={() => setStep((prev) => prev + 1)}
+                    type="submit"
                     className="text-white bg-[#1A56DB] rounded-lg px-5 py-2.5 text-sm font-medium"
                   >
                     Continue

@@ -8,6 +8,7 @@ const CountryInput = ({
   label,
   value,
   errors,
+  items,
   touched,
   placeholder,
   handleSelect,
@@ -84,7 +85,7 @@ const CountryInput = ({
                             : "transform translate-y-0"
                         }`}
           >
-            {allCountry
+            {items
               ?.filter((country) =>
                 country?.name
                   ?.toLowerCase()

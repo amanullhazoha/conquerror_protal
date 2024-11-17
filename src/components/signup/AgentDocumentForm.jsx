@@ -1,26 +1,57 @@
 import { Formik, Form } from "formik";
-import InputFieldNew from "../inputs/InputFielNew";
-import InputFieldRadio from "../inputs/InputFieldRadio";
-import { countryCode } from "@/assets/staticData/countryInfo";
-import PhoneNumberInputField from "../inputs/PhoneNumberInputField";
 import FileInputField from "../inputs/FileInputFiled";
+import { useState, useCallback, useEffect } from "react";
+import { agentDocumentFormSchema } from "@/schema/auth/signup.schema";
 
 const INITIALVALUES = {
-  email: "",
-  gender: "",
-  last_name: "",
-  first_name: "",
-  mother_name: "",
-  position_id: "",
-  nationality: "",
-  date_of_birth: "",
-  contact_number: "",
-  whatsapp_number: "",
-  applicant_image: "",
-  hiring_position: "",
+  business_license_copy: "",
+  passport_front_page: "",
+  passport_special_page: "",
+  nid_front_page: "",
+  nid_back_page: "",
+  profile_image: "",
+  resident_visa: "",
 };
 
 const AgentDocumentForm = ({ setStep }) => {
+  let count = 0;
+  const [initialValues, setInitialValues] = useState(INITIALVALUES);
+
+  const handleSetLocalStorageValue = useCallback(
+    (values) => {
+      count = count + 1;
+
+      if (count > 3) {
+        localStorage.setItem("employAddressForm", JSON.stringify(values));
+      }
+    },
+    [initialValues]
+  );
+
+  const handleSubmit = async (values, { resetForm }) => {
+    // setStep((prev) => prev + 1);
+    alert("submitted");
+  };
+
+  useEffect(() => {
+    const storedValues = localStorage.getItem("employAddressForm");
+
+    if (storedValues) {
+      const parseValues = JSON.parse(storedValues);
+
+      setInitialValues({
+        ...parseValues,
+        passport_front_page: "",
+        passport_special_page: "",
+        nid_front_page: "",
+        nid_back_page: "",
+        profile_image: "",
+        resident_visa: "",
+        business_license_copy: "",
+      });
+    }
+  }, []);
+
   return (
     <div className="pt-[48px] px-[48px]">
       <h2 className="mb-5 font-bold text-2xl text-[#111928]">
@@ -28,83 +59,106 @@ const AgentDocumentForm = ({ setStep }) => {
       </h2>
 
       <Formik
+        onSubmit={handleSubmit}
         enableReinitialize={true}
-        initialValues={INITIALVALUES}
-        // validationSchema={jobApplyBasicSchema(id)}
-        onSubmit={(value) => console.log(value)}
+        initialValues={initialValues}
+        validationSchema={agentDocumentFormSchema}
       >
         {({ handleSubmit, values, touched, errors, setFieldValue }) => {
+          handleSetLocalStorageValue(values);
+
           return (
             <Form onSubmit={handleSubmit}>
               <div className="grid gap-5 grid-cols-1">
                 <div className="grid grid-cols-2 gap-5">
                   <FileInputField
+                    required={true}
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
                     touched={touched}
-                    label="Passport Front Page "
-                    placeholder="Enter your mother name"
+                    name="passport_front_page"
+                    label="Passport Front Page"
+                    value={values.passport_front_page}
+                    handleSelectFile={(file) =>
+                      setFieldValue("passport_front_page", file)
+                    }
                   />
 
                   <FileInputField
+                    required={true}
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
                     touched={touched}
+                    name="passport_special_page"
                     label="Passport Special Page"
-                    placeholder="Enter your mother name"
+                    value={values.passport_special_page}
+                    handleSelectFile={(file) =>
+                      setFieldValue("passport_special_page", file)
+                    }
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-5">
                   <FileInputField
+                    required={true}
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
+                    name="nid_front_page"
                     touched={touched}
                     label="NID/CNIC Front"
-                    placeholder="Enter your mother name"
+                    value={values.nid_front_page}
+                    handleSelectFile={(file) =>
+                      setFieldValue("nid_front_page", file)
+                    }
                   />
 
                   <FileInputField
+                    required={true}
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
+                    name="nid_back_page"
                     touched={touched}
                     label="NID/CNIC Back"
-                    placeholder="Enter your mother name"
+                    value={values.nid_back_page}
+                    handleSelectFile={(file) =>
+                      setFieldValue("nid_back_page", file)
+                    }
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-5">
                   <FileInputField
+                    required={true}
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
+                    name="profile_image"
                     touched={touched}
                     label="Your Photo"
-                    placeholder="Enter your mother name"
+                    value={values.profile_image}
+                    handleSelectFile={(file) =>
+                      setFieldValue("profile_image", file)
+                    }
                   />
 
                   <FileInputField
+                    required={true}
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
+                    name="resident_visa"
                     touched={touched}
                     label="Resident Visa"
-                    placeholder="Enter your mother name"
+                    value={values.resident_visa}
+                    handleSelectFile={(file) =>
+                      setFieldValue("resident_visa", file)
+                    }
                   />
                 </div>
 
                 <div className="grid grid-cols-1 gap-5">
                   <FileInputField
+                    required={true}
                     errors={errors}
-                    name="first_name"
-                    onlyLetter={true}
+                    name="business_license_copy"
                     touched={touched}
                     label="Business License Copy"
-                    placeholder="Enter your mother name"
+                    value={values.business_license_copy}
+                    handleSelectFile={(file) =>
+                      setFieldValue("business_license_copy", file)
+                    }
                   />
                 </div>
 
@@ -118,8 +172,7 @@ const AgentDocumentForm = ({ setStep }) => {
                   </button>
 
                   <button
-                    type="button"
-                    onClick={() => setStep((prev) => prev + 1)}
+                    type="submit"
                     className="text-white bg-[#1A56DB] rounded-lg px-5 py-2.5 text-sm font-medium"
                   >
                     Submit
