@@ -19,7 +19,7 @@ Yup.addMethod(Yup.string, "checkEmailExists", function (message) {
           const response = await fetch(
             `${
               import.meta.env.VITE_APP_BASE_API_URL
-            }/api/v1/public/career/jobs/mail-check?email=${value}`
+            }/api/v1/public/user/mail-check?email=${value}`
           );
 
           if (response.status === 200) return true;

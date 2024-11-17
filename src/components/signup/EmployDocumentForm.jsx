@@ -1,8 +1,11 @@
 import { Formik, Form } from "formik";
+import useToast from "@/hooks/useToast";
+import { useNavigate } from "react-router-dom";
 import FileInputField from "../inputs/FileInputFiled";
 import { useState, useCallback, useEffect } from "react";
 import SelectInputField from "../inputs/SelectInputField";
 import { employDocumentFormSchema } from "@/schema/auth/signup.schema";
+import { useEmployeeRegistrationMutation } from "@/redux/features/auth/authApi";
 
 const INITIALVALUES = {
   position_id: "",
@@ -17,7 +20,14 @@ const INITIALVALUES = {
 
 const EmployDocumentForm = ({ setStep }) => {
   let count = 0;
+
+  const navigate = useNavigate();
+
+  const { showSuccess, showError } = useToast();
   const [initialValues, setInitialValues] = useState(INITIALVALUES);
+
+  const [employeeRegistration, { isLoading, isSuccess, isError, error }] =
+    useEmployeeRegistrationMutation();
 
   const handleSetLocalStorageValue = useCallback(
     (values) => {
@@ -31,8 +41,66 @@ const EmployDocumentForm = ({ setStep }) => {
   );
 
   const handleSubmit = async (values, { resetForm }) => {
-    // setStep((prev) => prev + 1);
-    alert("submitted");
+    const agentForm = JSON.parse(localStorage.getItem("agentForm"));
+    const agentContactInfoForm = JSON.parse(
+      localStorage.getItem("agentContactInfoForm")
+    );
+
+    const payload = {
+      ...values,
+      ...agentForm,
+      ...agentContactInfoForm,
+    };
+
+    const formData = new FormData();
+
+    if (
+      payload.passport_front_page &&
+      payload.passport_front_page[0] instanceof File
+    ) {
+      formData.append("passport_front_page", payload.passport_front_page[0]);
+    }
+
+    if (
+      payload.passport_special_page &&
+      payload.passport_special_page[0] instanceof File
+    ) {
+      formData.append(
+        "passport_special_page",
+        payload.passport_special_page[0]
+      );
+    }
+
+    if (payload.nid_front_page && payload.nid_front_page[0] instanceof File) {
+      formData.append("nid_front_page", payload.nid_front_page[0]);
+    }
+
+    if (payload.nid_back_page && payload.nid_back_page[0] instanceof File) {
+      formData.append("nid_back_page", payload.nid_back_page[0]);
+    }
+
+    if (payload.profile_image && payload.profile_image[0] instanceof File) {
+      formData.append("profile_image", payload.profile_image[0]);
+    }
+
+    if (payload.resident_visa && payload.resident_visa[0] instanceof File) {
+      formData.append("resident_visa", payload.resident_visa[0]);
+    }
+
+    Object.entries(payload).forEach(([key, value]) => {
+      if (
+        key !== "passport_front_page" &&
+        key !== "passport_special_page" &&
+        key !== "nid_front_page" &&
+        key !== "nid_back_page" &&
+        key !== "profile_image" &&
+        key !== "resident_visa"
+      ) {
+        formData.append(key, value);
+      }
+    });
+
+    employeeRegistration(formData);
   };
 
   useEffect(() => {
@@ -52,6 +120,24 @@ const EmployDocumentForm = ({ setStep }) => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      showSuccess("Employee registration successful");
+      localStorage.removeItem("employForm");
+      localStorage.removeItem("employPassportForm");
+      localStorage.removeItem("employAddressForm");
+      localStorage.removeItem("agentDocumentForm");
+
+      navigate("/login");
+
+      setStep(1);
+    }
+
+    if (isError) {
+      showError(error?.data?.message);
+    }
+  }, [isError, isSuccess]);
 
   return (
     <div className="pt-[48px] px-[48px]">

@@ -39,13 +39,37 @@ const authApi = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
+    agentRegistration: builder.mutation({
+      query: (data) => ({
+        url: "/api/v1/public/agent-registration",
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-Type":
+            data instanceof FormData ? undefined : "application/json",
+        },
+      }),
+    }),
+    employeeRegistration: builder.mutation({
+      query: (data) => ({
+        url: "/api/v1/public/employee-registration",
+        method: "POST",
+        body: data,
+        headers: {
+          "Content-Type":
+            data instanceof FormData ? undefined : "application/json",
+        },
+      }),
+    }),
   }),
 });
 
 export const {
   useUserLoginMutation,
-  useForgotPasswordMutation,
   useResetPasswordMutation,
+  useForgotPasswordMutation,
+  useAgentRegistrationMutation,
+  useEmployeeRegistrationMutation,
 } = authApi;
 
 export default authApi;

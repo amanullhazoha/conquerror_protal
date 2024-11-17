@@ -1,9 +1,9 @@
 import { useState } from "react";
 import PrivateLayout from "@/components/layouts/PrivateLayout";
 import PaginationComponent from "@/shared/PaginationComponent";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ApplicationCard from "@/components/applications/ApplicationCard";
 import ApplicationsHeading from "@/components/applications/ApplicationsHeading";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useGetAllInterviewApplicationsQuery } from "@/redux/features/applications/applications";
 import {
   Select,

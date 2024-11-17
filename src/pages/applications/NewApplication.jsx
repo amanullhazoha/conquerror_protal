@@ -46,8 +46,6 @@ const NewApplications = () => {
     setCurrentPage(1);
   };
 
-  console.log(applicationsData?.meta?.totalRecords);
-
   return (
     <PrivateLayout>
       {isLoading && <p>Loading...</p>}

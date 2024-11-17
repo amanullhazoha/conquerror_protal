@@ -5,7 +5,7 @@ import SignupStepOne from "@/components/signup/SignupStepOne";
 
 const SignUp = () => {
   const [step, setStep] = useState(1);
-  const [accountType, setAccountType] = useState("employ");
+  const [accountType, setAccountType] = useState("agent");
 
   return (
     <PublicLayout>

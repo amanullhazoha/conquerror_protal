@@ -58,8 +58,6 @@ const ApplicantBasicInfo = ({ application }) => {
       reference: formData.referenceNumber,
     };
 
-    console.log(data);
-
     updateApplicationById({ id: application?.id, data });
   };
 
@@ -92,7 +90,6 @@ const ApplicantBasicInfo = ({ application }) => {
             <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
           </div>
 
-          {/* Main component */}
           {isEdit ? (
             <div>
               <div className="grid grid-cols-2 gap-6">
