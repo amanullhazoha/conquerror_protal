@@ -20,10 +20,10 @@ const PublicRoutes = {
       path: "/login",
       element: <Login />,
     },
-    {
-      path: "/sign-up",
-      element: <SignUp />,
-    },
+    // {
+    //   path: "/sign-up",
+    //   element: <SignUp />,
+    // },
     {
       path: "/forgot-password",
       element: <ForgotPasswordStepper />,

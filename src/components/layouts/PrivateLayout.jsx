@@ -377,6 +377,22 @@ const PrivateLayout = ({ children }) => {
                 Applicant Invited List
               </span>
             </NavLink>
+
+            <NavLink
+              to="/create-user"
+              className={(isActive) => isActiveLink(isActive)}
+            >
+              <div>
+                <UserManagementIcon />
+              </div>
+              <span
+                className={`text-base font-medium text-gray-500 group-hover:text-gray-900 ${
+                  !openSidebar && "scale-0"
+                }`}
+              >
+                Create User
+              </span>
+            </NavLink>
           </div>
 
           <div className="flex h-10 flex-col gap-2 px-6 pt-[90px]">
