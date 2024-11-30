@@ -1,48 +1,31 @@
-import { useForm } from "react-hook-form";
+import { Formik, Form } from "formik";
 import { useEffect, useState } from "react";
 import EditButtons from "@/components/EditButtons";
-import InputField from "@/components/inputs/InputField";
-import NumberInput from "@/components/inputs/NumberInput";
-import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 import { InfoCard, InfoEmailCard } from "@/shared/InfoCard";
+import InputFieldNew from "@/components/inputs/InputFielNew";
+import { countryCode } from "@/assets/staticData/countryInfo";
+import PhoneNumberInputField from "@/components/inputs/PhoneNumberInputField";
+import { jobApplyContactInfoSchema } from "@/schema/application/applicant.schema";
+import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 
 const ApplicationContactInfo = ({ application }) => {
   const [isEdit, setIsEdit] = useState(false);
 
-  const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
+  const [updateApplicationById, { isError, isSuccess, error }] =
     useUpdateApplicationByIdMutation();
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm({
-    mode: "onChange",
-  });
-
-  // Update form values when 'application' data is available
-  useEffect(() => {
-    if (application) {
-      reset({
-        email: application?.email,
-        contactNumber: application?.contact_number,
-        whatsappNumber: application?.whatsapp_number,
-      });
-    }
-  }, [application, reset]);
-
-  const onSubmit = (formData) => {
+  const onSubmit = (formData, resetForm) => {
     const data = {
       email: formData.email,
       contact_number: formData.contactNumber,
       whatsapp_number: formData.whatsappNumber,
     };
 
-    console.log(data);
+    const res = updateApplicationById({ id: application?.id, data });
 
-    updateApplicationById({ id: application?.id, data });
+    if (res?.data) {
+      resetForm();
+    }
   };
 
   useEffect(() => {
@@ -58,88 +41,124 @@ const ApplicationContactInfo = ({ application }) => {
 
   return (
     <div className="grid grid-cols-2">
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]"
+      <Formik
+        initialValues={{
+          phoneCode: "",
+          whatsAppCode: "",
+          email: application?.email ? application?.email : "",
+          contact_number: application.contact_number
+            ? application?.contact_number
+            : "",
+          whatsapp_number: application.whatsapp_number
+            ? application?.whatsapp_number
+            : "",
+        }}
+        validationSchema={jobApplyContactInfoSchema}
+        onSubmit={onSubmit}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between mb-[24px]">
-          <h2 className="text-[18px] leading-[27px] font-semibold">
-            Contact information
-          </h2>
+        {({ handleSubmit, errors, touched, values, setFieldValue }) => (
+          <Form
+            onSubmit={handleSubmit}
+            className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]"
+          >
+            <div className="flex items-center justify-between mb-[24px]">
+              <h2 className="text-[18px] leading-[27px] font-semibold">
+                Contact information
+              </h2>
 
-          <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
-        </div>
-
-        {/* Main component */}
-        {isEdit ? (
-          <div>
-            <div className="">
-              <InputField
-                name="email"
-                label="Email"
-                type="email"
-                placeholder="Enter your email"
-                register={register}
-                required
-                rules={{
-                  required: "Email is required",
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: "Please enter a valid email address",
-                  },
-                }}
-                errors={errors}
-              />
+              <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
             </div>
 
-            <div className="pt-4">
-              <NumberInput
-                name="contactNumber"
-                label="Contact Number"
-                placeholder="Enter your contact number"
-                required
-                control={control}
-                rules={{
-                  required: "Contact number is required",
-                }}
-                errors={errors}
-              />
-            </div>
+            {isEdit ? (
+              <div>
+                <div className="">
+                  <InputFieldNew
+                    type="email"
+                    label="Email"
+                    name="email"
+                    errors={errors}
+                    touched={touched}
+                    placeholder="name@example.com"
+                  />
+                </div>
 
-            <div className="pt-5">
-              <NumberInput
-                name="whatsappNumber"
-                label="WhatsApp Number"
-                placeholder="Enter your whatsapp number"
-                required
-                control={control}
-                rules={{
-                  required: "WhatsApp number is required",
-                }}
-                errors={errors}
-              />
-            </div>
-          </div>
-        ) : (
-          <div>
-            <InfoEmailCard
-              title="Email"
-              content={application?.email || ""}
-              status={application?.email_verify === "verified" ? true : false}
-            />
+                <div className="pt-4">
+                  <PhoneNumberInputField
+                    type="number"
+                    name="contact_number"
+                    errors={errors}
+                    touched={touched}
+                    items={countryCode}
+                    keyValue="shortName"
+                    label="Phone Number"
+                    changeDisable={true}
+                    placeholder="000000000"
+                    setFieldValue={setFieldValue}
+                    value={values?.contact_number}
+                    handleSelect={(value) =>
+                      setFieldValue("phoneCode", value?.name)
+                    }
+                    selectCountryCode={
+                      values?.phoneCode
+                        ? countryCode?.find(
+                            (item) => item?.name === values?.phoneCode
+                          )?.shortName
+                        : countryCode?.find((item) => item?.name === "Pakistan")
+                            ?.shortName
+                    }
+                  />
+                </div>
 
-            <InfoCard
-              title="Contact Number"
-              content={application?.contact_number || ""}
-            />
-            <InfoCard
-              title="WhatsApp Number"
-              content={application?.whatsapp_number || ""}
-            />
-          </div>
+                <div className="pt-5">
+                  <PhoneNumberInputField
+                    type="number"
+                    errors={errors}
+                    touched={touched}
+                    items={countryCode}
+                    keyValue="shortName"
+                    label="Whatsapp Number"
+                    name="whatsapp_number"
+                    changeDisable={false}
+                    placeholder="000000000"
+                    setFieldValue={setFieldValue}
+                    value={values?.whatsapp_number}
+                    handleSelect={(value) =>
+                      setFieldValue("whatsAppCode", value?.name)
+                    }
+                    selectCountryCode={
+                      values?.whatsAppCode
+                        ? countryCode?.find(
+                            (item) => item?.name === values?.whatsAppCode
+                          )?.shortName
+                        : countryCode?.find((item) => item?.name === "Pakistan")
+                            ?.shortName
+                    }
+                  />
+                </div>
+              </div>
+            ) : (
+              <div>
+                <InfoEmailCard
+                  title="Email"
+                  content={application?.email || ""}
+                  status={
+                    application?.email_verify === "verified" ? true : false
+                  }
+                />
+
+                <InfoCard
+                  title="Contact Number"
+                  content={application?.contact_number || ""}
+                />
+                <InfoCard
+                  title="WhatsApp Number"
+                  content={application?.whatsapp_number || ""}
+                />
+              </div>
+            )}
+          </Form>
         )}
-      </form>
+      </Formik>
     </div>
   );
 };

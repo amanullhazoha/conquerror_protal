@@ -118,6 +118,36 @@ const EmployPassportForm = ({ setStep }) => {
                   />
                 </div>
 
+                <InputFieldRadio
+                  required={true}
+                  label="Marital status"
+                  name="marital_status"
+                  value={values?.marital_status}
+                  handleSelect={(value) =>
+                    setFieldValue("marital_status", value)
+                  }
+                  items={[
+                    {
+                      id: "1",
+                      name: "single",
+                      value: "single",
+                      label: "Single",
+                    },
+                    {
+                      id: "2",
+                      name: "married",
+                      value: "married",
+                      label: "Married",
+                    },
+                    {
+                      id: "3",
+                      name: "divorced",
+                      value: "divorced",
+                      label: "Divorced",
+                    },
+                  ]}
+                />
+
                 {values?.marital_status === "married" && (
                   <div className="grid grid-cols-2 gap-5">
                     <InputFieldNew

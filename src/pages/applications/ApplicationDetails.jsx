@@ -65,6 +65,7 @@ const ApplicationDetails = () => {
               backTitle="Back to application list"
             />
           </div>
+
           <div className="col-span-12 xl:col-span-8">
             <ApplicationDetailsTabs application={singleApplication} />
           </div>
