@@ -8,6 +8,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: [apiSlice.reducerPath],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

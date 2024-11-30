@@ -1,258 +1,32 @@
-// import moment from "moment";
-// import useToast from "@/hooks/useToast";
-// import { useForm } from "react-hook-form";
-// import { useEffect, useState } from "react";
-// import { InfoCard } from "@/shared/InfoCard";
-// import ApplicantPhoto from "./ApplicantPhoto";
-// import { countries } from "@/data/countryList";
-// import EditButtons from "@/components/EditButtons";
-// import { downloadImage } from "@/utils/downloadImage";
-// import InputField from "@/components/inputs/InputField";
-// import RadioInput from "@/components/inputs/RadioInput";
-// import SelectInput from "@/components/inputs/SelectInput";
-// import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
-// import ApplicantBasicInfoForm from "./ApplicantBasicInfoForm";
-
-// const ApplicantBasicInfo = ({ application }) => {
-//   const [isEdit, setIsEdit] = useState(false);
-//   const { showSuccess, showError } = useToast();
-
-//   const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
-//     useUpdateApplicationByIdMutation();
-
-//   const {
-//     register,
-//     handleSubmit,
-//     control,
-//     reset,
-//     formState: { errors },
-//   } = useForm({
-//     mode: "onChange",
-//   });
-
-//   useEffect(() => {
-//     if (application) {
-//       reset({
-//         firstName: application.first_name,
-//         lastName: application.last_name,
-//         fatherName: application.father_name,
-//         motherName: application.mother_name,
-//         dob: application.date_of_birth,
-//         gender: application.gender,
-//         nationality: application.nationality,
-//         position: application.position_id,
-//         referenceNumber: application.reference,
-//       });
-//     }
-//   }, [application, reset]);
-
-//   const onSubmit = (formData) => {
-//     const data = {
-//       first_name: formData.firstName,
-//       last_name: formData.lastName,
-//       father_name: formData.fatherName,
-//       mother_name: formData.motherName,
-//       date_of_birth: formData.dob,
-//       gender: formData.gender,
-//       nationality: formData.nationality,
-//       position_id: formData.position,
-//       reference: formData.referenceNumber,
-//     };
-
-//     updateApplicationById({ id: application?.id, data });
-//   };
-
-//   const apiUrl = import.meta.env.VITE_APP_API_URL;
-
-//   useEffect(() => {
-//     if (isSuccess) {
-//       showSuccess("Basic information updated successful");
-//       setIsEdit(false);
-//     }
-
-//     if (isError) {
-//       showError(error?.data);
-//     }
-//   }, [isError, isSuccess]);
-
-//   return (
-//     <div className="grid grid-cols-12 gap-6">
-//       <form
-//         onSubmit={handleSubmit(onSubmit)}
-//         className="col-span-6 xl:col-span-7"
-//       >
-//         <div className="border-[1px] border-[#E5E5E5] p-[24px] rounded-[16px]">
-//           <div className="flex items-center justify-between mb-[24px]">
-//             <h2 className="text-[18px] leading-[27px] font-semibold">
-//               Basic Information
-//             </h2>
-
-//             <EditButtons isEdit={isEdit} setIsEdit={setIsEdit} />
-//           </div>
-
-//           {isEdit ? (
-//             <ApplicantBasicInfoForm
-//               errors={errors}
-//               control={control}
-//               register={register}
-//             />
-//           ) : (
-//             <div>
-//               <div className="grid grid-cols-2 gap-6">
-//                 <InfoCard
-//                   title="First Name"
-//                   content={
-//                     application?.first_name ? application.first_name : "Null"
-//                   }
-//                 />
-
-//                 <InfoCard title="Last Name" content={application?.last_name} />
-//               </div>
-
-//               <InfoCard
-//                 title="Father Name"
-//                 content={application?.father_name || ""}
-//               />
-
-//               <InfoCard
-//                 title="Mother Name"
-//                 content={application?.mother_name}
-//               />
-
-//               <InfoCard
-//                 title="Date of Birth"
-//                 content={
-//                   application?.date_of_birth
-//                     ? moment(application?.date_of_birth || new Date()).format(
-//                         "D-MMMM-YYYY"
-//                       )
-//                     : "Null"
-//                 }
-//               />
-
-//               <InfoCard title="Gender" content={application?.gender} />
-
-//               <InfoCard
-//                 title="Nationality"
-//                 content={application?.nationality}
-//               />
-
-//               <div
-//                 className={`grid gap-6 ${
-//                   application?.position_id === 52
-//                     ? "grid-cols-2"
-//                     : "grid-cols-1"
-//                 }`}
-//               >
-//                 <InfoCard
-//                   title="Position"
-//                   content={
-//                     application?.position_id === 50
-//                       ? "Rider"
-//                       : application?.position_id === 52
-//                       ? "Freelancer"
-//                       : "Null"
-//                   }
-//                 />
-
-//                 {application?.position_id === 52 && (
-//                   <InfoCard
-//                     title="Hiring Position"
-//                     content={application?.hiring_position}
-//                   />
-//                 )}
-//               </div>
-
-//               <InfoCard
-//                 title="Reference Number"
-//                 content={application?.reference}
-//               />
-//             </div>
-//           )}
-//         </div>
-//       </form>
-
-//       <div className="col-span-6 xl:col-span-5 border-[1px] self-start border-[#E5E5E5] p-[24px] rounded-[16px]">
-//         <h2 className="text-[18px] leading-[27px] font-semibold mb-5">
-//           Documents
-//         </h2>
-
-//         <ApplicantPhoto
-//           title="Applicant Photo"
-//           downloadImage={() =>
-//             downloadImage(
-//               `${apiUrl}/uploads/${application?.applicant_image}`,
-//               application?.applicant_image
-//             )
-//           }
-//           image={`${apiUrl}/uploads/${application?.applicant_image}`}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ApplicantBasicInfo;
-
 import moment from "moment";
+import { Formik, Form } from "formik";
 import useToast from "@/hooks/useToast";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { InfoCard } from "@/shared/InfoCard";
 import ApplicantPhoto from "./ApplicantPhoto";
-// import { countries } from "@/data/countryList";
 import EditButtons from "@/components/EditButtons";
 import { downloadImage } from "@/utils/downloadImage";
-import InputField from "@/components/inputs/InputField";
-import RadioInput from "@/components/inputs/RadioInput";
-import SelectInput from "@/components/inputs/SelectInput";
-import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
-import ApplicantBasicInfoForm from "./ApplicantBasicInfoForm";
-import { Formik, Form } from "formik";
-import InputFieldRadio from "@/components/inputs/InputFieldRadio";
-import InputFieldNew from "@/components/inputs/InputFielNew";
-import SelectInputField from "@/components/inputs/SelectInputField";
 import CountryInput from "@/components/inputs/CountryInput";
-import DateInputField from "@/components/inputs/DateInputField";
-import { hiringPositions } from "@/assets/staticData/hiringPosition";
 import { countries } from "@/assets/staticData/countryInfo";
-import { jobApplyBasicSchema } from "@/schema/auth/signup.schema";
+import InputFieldNew from "@/components/inputs/InputFielNew";
+import DateInputField from "@/components/inputs/DateInputField";
+import InputFieldRadio from "@/components/inputs/InputFieldRadio";
+import SelectInputField from "@/components/inputs/SelectInputField";
+import { hiringPositions } from "@/assets/staticData/hiringPosition";
+import { jobApplyBasicSchema } from "@/schema/application/applicant.schema";
+import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 
 const ApplicantBasicInfo = ({ application }) => {
   const [isEdit, setIsEdit] = useState(false);
   const { showSuccess, showError } = useToast();
+  const [resData, setResData] = useState(application);
 
-  const [updateApplicationById, { isLoading, isError, isSuccess, error }] =
+  const [updateApplicationById, { isError, isSuccess }] =
     useUpdateApplicationByIdMutation();
 
-  const {
-    register,
-    handleSubmit,
-    control,
-    reset,
-    formState: { errors },
-  } = useForm({
-    mode: "onChange",
-  });
-
-  useEffect(() => {
-    if (application) {
-      reset({
-        firstName: application.first_name,
-        lastName: application.last_name,
-        fatherName: application.father_name,
-        motherName: application.mother_name,
-        dob: application.date_of_birth,
-        gender: application.gender,
-        nationality: application.nationality,
-        position: application.position_id,
-        referenceNumber: application.reference,
-      });
-    }
-  }, [application, reset]);
-
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData, resetForm) => {
     const data = {
+      ...application,
       first_name: formData?.first_name,
       last_name: formData?.last_name,
       father_name: formData?.father_name,
@@ -261,13 +35,17 @@ const ApplicantBasicInfo = ({ application }) => {
       gender: formData?.gender,
       nationality: formData?.nationality,
       position_id: formData?.position_id,
-      reference: formData?.reference ? formData?.reference : null,
+      reference: formData?.reference ? formData?.reference : "",
       hiring_position: formData?.hiring_position
         ? formData?.hiring_position
-        : null,
+        : "",
     };
 
-    updateApplicationById({ id: application?.id, data });
+    const res = updateApplicationById({ id: application?.id, data });
+
+    if (res?.data) {
+      resetForm();
+    }
   };
 
   const apiUrl = import.meta.env.VITE_APP_API_URL;
@@ -279,31 +57,35 @@ const ApplicantBasicInfo = ({ application }) => {
     }
 
     if (isError) {
-      showError(error?.data);
+      showError("There was an error");
     }
   }, [isError, isSuccess]);
+
+  useEffect(() => {
+    if (application) {
+      setResData(application);
+    }
+  }, [application]);
 
   return (
     <div className="grid grid-cols-12 gap-6">
       <Formik
         initialValues={{
-          first_name: application?.first_name ? application?.first_name : "",
-          last_name: application?.last_name ? application?.last_name : "",
-          father_name: application?.father_name ? application?.father_name : "",
-          mother_name: application?.mother_name ? application?.mother_name : "",
-          date_of_birth: application?.date_of_birth
-            ? application?.date_of_birth
-            : "",
-          gender: application?.gender ? application?.gender : "",
-          nationality: application?.nationality ? application?.nationality : "",
-          position_id: application?.position_id ? application?.position_id : "",
-          reference: application?.reference ? application?.reference : "",
-          hiring_position: application?.hiring_position
-            ? application?.hiring_position
+          first_name: resData?.first_name ? resData?.first_name : "",
+          last_name: resData?.last_name ? resData?.last_name : "",
+          father_name: resData?.father_name ? resData?.father_name : "",
+          mother_name: resData?.mother_name ? resData?.mother_name : "",
+          date_of_birth: resData?.date_of_birth ? resData?.date_of_birth : "",
+          gender: resData?.gender ? resData?.gender : "",
+          nationality: resData?.nationality ? resData?.nationality : "",
+          position_id: resData?.position_id ? resData?.position_id : "",
+          reference: resData?.reference ? resData?.reference : "",
+          hiring_position: resData?.hiring_position
+            ? resData?.hiring_position
             : "",
         }}
         validationSchema={jobApplyBasicSchema}
-        onSubmit={handleSubmit(onSubmit)}
+        onSubmit={onSubmit}
       >
         {({ handleSubmit, errors, touched, values, setFieldValue }) => (
           <Form onSubmit={handleSubmit} className="col-span-6 xl:col-span-7">
@@ -373,8 +155,6 @@ const ApplicantBasicInfo = ({ application }) => {
                       }
                     />
                   </div>
-
-                  {console.log(values)}
 
                   <div className="pt-4">
                     <InputFieldRadio
@@ -488,49 +268,44 @@ const ApplicantBasicInfo = ({ application }) => {
                     <InfoCard
                       title="First Name"
                       content={
-                        application?.first_name
-                          ? application.first_name
-                          : "Null"
+                        resData?.first_name ? resData.first_name : "Null"
                       }
                     />
 
-                    <InfoCard
-                      title="Last Name"
-                      content={application?.last_name}
-                    />
+                    <InfoCard title="Last Name" content={resData?.last_name} />
                   </div>
 
                   <InfoCard
                     title="Father Name"
-                    content={application?.father_name || ""}
+                    content={resData?.father_name || ""}
                   />
 
                   <InfoCard
                     title="Mother Name"
-                    content={application?.mother_name}
+                    content={resData?.mother_name}
                   />
 
                   <InfoCard
                     title="Date of Birth"
                     content={
-                      application?.date_of_birth
-                        ? moment(
-                            application?.date_of_birth || new Date()
-                          ).format("D-MMMM-YYYY")
+                      resData?.date_of_birth
+                        ? moment(resData?.date_of_birth || new Date()).format(
+                            "D-MMMM-YYYY"
+                          )
                         : "Null"
                     }
                   />
 
-                  <InfoCard title="Gender" content={application?.gender} />
+                  <InfoCard title="Gender" content={resData?.gender} />
 
                   <InfoCard
                     title="Nationality"
-                    content={application?.nationality}
+                    content={resData?.nationality}
                   />
 
                   <div
                     className={`grid gap-6 ${
-                      application?.position_id === 52
+                      resData?.position_id === 52
                         ? "grid-cols-2"
                         : "grid-cols-1"
                     }`}
@@ -538,25 +313,25 @@ const ApplicantBasicInfo = ({ application }) => {
                     <InfoCard
                       title="Position"
                       content={
-                        application?.position_id === 50
+                        resData?.position_id === 50
                           ? "Rider"
-                          : application?.position_id === 52
+                          : resData?.position_id === 52
                           ? "Freelancer"
                           : "Null"
                       }
                     />
 
-                    {application?.position_id === 52 && (
+                    {resData?.position_id === 52 && (
                       <InfoCard
                         title="Hiring Position"
-                        content={application?.hiring_position}
+                        content={resData?.hiring_position}
                       />
                     )}
                   </div>
 
                   <InfoCard
                     title="Reference Number"
-                    content={application?.reference}
+                    content={resData?.reference}
                   />
                 </div>
               )}

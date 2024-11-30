@@ -7,20 +7,24 @@ const applicationsApi = apiSlice.injectEndpoints({
         `/api/v1/secure/career/jobs?search=${searchQuery}&page=${page}&size=${size}`,
       providesTags: ["Applications"],
     }),
+
     getAllNewApplications: builder.query({
       query: ({ searchQuery = "", page = 1, size = 24 }) =>
         `/api/v1/secure/career/jobs/new-application?search=${searchQuery}&page=${page}&size=${size}`,
       providesTags: ["Applications"],
     }),
+
     getAllInterviewApplications: builder.query({
       query: ({ searchQuery = "", page = 1, size = 24, status }) =>
         `/api/v1/secure/career/jobs/interview?search=${searchQuery}&page=${page}&size=${size}&status=${status}`,
       providesTags: ["Applications"],
     }),
+
     getApplicationById: builder.query({
       query: (id) => `/api/v1/secure/career/jobs/${id}`,
       providesTags: ["Application"],
     }),
+
     updateApplicationById: builder.mutation({
       query: ({ id, data }) => ({
         url: `/api/v1/secure/career/jobs/${id}`,
@@ -29,10 +33,12 @@ const applicationsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Applications", "Application"],
     }),
+
     getApplicantInterviewDetail: builder.query({
       query: ({ id }) => `/api/v1/secure/meeting/${id}`,
       providesTags: ["Applications", "Application"],
     }),
+
     createZoomMeetingByUserId: builder.mutation({
       query: ({ id, data }) => ({
         url: `/api/v1/secure/zoom-meeting/${id}`,
@@ -41,6 +47,7 @@ const applicationsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Applications", "Application"],
     }),
+
     createInPersonMeetingByUserId: builder.mutation({
       query: ({ id, data }) => ({
         url: `/api/v1/secure/in-person-meeting/${id}`,
@@ -49,6 +56,7 @@ const applicationsApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["Applications", "Application"],
     }),
+
     applicationStatusUpdateByID: builder.mutation({
       query: ({ id, data }) => ({
         url: `/api/v1/secure/career/jobs-status-update/${id}`,

@@ -1,13 +1,11 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ApplicantBasicInfo from "./ApplicantBasicInfo";
+import ApplicationNidInfo from "./ApplicationNidInfo";
 import ApplicantLicenseInfo from "./ApplicantLicenseInfo";
 import ApplicantPassportInfo from "./ApplicantPassportInfo";
 import ApplicationContactInfo from "./ApplicationContactInfo";
-import ApplicationNidInfo from "./ApplicationNidInfo";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const ApplicationDetailsTabs = ({ application }) => {
-  console.log("application: ", application);
-
   return (
     <div className="w-full">
       <h2 className="mb-[28px] text-2xl text-gray-900 font-semibold">
