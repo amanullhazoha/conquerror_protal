@@ -1,19 +1,15 @@
 import moment from "moment";
 import { Form, Formik } from "formik";
 import useToast from "@/hooks/useToast";
-import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
 import { InfoCard } from "@/shared/InfoCard";
 import ApplicantPhoto from "./ApplicantPhoto";
 import EditButtons from "@/components/EditButtons";
 import { downloadImage } from "@/utils/downloadImage";
-import InputField from "@/components/inputs/InputField";
-import RadioInput from "@/components/inputs/RadioInput";
 import CountryInput from "@/components/inputs/CountryInput";
 import InputFieldNew from "@/components/inputs/InputFielNew";
-import InputFieldRadio from "@/components/inputs/InputFieldRadio";
 import DateInputField from "@/components/inputs/DateInputField";
-
+import InputFieldRadio from "@/components/inputs/InputFieldRadio";
 import { countryCode, countries } from "@/assets/staticData/countryInfo";
 import { jobApplyLicenseSchema } from "@/schema/application/applicant.schema";
 import PhoneNumberInputField from "@/components/inputs/PhoneNumberInputField";
@@ -61,7 +57,6 @@ const ApplicantLicenseInfo = ({ application }) => {
     }
 
     if (isError) {
-      console.log(error);
       showError(error?.data?.message);
     }
   }, [isError, isSuccess]);
