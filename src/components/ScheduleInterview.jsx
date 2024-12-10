@@ -1,8 +1,9 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from "react"
-import { Combobox } from "./combobox"
 // import { Combobox } from "./combobox"
 import logo from "@/assets/images/conqueror_logo.png"
+import { TimezoneCombo } from './TimezoneCombo'
+import { Button } from './ui/button'
 
 export default function ScheduleInterview() {
     const [currentDate, setCurrentDate] = useState(new Date(2024, 10, 1)) // November 2024
@@ -39,7 +40,7 @@ export default function ScheduleInterview() {
 
     return (
         <div className="flex items-center justify-center min-h-screen">
-            <div className="w-full max-w-[640px] bg-white rounded-[20px] p-8">
+            <div className="w-full max-w-3xl bg-white rounded-[20px] p-8">
                 <div className="flex justify-between items-start mb-6">
                     <div>
                         <h1 className="text-[24px] font-semibold text-[#1D2939] mb-1">Reschedule Your Interview</h1>
@@ -53,18 +54,18 @@ export default function ScheduleInterview() {
                         className="mt-1"
                     />
                 </div>
-                <div className="flex gap-8">
+                <div className="flex gap-10">
                     {/* Calendar Section */}
                     <div className="flex-1">
-                        <div className="flex items-center justify-between mb-6">
-                            <button className="p-2 hover:bg-gray-100 rounded-full" onClick={() => navigateMonth('prev')}>
-                                <ChevronLeft className="w-5 h-5 text-[#344054]" />
+                        <div className="flex items-center justify-between mb-6 px-6">
+                            <button className="p-1 hover:bg-blue-100 ring-1 rounded-full" onClick={() => navigateMonth('prev')}>
+                                <ArrowLeft className="w-5 h-5 text-[#1a56db]" />
                             </button>
                             <span className="text-[#344054] font-medium">
                                 {currentDate.toLocaleString('default', { month: 'long', year: 'numeric' })}
                             </span>
-                            <button className="p-2 hover:bg-gray-100 rounded-full" onClick={() => navigateMonth('next')}>
-                                <ChevronRight className="w-5 h-5 text-[#344054]" />
+                            <button className="p-1 hover:bg-blue-100 ring-1 rounded-full" onClick={() => navigateMonth('next')}>
+                                <ArrowRight className="w-5 h-5 text-[#1a56db]" />
                             </button>
                         </div>
                         <div className="grid grid-cols-7 gap-y-2">
@@ -84,7 +85,7 @@ export default function ScheduleInterview() {
                                                 ? "bg-[#FEE4E2] text-[#F04438]"
                                                 : status === "other-month"
                                                     ? "text-[#D0D5DD]"
-                                                    : "text-[#344054] hover:bg-gray-100"
+                                                    : "text-[#344054] hover:bg-blue-50 hover:ring-1 hover:ring-blue-100"
                                         }`}
                                     onClick={() => setSelectedDate(date)}
                                     disabled={status === "other-month"}
@@ -93,36 +94,36 @@ export default function ScheduleInterview() {
                                 </button>
                             ))}
                         </div>
+
+                        <label htmlFor="timezone" className='mt-6 block'>
+                            <span>Timezone <span className='text-red-500'>*</span></span>
+                            <TimezoneCombo />
+                        </label>
+
                     </div>
                     {/* Time Slots Section */}
                     <div className="flex-1">
                         <div className="text-[#344054] font-medium mb-4">
                             {selectedDate ? selectedDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) : 'Select a date'}
                         </div>
-                        <div className="space-y-3">
-                            {selectedDate && timeSlots?.map((time, index) => (
+                        <div className="space-y-2 mt-8">
+                            {timeSlots?.map((time, index) => (
                                 <div key={index} className="flex gap-2">
-                                    <button
-                                        className={`flex-1 py-2 px-4 rounded-[8px] border ${selectedTime === time
-                                            ? "bg-[#1D2939] text-white border-[#1D2939]"
-                                            : "border-[#D0D5DD] text-[#344054] hover:bg-gray-50"
-                                            }`}
+                                    <Button
+                                        className={`flex-1 text-[#1a56db] bg-transparent border border-[#1a56db] rounded-full hover:text-white ${selectedTime === time ? '' : ''}`}
                                         onClick={() => setSelectedTime(time)}
                                     >
                                         {time}
-                                    </button>
+                                    </Button>
                                     {selectedTime === time && (
-                                        <button className="bg-[#2E90FA] text-white px-4 py-2 rounded-[8px] font-medium">
+                                        <Button className="flex-1 rounded-full bg-[#1a56db] text-white" >
                                             Submit
-                                        </button>
+                                        </Button>
                                     )}
                                 </div>
                             ))}
                         </div>
                     </div>
-                </div>
-                <div className="mt-6">
-                    <Combobox />
                 </div>
             </div>
         </div>
