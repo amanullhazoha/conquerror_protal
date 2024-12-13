@@ -14,7 +14,7 @@ import {
 import { ChevronsUpDown, MoreHorizontal } from 'lucide-react';
 import { StatusBadge } from "./status-badge";
 
-export const columns = [
+export const hiredColumns = [
   {
     id: "select",
     header: ({ table }) => (
@@ -192,3 +192,52 @@ export const columns = [
   },
 ]
 
+export const activityHistoryColumns = [
+  {
+    accessorKey: "dateTime",
+    header: ({ column }) => (
+      <Button
+        className="p-0 hover:bg-transparent hover:text-blue-500"
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Date & Time
+        <ChevronsUpDown />
+      </Button>
+    ),
+    cell: ({ row }) => {
+      const date = new Date(row.original.dateTime);
+      return (
+        <div className="flex flex-col">
+          <span>{date.toLocaleDateString()}</span>
+          <span className="text-sm text-muted-foreground">
+            {date.toLocaleTimeString()}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: "userName",
+    header: "User Name & Email",
+    cell: ({ row }) => (
+      <div className="flex flex-col">
+        <span className="font-medium">{row.original.userName}</span>
+        <span className="text-sm text-muted-foreground">{row.original.email}</span>
+      </div>
+    ),
+  },
+  {
+    accessorKey: "action",
+    header: ({ column }) => (
+      <Button
+        className="p-0 hover:bg-transparent hover:text-blue-500"
+        variant="ghost"
+        onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+      >
+        Action
+        <ChevronsUpDown />
+      </Button>
+    ),
+  },
+];

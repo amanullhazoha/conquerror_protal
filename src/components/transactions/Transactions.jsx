@@ -1,11 +1,12 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ActivityHistoryTab } from "./ActivityHistoryTab"
 import { SentForCreditTab } from "./SentForCreditTab"
 import { TransactionsTab } from "./TransactionsTab"
 
 const tabs = [
     { label: 'Deposit', value: "deposit", component: <div /> },
     { label: 'Sent for Credit', value: "sentforcredit", component: <SentForCreditTab /> },
-    { label: 'Withdraw', value: "withdraw", component: <div /> },
+    { label: 'Activity', value: "activity", component: <ActivityHistoryTab /> },
     { label: 'Transactions', value: "transactions", component: <TransactionsTab /> },
     { label: 'History', value: "history", component: <div /> },
     { label: 'Rejected', value: "rejected", component: <div /> },
