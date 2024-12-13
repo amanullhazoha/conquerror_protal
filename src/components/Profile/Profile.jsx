@@ -1,10 +1,9 @@
 import {
     Dialog,
     DialogContent,
-    DialogDescription,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
+    DialogTrigger
 } from "@/components/ui/dialog";
 ("use client");
 
@@ -161,61 +160,59 @@ export function UserProfile() {
                                     Request for credit <SendIcon className="rotate" />
                                 </Button>
                             </DialogTrigger>
-                            <DialogContent>
-                                <DialogHeader>
+                            <DialogContent className="p-0">
+                                <DialogHeader className="border-b p-5 pb-6">
                                     <DialogTitle>Send email to molla.ux@gmail.com</DialogTitle>
-                                    <DialogDescription>
-                                        This action cannot be undone. This will permanently delete
-                                        your account and remove your data from our servers.
-                                    </DialogDescription>
                                 </DialogHeader>
-                                <Formik
-                                    initialValues={initialValues}
-                                    validationSchema={schema}
-                                    onSubmit={onSubmit}
-                                >
-                                    {({ setFieldValue }) => (
-                                        <Form className="space-y-4">
-                                            <div>
-                                                <label
-                                                    htmlFor="subject"
-                                                    className="block text-sm font-medium text-gray-700 mb-2"
-                                                >
-                                                    Subject <span className="text-red-500">*</span>
-                                                </label>
-                                                <Field
-                                                    type="text"
-                                                    id="subject"
-                                                    name="subject"
-                                                    className="w-full py-1.5 px-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
-                                                    placeholder="Enter subject"
-                                                />
-                                                <ErrorMessage
-                                                    name="subject"
-                                                    component="p"
-                                                    className="text-red-500 text-sm mt-1"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-sm font-medium text-gray-700 mb-2">
-                                                    Message <span className="text-red-500">*</span>
-                                                </label>
-                                                <EmailEditor setFieldValue={setFieldValue} />
-                                                <ErrorMessage
-                                                    name="message"
-                                                    component="p"
-                                                    className="text-red-500 text-sm mt-1"
-                                                />
-                                            </div>
-                                            <div className="flex justify-end gap-2">
-                                                <DialogTrigger asChild>
-                                                    <Button variant="outline" className="rounded-full">Cancel</Button>
-                                                </DialogTrigger>
-                                                <Button type="submit" className="bg-blue-600 text-white hover:bg-blue-600/80 rounded-full"><Mail />Send Email</Button>
-                                            </div>
-                                        </Form>
-                                    )}
-                                </Formik>
+                                <div className="p-5">
+                                    <Formik
+                                        initialValues={initialValues}
+                                        validationSchema={schema}
+                                        onSubmit={onSubmit}
+                                    >
+                                        {({ setFieldValue }) => (
+                                            <Form className="space-y-4">
+                                                <div>
+                                                    <label
+                                                        htmlFor="subject"
+                                                        className="block text-sm font-medium text-gray-700 mb-2"
+                                                    >
+                                                        Subject <span className="text-red-500">*</span>
+                                                    </label>
+                                                    <Field
+                                                        type="text"
+                                                        id="subject"
+                                                        name="subject"
+                                                        className="w-full py-1.5 px-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
+                                                        placeholder="Enter subject"
+                                                    />
+                                                    <ErrorMessage
+                                                        name="subject"
+                                                        component="p"
+                                                        className="text-red-500 text-sm mt-1"
+                                                    />
+                                                </div>
+                                                <div>
+                                                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                                                        Message <span className="text-red-500">*</span>
+                                                    </label>
+                                                    <EmailEditor setFieldValue={setFieldValue} />
+                                                    <ErrorMessage
+                                                        name="message"
+                                                        component="p"
+                                                        className="text-red-500 text-sm mt-1"
+                                                    />
+                                                </div>
+                                                <div className="flex justify-end gap-2">
+                                                    <DialogTrigger asChild>
+                                                        <Button variant="outline" className="rounded-full">Cancel</Button>
+                                                    </DialogTrigger>
+                                                    <Button type="submit" className="bg-blue-600 text-white hover:bg-blue-600/80 rounded-full"><Mail />Send Email</Button>
+                                                </div>
+                                            </Form>
+                                        )}
+                                    </Formik>
+                                </div>
                             </DialogContent>
                         </Dialog>
 
