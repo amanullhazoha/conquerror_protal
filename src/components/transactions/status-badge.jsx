@@ -22,7 +22,7 @@ export function StatusBadge({
   return (
     (<span
       className={cn(
-        "relative inline-flex items-center rounded-full px-3 py-1 text-sm font-medium",
+        "relative inline-flex items-center rounded-full px-3 py-1 text-sm font-medium whitespace-nowrap",
         "before:mr-2 before:h-1.5 before:w-1.5 before:rounded-full",
         getStatusStyles(status),
         className

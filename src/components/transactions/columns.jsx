@@ -12,6 +12,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronsUpDown, MoreHorizontal } from 'lucide-react';
 import { StatusBadge } from "./status-badge";
+import userAvatar from "@/assets/images/user.png"
+console.log(userAvatar)
 
 export const columns = [
   {
@@ -42,7 +44,7 @@ export const columns = [
       return (
         (<div className="flex items-center gap-2">
           <Avatar className="h-8 w-8">
-            <AvatarImage src={row.original.avatar} alt={row.original.name} />
+            <AvatarImage src={row.original.avatar || userAvatar} alt={row.original.name} />
             <AvatarFallback>{row.original.name[0]}</AvatarFallback>
           </Avatar>
           <span>{row.original.name}</span>
