@@ -10,7 +10,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { ArrowUpDown, MoreHorizontal } from 'lucide-react';
+import { ChevronsUpDown, MoreHorizontal } from 'lucide-react';
 import { StatusBadge } from "./status-badge";
 
 export const columns = [
@@ -69,9 +69,10 @@ export const columns = [
     header: ({ column }) => {
       return (
         (<Button
+          className="p-0 hover:bg-transparent hover:text-blue-500"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>Submit Date & Time
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown />
         </Button>)
       );
     },
@@ -92,9 +93,10 @@ export const columns = [
     header: ({ column }) => {
       return (
         (<Button
+          className="p-0 hover:bg-transparent hover:text-blue-500"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>Payment Date & Time
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown />
         </Button>)
       );
     },
@@ -115,9 +117,10 @@ export const columns = [
     header: ({ column }) => {
       return (
         (<Button
+          className="p-0 hover:bg-transparent hover:text-blue-500"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>Payment Type
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown />
         </Button>)
       );
     },
@@ -135,9 +138,10 @@ export const columns = [
     header: ({ column }) => {
       return (
         (<Button
+          className="p-0 hover:bg-transparent hover:text-blue-500"
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>Wallet Balance
-          <ArrowUpDown className="ml-2 h-4 w-4" />
+          <ChevronsUpDown />
         </Button>)
       );
     },
