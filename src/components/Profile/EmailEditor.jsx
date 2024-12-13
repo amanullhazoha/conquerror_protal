@@ -1,23 +1,28 @@
+/* eslint-disable react/prop-types */
 import Image from '@tiptap/extension-image'
 import Link from '@tiptap/extension-link'
+import Underline from '@tiptap/extension-underline'
 import { EditorContent, useEditor } from '@tiptap/react'
 import StarterKit from '@tiptap/starter-kit'
-import { Bold, Image as ImageIcon, Italic, Link as LinkIcon, Underline } from 'lucide-react'
+import { Bold, Image as ImageIcon, Italic, Link as LinkIcon, Underline as UnderlineIcon } from 'lucide-react'
 import { Button } from '../ui/button'
 
-
-const EmailEditor = () => {
+const EmailEditor = ({ setFieldValue }) => {
     const editor = useEditor({
         extensions: [
             StarterKit,
             Link,
-            Image
+            Image,
+            Underline
         ],
         content: '',
         editorProps: {
             attributes: {
                 class: 'prose prose-sm sm:prose-base lg:prose-lg xl:prose-2xl m-5 focus:outline-none min-h-[200px]',
             },
+        },
+        onUpdate: ({ editor }) => {
+            setFieldValue("message", editor.getHTML());
         },
     })
 
@@ -29,6 +34,7 @@ const EmailEditor = () => {
         <div className="border rounded-lg overflow-hidden">
             <div className="border-b bg-gray-50 p-2 flex gap-2">
                 <Button
+                    type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleBold().run()}
@@ -37,6 +43,7 @@ const EmailEditor = () => {
                     <Bold className="h-4 w-4" />
                 </Button>
                 <Button
+                    type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -45,14 +52,16 @@ const EmailEditor = () => {
                     <Italic className="h-4 w-4" />
                 </Button>
                 <Button
+                    type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => editor.chain().focus().toggleUnderline().run()}
                     className={editor.isActive('underline') ? 'bg-gray-200' : ''}
                 >
-                    <Underline className="h-4 w-4" />
+                    <UnderlineIcon className="h-4 w-4" />
                 </Button>
                 <Button
+                    type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => {
@@ -66,6 +75,7 @@ const EmailEditor = () => {
                     <LinkIcon className="h-4 w-4" />
                 </Button>
                 <Button
+                    type="button"
                     variant="ghost"
                     size="sm"
                     onClick={() => {
