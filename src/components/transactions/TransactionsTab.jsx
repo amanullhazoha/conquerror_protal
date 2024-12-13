@@ -33,7 +33,7 @@ export function TransactionsTab() {
             {/* main table */}
             <div>
                 <div className="w-full ">
-                    {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item, index) => (
+                    {[1, 2, 3].map((item, index) => (
                         <TransactionRecord
                             key={index}
                             status="Paid"

@@ -15,7 +15,7 @@ const tabs = [
 export default function Transactions() {
     return (
         <div className="min-h-screen flex items-center justify-center">
-            <div className=" w-full max-w-5xl border p-10 rounded-lg">
+            <div className=" w-full max-w-[80vw] border p-10 rounded-lg">
                 <Tabs defaultValue="sentforcredit" className="w-full">
                     <TabsList className="flex whitespace-nowrap mb-6">
                         {tabs.map(tab => (
