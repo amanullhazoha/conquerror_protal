@@ -1,4 +1,5 @@
-import ScheduleInterview from "@/components/ScheduleInterview";
+import ScheduleInterview from "@/components/interview/ScheduleInterview";
+import Transactions from "@/components/transactions/Transactions";
 import { createBrowserRouter } from "react-router-dom";
 import AuthenticatedRoutes from "./AuthenticatedRoutes";
 import GlobalRoutes from "./GlobalRoutes";
@@ -12,6 +13,10 @@ const router = createBrowserRouter(
     {
       path: "/interview",
       element: <ScheduleInterview />,
+    },
+    {
+      path: "/transactions",
+      element: <Transactions />,
     }
   ],
   {

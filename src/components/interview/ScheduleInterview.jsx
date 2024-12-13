@@ -1,16 +1,15 @@
+import logo from "@/assets/images/conqueror_logo.png"
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { useEffect, useState } from "react"
-// import { Combobox } from "./combobox"
-import logo from "@/assets/images/conqueror_logo.png"
+import { Button } from "../ui/button"
 import { TimezoneCombo } from './TimezoneCombo'
-import { Button } from './ui/button'
 
 export default function ScheduleInterview() {
     const [currentDate, setCurrentDate] = useState(new Date(2024, 10, 1)) // November 2024
     const [selectedDate, setSelectedDate] = useState(null)
     const [selectedTime, setSelectedTime] = useState(null)
 
-    const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
+    // const daysInMonth = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
     const firstDayOfMonth = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay()
 
     const days = Array.from({ length: 42 }, (_, i) => {
