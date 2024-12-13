@@ -1,4 +1,5 @@
 "use client";
+import userAvatar from "@/assets/images/user.png";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -12,8 +13,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { ChevronsUpDown, MoreHorizontal } from 'lucide-react';
 import { StatusBadge } from "./status-badge";
-import userAvatar from "@/assets/images/user.png"
-console.log(userAvatar)
 
 export const columns = [
   {
