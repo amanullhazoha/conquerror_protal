@@ -1,12 +1,20 @@
-"use client"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+} from "@/components/ui/dialog";
+("use client");
 
-import SendIcon from "@/assets/icons/SendIcon"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ArrowLeft, Calendar, UserPlus, Verified, Wallet } from 'lucide-react'
-
-
+import SendIcon from "@/assets/icons/SendIcon";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft, Calendar, Mail, UserPlus, Verified, Wallet } from "lucide-react";
+import { Input } from "../ui/input";
+import EmailEditor from "./EmailEditor";
 
 const user = {
     name: "Abu Taher Molla",
@@ -24,12 +32,12 @@ const user = {
         balance: 522,
         receivable: 522,
     },
-}
+};
 
 export function UserProfile() {
     const formatCurrency = (amount) => {
-        return `AED ${amount}`
-    }
+        return `AED ${amount}`;
+    };
     const formatDate = (date) => {
         return date.toLocaleDateString("en-US", {
             weekday: "short",
@@ -39,8 +47,8 @@ export function UserProfile() {
             hour: "numeric",
             minute: "numeric",
             hour12: true,
-        })
-    }
+        });
+    };
 
     return (
         <div className="min-h-screen flex items-center justify-center">
@@ -103,7 +111,9 @@ export function UserProfile() {
 
                         <div className="space-y-3 text-sm p-4">
                             <div className="flex justify-between gap-4">
-                                <span className="text-muted-foreground">Total payable amount</span>
+                                <span className="text-muted-foreground">
+                                    Total payable amount
+                                </span>
                                 <span>{formatCurrency(user.wallet.totalPayable)}</span>
                             </div>
                             <div className="flex justify-between gap-4">
@@ -127,21 +137,60 @@ export function UserProfile() {
                     </div>
 
                     <div className="mt-6 flex gap-3">
-                        <Button
-                            variant="outline"
-                            className="flex-1 bg-white hover:bg-gray-50 rounded-full"
-                        >
-                            Request for credit <SendIcon className="rotate" />
-                        </Button>
-                        <Button
-                            className="flex-1 bg-blue-600 hover:bg-blue-700 rounded-full"
-                        >
+                        <Dialog>
+                            <DialogTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className="flex-1 bg-white hover:bg-gray-50 rounded-full"
+                                >
+                                    Request for credit <SendIcon className="rotate" />
+                                </Button>
+                            </DialogTrigger>
+                            <DialogContent>
+                                <DialogHeader>
+                                    <DialogTitle>Send email to molla.ux@gmail.com</DialogTitle>
+                                    <DialogDescription>
+                                        This action cannot be undone. This will permanently delete
+                                        your account and remove your data from our servers.
+                                    </DialogDescription>
+                                </DialogHeader>
+                                <div className="space-y-4">
+                                    <div>
+                                        <label
+                                            htmlFor="subject"
+                                            className="block text-sm font-medium text-gray-700 mb-2"
+                                        >
+                                            Subject <span className="text-red-500">*</span>
+                                        </label>
+                                        <Input
+                                            type="text"
+                                            id="subject"
+                                            className=""
+                                            placeholder="Enter subject"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                                            Message <span className="text-red-500">*</span>
+                                        </label>
+                                        <EmailEditor />
+                                    </div>
+                                    <div className="flex justify-end gap-2">
+                                        <DialogTrigger asChild>
+                                            <Button variant="outline" className="rounded-full">Cancel</Button>
+                                        </DialogTrigger>
+                                        <Button className="bg-blue-600 text-white hover:bg-blue-600/80 rounded-full"><Mail />Send Email</Button>
+                                    </div>
+                                </div>
+                            </DialogContent>
+                        </Dialog>
+
+                        <Button className="flex-1 bg-blue-600 hover:bg-blue-700 rounded-full">
                             + Add payment
                         </Button>
                     </div>
                 </div>
             </div>
         </div>
-    )
+    );
 }
-
