@@ -65,7 +65,7 @@ export function UserProfile() {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center">
+        <div className="min-h-[calc(100vh-10rem)] flex items-center justify-center py-4">
             {/* actual profile */}
             <div className="max-w-md mx-auto p-8 bg-blue-200/50 rounded-3xl">
                 <div className="mb-6">
@@ -183,7 +183,7 @@ export function UserProfile() {
                                                         type="text"
                                                         id="subject"
                                                         name="subject"
-                                                        className="w-full py-1.5 px-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary"
+                                                        className="w-full py-1.5 px-3 border rounded-lg focus:outline-none focus:ring-1 focus:ring-primary focus-visible:ring-slate-400"
                                                         placeholder="Enter subject"
                                                     />
                                                     <ErrorMessage
