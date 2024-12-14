@@ -47,7 +47,7 @@ export function ActivityHistoryTab() {
     });
 
     return (
-        <div className="border rounded-xl">
+        <div className="border rounded-xl overflow-hidden bg-white">
             {/* Header */}
             <div className="flex justify-between items-center p-2 px-3">
                 <p className="text-xs text-gray-500">
@@ -87,7 +87,7 @@ export function ActivityHistoryTab() {
 
             {/* Main Table */}
             <div>
-                <Table>
+                <Table >
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="bg-slate-50 hover:bg-slate-50">

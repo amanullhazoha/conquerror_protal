@@ -53,7 +53,7 @@ export function SentForCreditTab() {
     })
 
     return (
-        (<div className="border rounded-xl">
+        (<div className="border rounded-xl overflow-hidden bg-white">
             {/* header */}
             <div className="flex justify-between items-center p-2 px-3">
                 <p className="text-xs text-gray-500"><span className="text-lg text-gray-800">Hired</span> (1820)</p>
@@ -90,8 +90,8 @@ export function SentForCreditTab() {
                 </div>
             </div>
             {/* main table */}
-            <div>
-                <Table className="">
+            <div >
+                <Table >
                     <TableHeader>
                         {table.getHeaderGroups().map((headerGroup) => (
                             <TableRow key={headerGroup.id} className="bg-slate-50 hover:bg-slate-50">

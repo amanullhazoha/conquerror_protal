@@ -8,7 +8,7 @@ export function TransactionsTab() {
     const [globalFilter, setGlobalFilter] = useState("")
 
     return (
-        (<div className="border rounded-xl">
+        (<div className="border rounded-xl overflow-hidden bg-white">
             {/* header */}
             <div className="flex justify-between items-center p-2 px-3">
                 <p >Transaction History</p>
@@ -17,10 +17,10 @@ export function TransactionsTab() {
                         placeholder="Search"
                         value={globalFilter ?? ""}
                         onChange={(event) => setGlobalFilter(String(event.target.value))}
-                        className="max-w-sm"
+                        className="max-w-sm min-w-52"
                     />
                     <Select>
-                        <SelectTrigger className="">
+                        <SelectTrigger>
                             <SelectValue placeholder="Date" />
                         </SelectTrigger>
                         <SelectContent align="end">
@@ -32,7 +32,7 @@ export function TransactionsTab() {
             </div>
             {/* main table */}
             <div>
-                <div className="w-full ">
+                <div className="w-full">
                     {[1, 2, 3].map((item, index) => (
                         <TransactionRecord
                             key={index}

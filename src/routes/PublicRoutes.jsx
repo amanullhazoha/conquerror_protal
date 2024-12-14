@@ -1,4 +1,8 @@
 import PublicRoute from "@/components/guards/PublicRoute";
+import ScheduleInterview from "@/components/interview/ScheduleInterview";
+import PublicLayout from "@/components/layouts/PublicLayout";
+import { UserProfile } from "@/components/Profile/Profile";
+import Transactions from "@/components/transactions/Transactions";
 import CheckEmail from "@/pages/auth/CheckEmail";
 import ForgotPasswordStepper from "@/pages/auth/ForgotPasswordStepper";
 import Login from "@/pages/auth/Login";
@@ -18,6 +22,19 @@ const PublicRoutes = {
       path: "/login",
       element: <Login />,
     },
+    {
+      path: "/interview",
+      element: <PublicLayout><ScheduleInterview /></PublicLayout>,
+    },
+    {
+      path: "/profile",
+      element: <PublicLayout><UserProfile /></PublicLayout>,
+    },
+    {
+      path: "/transactions",
+      element: <PublicLayout><Transactions /></PublicLayout>,
+    },
+
     // {
     //   path: "/sign-up",
     //   element: <SignUp />,

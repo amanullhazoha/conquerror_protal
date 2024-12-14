@@ -38,7 +38,7 @@ export default function ScheduleInterview() {
     }, [currentDate])
 
     return (
-        <div className="flex items-center justify-center min-h-screen">
+        <div className="flex items-center justify-center min-h-[calc(100vh-10rem)] py-10">
             <div className="w-full max-w-3xl bg-white rounded-[20px] p-8">
                 <div className="flex justify-between items-start mb-6">
                     <div>
