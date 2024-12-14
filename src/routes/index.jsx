@@ -1,10 +1,24 @@
-import GlobalRoutes from "./GlobalRoutes";
-import PublicRoutes from "./PublicRoutes";
+import { UserProfile } from "@/components/Profile/Profile";
+import Transactions from "@/components/transactions/Transactions";
 import { createBrowserRouter } from "react-router-dom";
 import AuthenticatedRoutes from "./AuthenticatedRoutes";
+import GlobalRoutes from "./GlobalRoutes";
+import PublicRoutes from "./PublicRoutes";
 
 const router = createBrowserRouter(
-  [PublicRoutes, AuthenticatedRoutes, GlobalRoutes],
+  [
+    PublicRoutes,
+    AuthenticatedRoutes,
+    GlobalRoutes,
+    {
+      path: "/transactions",
+      element: <Transactions />,
+    },
+    // {
+    //   path: "/profile",
+    //   element: <UserProfile />,
+    // }
+  ],
   {
     basename: "/",
   }

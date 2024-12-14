@@ -1,12 +1,15 @@
-import Login from "@/pages/auth/Login";
-import SignUp from "@/pages/auth/SignUp";
-import { Outlet } from "react-router-dom";
-import CheckEmail from "@/pages/auth/CheckEmail";
-import ResetPassword from "@/pages/auth/ResetPassword";
-import ForgotPassword from "@/pages/auth/ForgotPassword";
 import PublicRoute from "@/components/guards/PublicRoute";
+import ScheduleInterview from "@/components/interview/ScheduleInterview";
+import PrivateLayout from "@/components/layouts/PrivateLayout";
+import PublicLayout from "@/components/layouts/PublicLayout";
+import { UserProfile } from "@/components/Profile/Profile";
+import Transactions from "@/components/transactions/Transactions";
+import CheckEmail from "@/pages/auth/CheckEmail";
 import ForgotPasswordStepper from "@/pages/auth/ForgotPasswordStepper";
+import Login from "@/pages/auth/Login";
 import PasswordResetConfirmation from "@/pages/auth/PasswordResetConfirmation";
+import ResetPassword from "@/pages/auth/ResetPassword";
+import { Outlet } from "react-router-dom";
 
 const PublicRoutes = {
   path: "/",
@@ -20,6 +23,19 @@ const PublicRoutes = {
       path: "/login",
       element: <Login />,
     },
+    {
+      path: "/interview",
+      element: <PublicLayout><ScheduleInterview /></PublicLayout>,
+    },
+    {
+      path: "/profile",
+      element: <PrivateLayout><UserProfile /></PrivateLayout>,
+    },
+    {
+      path: "/transactions",
+      element: <PrivateLayout><Transactions /></PrivateLayout>,
+    },
+
     // {
     //   path: "/sign-up",
     //   element: <SignUp />,
