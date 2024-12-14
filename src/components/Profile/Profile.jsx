@@ -12,6 +12,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, UserPlus, Verified, Wallet } from "lucide-react";
+import DepositForm from "./DepositForm";
 import EmailModalContent from "./EmailModalContent";
 
 const user = {
@@ -50,16 +51,16 @@ export function UserProfile() {
     };
 
     return (
-        <div className="min-h-[calc(100vh-10rem)] flex items-center justify-center py-4">
+        <div className="min-h-[calc(100vh-10rem)] py-4 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4">
             {/* actual profile */}
             <div className="max-w-md mx-auto p-8 bg-blue-100/50 rounded-3xl">
                 <div className="mb-6">
                     <Button
                         variant="outline"
                         onClick={() => history.back()}
-                        className="inline-flex items-center text-sm text-muted-foreground hover:text-foreground rounded-full"
+                        className="hover:bg-white hover:border-slate-300 rounded-full "
                     >
-                        <ArrowLeft className="mr-2 h-4 w-4" />
+                        <ArrowLeft className="mr-2" />
                         Back to payment list
                     </Button>
                 </div>
@@ -86,17 +87,17 @@ export function UserProfile() {
 
                     <div className="space-y-3 text-sm mb-6">
                         <div className="flex items-center gap-2 text-muted-foreground">
-                            <Calendar className="h-4 w-4" />
+                            <Calendar />
                             Submitted: {formatDate(user.submissionDate)}
                         </div>
                         <div className="flex items-center gap-2 text-muted-foreground">
-                            <UserPlus className="h-4 w-4" />
+                            <UserPlus />
                             Submission ID: {user.submissionId}
                         </div>
                         <div className="flex items-center gap-2 text-muted-foreground">
-                            <Verified className="h-4 w-4" />
+                            <Verified />
                             Ref Code: {user.refCode}
-                            <div className="ml-2 font-normal bg-white py-1 px-3 border rounded-full">
+                            <div className="ml-2 font-normal bg-white py-1 px-3 border rounded-full whitespace-nowrap">
                                 {user.refName}
                             </div>
                         </div>
@@ -159,6 +160,8 @@ export function UserProfile() {
                     </div>
                 </div>
             </div>
+            <DepositForm />
+            <DepositForm />
         </div>
     );
 }
