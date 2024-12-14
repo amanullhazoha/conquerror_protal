@@ -16,9 +16,9 @@ const GreenCheck = () => {
           id="Icon"
           d="M6.25 10.5L8.75 13L13.75 8"
           stroke="white"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </g>
     </svg>
