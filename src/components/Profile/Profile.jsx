@@ -67,7 +67,7 @@ export function UserProfile() {
     return (
         <div className="min-h-[calc(100vh-10rem)] flex items-center justify-center py-4">
             {/* actual profile */}
-            <div className="max-w-md mx-auto p-8 bg-blue-200/50 rounded-3xl">
+            <div className="max-w-md mx-auto p-8 bg-blue-100/50 rounded-3xl">
                 <div className="mb-6">
                     <Button
                         variant="outline"

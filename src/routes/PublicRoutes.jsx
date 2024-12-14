@@ -1,5 +1,6 @@
 import PublicRoute from "@/components/guards/PublicRoute";
 import ScheduleInterview from "@/components/interview/ScheduleInterview";
+import PrivateLayout from "@/components/layouts/PrivateLayout";
 import PublicLayout from "@/components/layouts/PublicLayout";
 import { UserProfile } from "@/components/Profile/Profile";
 import Transactions from "@/components/transactions/Transactions";
@@ -28,11 +29,11 @@ const PublicRoutes = {
     },
     {
       path: "/profile",
-      element: <PublicLayout><UserProfile /></PublicLayout>,
+      element: <PrivateLayout><UserProfile /></PrivateLayout>,
     },
     {
       path: "/transactions",
-      element: <PublicLayout><Transactions /></PublicLayout>,
+      element: <PrivateLayout><Transactions /></PrivateLayout>,
     },
 
     // {
