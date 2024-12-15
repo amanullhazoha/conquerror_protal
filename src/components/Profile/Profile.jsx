@@ -13,7 +13,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Calendar, UserPlus, Verified, Wallet } from "lucide-react";
 import DepositForm from "./DepositForm";
+// import DocumentUpload from "./DocumentUpload";
 import EmailModalContent from "./EmailModalContent";
+import { DocumentPreview } from "./DocumentUpload";
 
 const user = {
     name: "Abu Taher Molla",
@@ -161,7 +163,7 @@ export function UserProfile() {
                 </div>
             </div>
             <DepositForm />
-            <DepositForm />
+            <DocumentPreview />
         </div>
     );
 }

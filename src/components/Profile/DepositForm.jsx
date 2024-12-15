@@ -93,7 +93,7 @@ export default function DepositForm() {
     }
 
     return (
-        <Card className="w-full max-w-2xl mx-auto">
+        <Card className="w-full max-w-2xl mx-auto shadow-none">
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
