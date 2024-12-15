@@ -93,7 +93,7 @@ export default function DepositForm() {
     }
 
     return (
-        <Card className="w-full max-w-2xl mx-auto shadow-none">
+        <Card className="w-full max-w-md shadow-none">
             <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
@@ -102,17 +102,18 @@ export default function DepositForm() {
                 {({ errors, touched, resetForm }) => (
                     <Form>
                         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                            <CardTitle className="text-2xl font-bold">Deposit Details</CardTitle>
+                            <CardTitle className="text-lg font-bold">Deposit Details</CardTitle>
                             <div className="flex gap-2">
                                 <Button
                                     type="button"
                                     variant="outline"
+                                    size="sm"
                                     onClick={() => handleReset(resetForm)}
                                     className="rounded-full"
                                 >
                                     Undo changes
                                 </Button>
-                                <Button type="submit" variant="outline" className="rounded-full text-blue-600 border-blue-600 hover:text-blue-500">
+                                <Button size="sm" type="submit" variant="outline" className="rounded-full text-blue-600 border-blue-600 hover:text-blue-500">
                                     Submit
                                 </Button>
                             </div>

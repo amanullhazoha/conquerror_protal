@@ -13,7 +13,7 @@ export function ImagePreview({ imageUrl, onReset }) {
                 <img
                     src={imageUrl}
                     alt="Preview"
-                    className="w-full h-auto rounded-lg"
+                    className="w-full h-auto rounded-lg aspect-square object-contain"
                 />
             )}
             <div className="flex justify-center gap-2">
