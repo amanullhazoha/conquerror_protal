@@ -7,12 +7,12 @@ import ApplicantPhoto from "./ApplicantPhoto";
 import EditButtons from "@/components/EditButtons";
 import { downloadImage } from "@/utils/downloadImage";
 import CountryInput from "@/components/inputs/CountryInput";
-import { countries } from "@/assets/staticData/countryInfo";
 import InputFieldNew from "@/components/inputs/InputFielNew";
 import DateInputField from "@/components/inputs/DateInputField";
 import InputFieldRadio from "@/components/inputs/InputFieldRadio";
 import SelectInputField from "@/components/inputs/SelectInputField";
 import { hiringPositions } from "@/assets/staticData/hiringPosition";
+import { countries, allCountry } from "@/assets/staticData/countryInfo";
 import { jobApplyBasicSchema } from "@/schema/application/applicant.schema";
 import { useUpdateApplicationByIdMutation } from "@/redux/features/applications/applications";
 
@@ -187,7 +187,7 @@ const ApplicantBasicInfo = ({ application }) => {
                   </div>
 
                   <div className="pt-8">
-                    <CountryInput
+                    {/* <CountryInput
                       errors={errors}
                       touched={touched}
                       keyValue="name"
@@ -198,6 +198,24 @@ const ApplicantBasicInfo = ({ application }) => {
                       placeholder="Select Nationality"
                       handleSelect={(name) =>
                         setFieldValue("nationality", name)
+                      }
+                    /> */}
+
+                    <SelectInputField
+                      errors={errors}
+                      touched={touched}
+                      keyValue="name"
+                      items={allCountry}
+                      // items={countries}
+                      name="nationality"
+                      searchField={true}
+                      label="Nationality"
+                      value={values.nationality}
+                      suggestedItems={countries}
+                      suggestionPlaceholder="Search for a nationality"
+                      placeholder="Select Nationality"
+                      handleSelect={(item) =>
+                        setFieldValue("nationality", item.name)
                       }
                     />
                   </div>

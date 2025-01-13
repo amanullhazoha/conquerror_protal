@@ -4,6 +4,7 @@ import useToast from "@/hooks/useToast";
 import { useEffect, useState } from "react";
 import { InfoCard } from "@/shared/InfoCard";
 import ApplicantPhoto from "./ApplicantPhoto";
+import { countries } from "@/data/countryList";
 import EditButtons from "@/components/EditButtons";
 import { downloadImage } from "@/utils/downloadImage";
 import { religion } from "@/assets/staticData/countryInfo";
@@ -268,7 +269,7 @@ const ApplicationNidInfo = ({ application }) => {
                   </div>
 
                   <div className="grid grid-cols-2 gap-6 pt-4">
-                    <SelectInputField
+                    {/* <SelectInputField
                       name="province"
                       errors={errors}
                       keyValue="name"
@@ -292,7 +293,61 @@ const ApplicationNidInfo = ({ application }) => {
                       placeholder="Enter your city"
                       items={getCitiesByState(values.province)}
                       handleSelect={(item) => setFieldValue("city", item.name)}
-                    />
+                    /> */}
+
+                    {countries.some(
+                      (country) =>
+                        country.name?.toLowerCase() ===
+                        values?.nationality?.toLowerCase()
+                    ) ? (
+                      <>
+                        <SelectInputField
+                          errors={errors}
+                          name="province"
+                          keyValue="name"
+                          touched={touched}
+                          value={values.province}
+                          placeholder="Select"
+                          label="State / Province"
+                          items={getStatesByCountry(values?.nationality)}
+                          handleSelect={(item) =>
+                            setFieldValue("province", item.name)
+                          }
+                        />
+
+                        <SelectInputField
+                          errors={errors}
+                          name="city"
+                          keyValue="name"
+                          touched={touched}
+                          value={values.city}
+                          placeholder="Select"
+                          label="City / District"
+                          items={getCitiesByState(values.province)}
+                          handleSelect={(item) =>
+                            setFieldValue("city", item.name)
+                          }
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <InputFieldNew
+                          errors={errors}
+                          name="province"
+                          touched={touched}
+                          label="State / Province"
+                          placeholder="Enter state / province"
+                        />
+
+                        <InputFieldNew
+                          name="city"
+                          errors={errors}
+                          touched={touched}
+                          label="City / District"
+                          placeholder="Enter city / district"
+                        />
+                      </>
+                    )}
                   </div>
 
                   <div className="grid grid-cols-2 gap-6 pt-4">
