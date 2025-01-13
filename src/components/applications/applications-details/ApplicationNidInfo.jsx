@@ -297,8 +297,8 @@ const ApplicationNidInfo = ({ application }) => {
 
                     {countries.some(
                       (country) =>
-                        country.name?.toLowerCase() ===
-                        values?.nationality?.toLowerCase()
+                        country.label?.toLowerCase() ===
+                        application?.nationality?.toLowerCase()
                     ) ? (
                       <>
                         <SelectInputField
@@ -309,7 +309,7 @@ const ApplicationNidInfo = ({ application }) => {
                           value={values.province}
                           placeholder="Select"
                           label="State / Province"
-                          items={getStatesByCountry(values?.nationality)}
+                          items={getStatesByCountry(application?.nationality)}
                           handleSelect={(item) =>
                             setFieldValue("province", item.name)
                           }
