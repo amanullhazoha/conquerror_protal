@@ -50,19 +50,19 @@ export const agentFormSchema = () =>
     email: Yup.string()
       .email("This is not a valid email")
       .checkEmailExists("This email already exist. Please verify your email")
-      .test(
-        "is-valid-domain",
-        "Email domain must be one of gmail.com, yahoo.com, hotmail.com, outlook.com, or icloud.com",
+      // .test(
+      //   "is-valid-domain",
+      //   "Email domain must be one of gmail.com, yahoo.com, hotmail.com, outlook.com, or icloud.com",
 
-        async (value) => {
-          if (value) {
-            const domain = value.split("@")[1];
+      //   async (value) => {
+      //     if (value) {
+      //       const domain = value.split("@")[1];
 
-            return allowedDomains.includes(domain);
-          }
-          return false;
-        }
-      )
+      //       return allowedDomains.includes(domain);
+      //     }
+      //     return false;
+      //   }
+      // )
       .required("Email is required"),
     phone: Yup.string()
       .required("Phone number is required")
@@ -235,19 +235,19 @@ export const employFormSchema = () =>
     email: Yup.string()
       .email("This is not a valid email")
       .checkEmailExists("This email already exist. Please verify your email")
-      .test(
-        "is-valid-domain",
-        "Email domain must be one of gmail.com, yahoo.com, hotmail.com, outlook.com, or icloud.com",
+      // .test(
+      //   "is-valid-domain",
+      //   "Email domain must be one of gmail.com, yahoo.com, hotmail.com, outlook.com, or icloud.com",
 
-        async (value) => {
-          if (value) {
-            const domain = value.split("@")[1];
+      //   async (value) => {
+      //     if (value) {
+      //       const domain = value.split("@")[1];
 
-            return allowedDomains.includes(domain);
-          }
-          return false;
-        }
-      )
+      //       return allowedDomains.includes(domain);
+      //     }
+      //     return false;
+      //   }
+      // )
       .required("Email is required"),
     phone: Yup.string()
       .required("Phone number is required")

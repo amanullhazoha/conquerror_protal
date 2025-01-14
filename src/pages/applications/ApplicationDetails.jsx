@@ -56,7 +56,7 @@ const ApplicationDetails = () => {
 
       {!isLoading && isSuccess && (
         <div className="grid grid-cols-12 gap-6">
-          <div className="col-span-12 xl:col-span-4">
+          <div className="col-span-12 xl:col-span-12 2x:col-span-4">
             <UserInfoCard
               invateForInterView={true}
               backLink="/new-application"
@@ -66,7 +66,7 @@ const ApplicationDetails = () => {
             />
           </div>
 
-          <div className="col-span-12 xl:col-span-8">
+          <div className="col-span-12  2xl:col-span-8">
             <ApplicationDetailsTabs application={singleApplication} />
           </div>
         </div>

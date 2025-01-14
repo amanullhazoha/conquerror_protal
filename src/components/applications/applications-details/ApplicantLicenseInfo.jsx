@@ -238,7 +238,7 @@ const ApplicantLicenseInfo = ({ application }) => {
                         errors={errors}
                         touched={touched}
                         items={countryCode}
-                        keyValue="shortName"
+                        keyValue="name"
                         label="Refer 1 Phone Number"
                         placeholder="000000000"
                         setFieldValue={setFieldValue}
@@ -312,7 +312,7 @@ const ApplicantLicenseInfo = ({ application }) => {
                         errors={errors}
                         touched={touched}
                         items={countryCode}
-                        keyValue="shortName"
+                        keyValue="name"
                         label="Refer 2 Phone Number"
                         placeholder="000000000"
                         setFieldValue={setFieldValue}

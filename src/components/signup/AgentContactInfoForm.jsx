@@ -96,7 +96,7 @@ const AgentContactInfoForm = ({ setStep }) => {
                     errors={errors}
                     name="alt_phone"
                     touched={touched}
-                    keyValue="shortName"
+                    keyValue="name"
                     items={countryCode}
                     changeDisable={false}
                     value={values?.alt_phone}
@@ -129,7 +129,7 @@ const AgentContactInfoForm = ({ setStep }) => {
                   <PhoneNumberInputField
                     type="number"
                     errors={errors}
-                    keyValue="shortName"
+                    keyValue="name"
                     touched={touched}
                     name="whatsapp_no"
                     label="WhatsApp"
@@ -154,7 +154,7 @@ const AgentContactInfoForm = ({ setStep }) => {
                   <PhoneNumberInputField
                     type="number"
                     errors={errors}
-                    keyValue="shortName"
+                    keyValue="name"
                     touched={touched}
                     name="telegram_id"
                     label="Telegram"
@@ -224,7 +224,7 @@ const AgentContactInfoForm = ({ setStep }) => {
                       errors={errors}
                       touched={touched}
                       items={countryCode}
-                      keyValue="shortName"
+                      keyValue="name"
                       name="spouse_contact_no"
                       changeDisable={false}
                       label="Spouse Contact Number"

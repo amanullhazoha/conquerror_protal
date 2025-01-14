@@ -98,7 +98,7 @@ const EmployForm = ({ setStep }) => {
                 touched={touched}
                 items={countryCode}
                 label="Phone Number"
-                keyValue="shortName"
+                keyValue="name"
                 changeDisable={false}
                 placeholder="000000000"
                 value={values?.phone}

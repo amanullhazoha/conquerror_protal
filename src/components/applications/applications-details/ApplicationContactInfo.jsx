@@ -89,7 +89,7 @@ const ApplicationContactInfo = ({ application }) => {
                     errors={errors}
                     touched={touched}
                     items={countryCode}
-                    keyValue="shortName"
+                    keyValue="name"
                     label="Phone Number"
                     changeDisable={true}
                     placeholder="000000000"
@@ -115,7 +115,7 @@ const ApplicationContactInfo = ({ application }) => {
                     errors={errors}
                     touched={touched}
                     items={countryCode}
-                    keyValue="shortName"
+                    keyValue="name"
                     label="Whatsapp Number"
                     name="whatsapp_number"
                     changeDisable={false}

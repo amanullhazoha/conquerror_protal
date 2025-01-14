@@ -208,7 +208,7 @@ const PhoneNumberInputField = ({
         {isOpen && !changeDisable && (
           <ul
             ref={dropdownRef}
-            className={`absolute bg-white border border-[#D0D5DD] rounded-lg w-fit px-2 
+            className={`w-full absolute bg-white border border-[#D0D5DD] rounded-lg w-fit px-2 
                         py-1.5 text-sm text-[#27303F] outline-none mt-0.5 transition-transform z-50 max-h-[250px] overflow-y-auto
                         duration-300 ease-in-out ${
                           position === "top" ? "bottom-full" : "top-full"

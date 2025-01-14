@@ -279,7 +279,7 @@ const EmployPassportForm = ({ setStep }) => {
                     errors={errors}
                     touched={touched}
                     items={countryCode}
-                    keyValue="shortName"
+                    keyValue="name"
                     name="whatsapp_no"
                     changeDisable={false}
                     label="WhatsApp Number"

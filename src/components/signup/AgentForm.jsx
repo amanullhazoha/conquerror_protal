@@ -84,7 +84,7 @@ const AgentForm = ({ setStep }) => {
                 errors={errors}
                 touched={touched}
                 items={countryCode}
-                keyValue="shortName"
+                keyValue="name"
                 label="Phone Number"
                 changeDisable={false}
                 placeholder="000000000"
