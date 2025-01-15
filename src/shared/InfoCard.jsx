@@ -9,6 +9,7 @@ export const InfoCard = ({ title, content, className }) => {
   );
 };
 
+import CrossIcon from "@/assets/icons/CrossIcon";
 import GreenCheck from "@/assets/icons/GreenCheck";
 
 // User name card
@@ -19,7 +20,7 @@ export const InfoEmailCard = ({ title, content, className, status }) => {
 
       <div className="flex items-center justify-between">
         <p>{content ? content : "Null"}</p>
-        {status && <GreenCheck />}
+        {status ? <GreenCheck /> : <CrossIcon fill={"red"} />}
       </div>
     </div>
   );

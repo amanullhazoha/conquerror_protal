@@ -1,4 +1,4 @@
-const GreenCheck = () => {
+const GreenCheck = ({ fill = "#0E9F6E" }) => {
   return (
     <svg
       width="20"
@@ -10,7 +10,7 @@ const GreenCheck = () => {
       <g id="Check icon">
         <path
           d="M0 10.5C0 4.97715 4.47715 0.5 10 0.5C15.5228 0.5 20 4.97715 20 10.5C20 16.0228 15.5228 20.5 10 20.5C4.47715 20.5 0 16.0228 0 10.5Z"
-          fill="#0E9F6E"
+          fill={fill}
         />
         <path
           id="Icon"
