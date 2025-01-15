@@ -21,7 +21,11 @@ const authSlice = createSlice({
       accessToken && (state.accessToken = accessToken);
       user && (state.user = user);
     },
-    logout: () => initialState,
+    logout: () => {
+      sessionStorage.removeItem("accessToken");
+
+      return initialState;
+    },
   },
 });
 

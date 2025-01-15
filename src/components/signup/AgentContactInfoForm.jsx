@@ -38,7 +38,7 @@ const AgentContactInfoForm = ({ setStep }) => {
     [initialValues]
   );
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async () => {
     setStep((prev) => prev + 1);
   };
 
@@ -228,7 +228,7 @@ const AgentContactInfoForm = ({ setStep }) => {
                       name="spouse_contact_no"
                       changeDisable={false}
                       label="Spouse Contact Number"
-                      placeholder="Enter your phone number"
+                      placeholder="Enter your spouse phone number"
                       value={values?.spouse_contact_no}
                       setFieldValue={setFieldValue}
                       handleSelect={(value) =>

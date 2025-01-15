@@ -138,7 +138,7 @@ const AgentDocumentForm = ({ setStep }) => {
       localStorage.removeItem("agentDocumentForm");
       localStorage.removeItem("agentContactInfoForm");
 
-      navigate("/login");
+      // navigate("/login");
 
       setStep(1);
     }

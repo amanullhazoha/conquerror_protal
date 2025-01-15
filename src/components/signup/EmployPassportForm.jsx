@@ -168,7 +168,7 @@ const EmployPassportForm = ({ setStep }) => {
                       name="spouse_contact_no"
                       changeDisable={false}
                       label="Spouse Contact Number"
-                      placeholder="Enter phone number"
+                      placeholder="Enter spouse phone number"
                       value={values?.spouse_contact_no}
                       setFieldValue={setFieldValue}
                       handleSelect={(item) =>
@@ -216,7 +216,7 @@ const EmployPassportForm = ({ setStep }) => {
                       name="emirates_id"
                       touched={touched}
                       label="Emirates ID"
-                      placeholder="Enter your mother name"
+                      placeholder="Enter your emirates ID"
                     />
 
                     <DateInputField

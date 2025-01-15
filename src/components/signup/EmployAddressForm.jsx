@@ -6,11 +6,11 @@ import { employAddressFormSchema } from "@/schema/auth/signup.schema";
 import { getStatesByCountry, getCitiesByState } from "@/lib/addressFind";
 
 const INITIALVALUES = {
-  home_address: "",
+  zip: "",
   city: "",
   state: "",
+  home_address: "",
   police_station: "",
-  zip: "",
   reference_name: "",
 };
 
@@ -29,15 +29,13 @@ const EmployAddressForm = ({ setStep }) => {
     [initialValues]
   );
 
-  const handleSubmit = async (values, { resetForm }) => {
+  const handleSubmit = async () => {
     setStep((prev) => prev + 1);
   };
 
   useEffect(() => {
     const storedValues = localStorage.getItem("employAddressForm");
     const employFormValues = localStorage.getItem("employForm");
-
-    console.log(employFormValues);
 
     if (storedValues) {
       const parseValues = JSON.parse(storedValues);

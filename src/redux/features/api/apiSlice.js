@@ -5,7 +5,8 @@ const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_APP_BASE_API_URL,
 
   prepareHeaders: async (headers, { getState }) => {
-    const token = getState()?.auth?.accessToken;
+    // const token = getState()?.auth?.accessToken;
+    const token = sessionStorage.getItem("accessToken");
 
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
@@ -32,6 +33,9 @@ const apiSlice = createApi({
 
       if (refreshResult?.data) {
         const newAccessToken = refreshResult.data.refresh_token;
+
+        //new added
+        sessionStorage.setItem("accessToken", newAccessToken);
 
         api.dispatch(
           login({ accessToken: newAccessToken, isAuthenticated: true })

@@ -1,5 +1,5 @@
+import { login } from "./authSlice";
 import apiSlice from "../api/apiSlice";
-import { login, logout } from "./authSlice";
 
 const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,6 +12,9 @@ const authApi = apiSlice.injectEndpoints({
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
+
+          //new added
+          sessionStorage.setItem("accessToken", result.data.access_token);
 
           dispatch(
             login({
