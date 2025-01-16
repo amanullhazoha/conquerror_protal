@@ -5,7 +5,6 @@ const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_APP_BASE_API_URL,
 
   prepareHeaders: async (headers, { getState }) => {
-    // const token = getState()?.auth?.accessToken;
     const token = sessionStorage.getItem("accessToken");
 
     if (token) {
@@ -19,10 +18,11 @@ const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
+    const token = sessionStorage.getItem("accessToken");
 
     if (result?.error?.status === 401 || result?.error?.status === 403) {
       api.dispatch(logout());
-    } else {
+    } else if (token) {
       const refreshResult = await baseQuery(
         {
           url: "/api/v1/secure/refresh-token",
@@ -34,7 +34,6 @@ const apiSlice = createApi({
       if (refreshResult?.data) {
         const newAccessToken = refreshResult.data.refresh_token;
 
-        //new added
         sessionStorage.setItem("accessToken", newAccessToken);
 
         api.dispatch(
