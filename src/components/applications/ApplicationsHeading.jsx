@@ -11,7 +11,10 @@ const ApplicationsHeading = ({
   heading,
   searchTerm,
   totals = 0,
+  filterValue,
+  filter = false,
   handleSearchTerm,
+  handleFilterValueChange,
 }) => {
   return (
     <div className="flex items-center justify-between mb-[24px] p-[16px_23px_16px_17px] border-b-[1px] border-[#E5E5E5]">
@@ -35,16 +38,18 @@ const ApplicationsHeading = ({
           </div>
         </div>
 
-        {/* <Select>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Sort By: New" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="light">New</SelectItem>
-            <SelectItem value="dark">Dark</SelectItem>
-            <SelectItem value="system">System</SelectItem>
-          </SelectContent>
-        </Select> */}
+        {filter && (
+          <Select value={filterValue} onValueChange={handleFilterValueChange}>
+            <SelectTrigger className="w-[180px] outline-none">
+              <SelectValue placeholder="Filter By: All" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All</SelectItem>
+              <SelectItem value="verified">Verified</SelectItem>
+              <SelectItem value="unverified">Unverified</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
       </div>
     </div>
   );

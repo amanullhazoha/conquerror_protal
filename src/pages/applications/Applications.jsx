@@ -16,6 +16,7 @@ const Applications = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(24);
+  const [filterValue, setFilterValue] = useState("all");
 
   const {
     data: applicationsData,
@@ -23,6 +24,7 @@ const Applications = () => {
     isSuccess,
   } = useGetAllApplicationsQuery(
     {
+      filter: filterValue,
       searchQuery: searchTerm,
       page: currentPage,
       size: itemsPerPage,
@@ -31,6 +33,11 @@ const Applications = () => {
   );
 
   const { meta } = applicationsData || {};
+
+  const handleFilterValueChange = (value) => {
+    setCurrentPage(1);
+    setFilterValue(value);
+  };
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > meta?.totalPages) return;
@@ -53,10 +60,13 @@ const Applications = () => {
       {!isLoading && isSuccess && (
         <div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
           <ApplicationsHeading
+            filter={true}
             searchTerm={searchTerm}
             heading="All Application"
+            filterValue={filterValue}
             handleSearchTerm={handleSearchTerm}
             totals={applicationsData?.meta?.totalRecords}
+            handleFilterValueChange={handleFilterValueChange}
           />
 
           {applicationsData?.meta?.totalRecords > 0 ? (
@@ -73,27 +83,29 @@ const Applications = () => {
             </div>
           )}
 
-          <div className="flex px-6 py-4">
-            <div className="flex items-center gap-2 w-full">
-              <p>Rows per page:</p>
-              <Select onValueChange={handleItemsPerPageChange}>
-                <SelectTrigger className="w-[60px]">
-                  <SelectValue placeholder={itemsPerPage} />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="12">12</SelectItem>
-                  <SelectItem value="24">24</SelectItem>
-                  <SelectItem value="48">48</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+          {Number(meta?.totalRecords) > itemsPerPage && (
+            <div className="flex px-6 py-4">
+              <div className="flex items-center gap-2 w-full">
+                <p>Rows per page:</p>
+                <Select onValueChange={handleItemsPerPageChange}>
+                  <SelectTrigger className="w-[60px]">
+                    <SelectValue placeholder={itemsPerPage} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="12">12</SelectItem>
+                    <SelectItem value="24">24</SelectItem>
+                    <SelectItem value="48">48</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
 
-            <PaginationComponent
-              totalPages={meta?.totalPages}
-              currentPage={currentPage}
-              handlePageChange={handlePageChange}
-            />
-          </div>
+              <PaginationComponent
+                totalPages={meta?.totalPages}
+                currentPage={currentPage}
+                handlePageChange={handlePageChange}
+              />
+            </div>
+          )}
         </div>
       )}
     </PrivateLayout>

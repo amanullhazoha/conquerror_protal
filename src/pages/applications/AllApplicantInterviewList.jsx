@@ -18,6 +18,7 @@ const AllApplicantInterviewList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(24);
   const [activeTab, setActiveTab] = useState("accepted");
+  const [filterValue, setFilterValue] = useState("all");
 
   const {
     data: applicationsData,
@@ -34,6 +35,10 @@ const AllApplicantInterviewList = () => {
   );
 
   const { meta } = applicationsData || {};
+
+  const handleFilterValueChange = (value) => {
+    setFilterValue(value);
+  };
 
   const handlePageChange = (newPage) => {
     if (newPage < 1 || newPage > meta?.totalPages) return;
@@ -102,9 +107,11 @@ const AllApplicantInterviewList = () => {
           <div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
             <ApplicationsHeading
               searchTerm={searchTerm}
+              filterValue={filterValue}
               heading={`Applicant ${activeTab}`}
               handleSearchTerm={handleSearchTerm}
               totals={applicationsData?.meta?.totalRecords}
+              handleFilterValueChange={handleFilterValueChange}
             />
 
             {applicationsData?.meta?.totalRecords > 0 ? (
@@ -125,27 +132,29 @@ const AllApplicantInterviewList = () => {
               </div>
             )}
 
-            <div className="flex px-6 py-4">
-              <div className="flex items-center gap-2 w-full">
-                <p>Rows per page:</p>
-                <Select onValueChange={handleItemsPerPageChange}>
-                  <SelectTrigger className="w-[60px]">
-                    <SelectValue placeholder={itemsPerPage} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="12">12</SelectItem>
-                    <SelectItem value="24">24</SelectItem>
-                    <SelectItem value="48">48</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
+            {meta?.totalRecords > itemsPerPage && (
+              <div className="flex px-6 py-4">
+                <div className="flex items-center gap-2 w-full">
+                  <p>Rows per page:</p>
+                  <Select onValueChange={handleItemsPerPageChange}>
+                    <SelectTrigger className="w-[60px]">
+                      <SelectValue placeholder={itemsPerPage} />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="12">12</SelectItem>
+                      <SelectItem value="24">24</SelectItem>
+                      <SelectItem value="48">48</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
 
-              <PaginationComponent
-                currentPage={currentPage}
-                totalPages={meta?.totalPages}
-                handlePageChange={handlePageChange}
-              />
-            </div>
+                <PaginationComponent
+                  totalPages={meta?.totalPages}
+                  currentPage={currentPage}
+                  handlePageChange={handlePageChange}
+                />
+              </div>
+            )}
           </div>
         </>
       )}

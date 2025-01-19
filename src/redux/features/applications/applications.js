@@ -3,14 +3,14 @@ import apiSlice from "../api/apiSlice";
 const applicationsApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllApplications: builder.query({
-      query: ({ searchQuery = "", page = 1, size = 24 }) =>
-        `/api/v1/secure/career/jobs?search=${searchQuery}&page=${page}&size=${size}`,
+      query: ({ filter, searchQuery = "", page = 1, size = 24 }) =>
+        `/api/v1/secure/career/jobs?search=${searchQuery}&page=${page}&size=${size}&filter=${filter}`,
       providesTags: ["Applications"],
     }),
 
     getAllNewApplications: builder.query({
-      query: ({ searchQuery = "", page = 1, size = 24 }) =>
-        `/api/v1/secure/career/jobs/new-application?search=${searchQuery}&page=${page}&size=${size}`,
+      query: ({ filter, searchQuery = "", page = 1, size = 24 }) =>
+        `/api/v1/secure/career/jobs/new-application?search=${searchQuery}&page=${page}&size=${size}&filter=${filter}`,
       providesTags: ["Applications"],
     }),
 
