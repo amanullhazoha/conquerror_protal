@@ -3,6 +3,7 @@ import PrivateLayout from "@/components/layouts/PrivateLayout";
 import UserInfoCard from "@/components/applications/applications-details/UserInfoCard";
 import { useGetApplicationByIdQuery } from "@/redux/features/applications/applications";
 import ApplicantInvitedDetail from "@/components/applications/applications-details/ApplicantInvitedDetail";
+import MainPreloader from "@/components/preloader/MainPreloader";
 
 const InvitedApplicantDetail = () => {
   const params = useParams();
@@ -17,7 +18,7 @@ const InvitedApplicantDetail = () => {
 
   return (
     <PrivateLayout>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <MainPreloader />}
 
       {!isLoading && isSuccess && (
         <div className="grid grid-cols-12 gap-6">

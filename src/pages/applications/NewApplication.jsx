@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/ui/select";
+import MainPreloader from "@/components/preloader/MainPreloader";
 
 const NewApplications = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,7 +56,7 @@ const NewApplications = () => {
 
   return (
     <PrivateLayout>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <MainPreloader />}
 
       {!isLoading && isSuccess && (
         <div className="border-[1px] border-[#E5E5E5] rounded-[16px]">

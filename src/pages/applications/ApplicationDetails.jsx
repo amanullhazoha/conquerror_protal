@@ -7,6 +7,7 @@ import {
   useGetApplicationByIdQuery,
   useCreateZoomMeetingByUserIdMutation,
 } from "@/redux/features/applications/applications";
+import MainPreloader from "@/components/preloader/MainPreloader";
 
 const ApplicationDetails = () => {
   const params = useParams();
@@ -41,7 +42,7 @@ const ApplicationDetails = () => {
 
   return (
     <PrivateLayout>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <MainPreloader />}
 
       {!isLoading && isSuccess && (
         <div className="grid grid-cols-12 gap-6">

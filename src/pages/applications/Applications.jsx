@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/ui/select";
+import MainPreloader from "@/components/preloader/MainPreloader";
 
 const Applications = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -55,7 +56,7 @@ const Applications = () => {
 
   return (
     <PrivateLayout>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <MainPreloader />}
 
       {!isLoading && isSuccess && (
         <div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
@@ -72,7 +73,11 @@ const Applications = () => {
           {applicationsData?.meta?.totalRecords > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-[20px] px-[20px]">
               {applicationsData?.applicants?.map((applicant, idx) => (
-                <ApplicationCard key={idx} application={applicant} />
+                <ApplicationCard
+                  key={idx}
+                  link="/applications"
+                  application={applicant}
+                />
               ))}
             </div>
           ) : (

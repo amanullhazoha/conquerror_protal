@@ -34,6 +34,10 @@ const AuthenticatedRoutes = {
       element: <Applications />,
     },
     {
+      path: "/applications/:id",
+      element: <ApplicationDetails />,
+    },
+    {
       path: "/new-application",
       element: <NewApplications />,
     },

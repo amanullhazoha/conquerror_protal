@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectContent,
 } from "@/components/ui/select";
+import MainPreloader from "@/components/preloader/MainPreloader";
 
 const AllApplicantInterviewList = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -56,7 +57,7 @@ const AllApplicantInterviewList = () => {
 
   return (
     <PrivateLayout>
-      {isLoading && <p>Loading...</p>}
+      {isLoading && <MainPreloader />}
 
       {!isLoading && isSuccess && (
         <>
