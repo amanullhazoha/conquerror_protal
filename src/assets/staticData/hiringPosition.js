@@ -85,6 +85,7 @@ export const hiringPositions = [
   { id: 79, name: "Library Clerk" },
   { id: 80, name: "Marketing Assistant" },
   { id: 81, name: "Medical Instruments Sales" },
+  { id: 107, name: "Medical Nurse" },
   { id: 82, name: "Men Barber" },
   { id: 83, name: "Men Clothes Sales" },
   { id: 84, name: "Messengers Head" },
