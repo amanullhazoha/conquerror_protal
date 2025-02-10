@@ -4,9 +4,12 @@ import Lightbox from "react-18-image-lightbox";
 import BorderImg from "@/assets/images/border.png";
 import EditImgIcon from "@/assets/icons/EditImgIcon";
 import DownloadIcon from "@/assets/icons/DownloadIcon";
+import ImageCropModal from "@/components/modal/ImageCroper";
 
 const ApplicantPhoto = ({ title, downloadImage, image, className }) => {
   const [viewImage, setViewImage] = useState("");
+  const [editImage, setEditImage] = useState("");
+  const [isEditImgModalOpen, setIsEditImgModalOpen] = useState(false);
 
   return (
     <div>
@@ -21,7 +24,11 @@ const ApplicantPhoto = ({ title, downloadImage, image, className }) => {
           <div onClick={() => setViewImage(image)} className="cursor-pointer">
             <EyeIcon className="cursor-pointer" />
           </div>
-          <div className="cursor-pointer">
+
+          <div
+            className="cursor-pointer"
+            onClick={() => setIsEditImgModalOpen(true)}
+          >
             <EditImgIcon />
           </div>
 
@@ -33,6 +40,17 @@ const ApplicantPhoto = ({ title, downloadImage, image, className }) => {
 
       {viewImage && (
         <Lightbox mainSrc={image} onCloseRequest={() => setViewImage(false)} />
+      )}
+
+      {isEditImgModalOpen && (
+        <ImageCropModal
+          existingImage={image}
+          isOpen={isEditImgModalOpen}
+          onClose={() => {
+            setEditImage(null);
+            setIsEditImgModalOpen(false);
+          }}
+        />
       )}
     </div>
   );

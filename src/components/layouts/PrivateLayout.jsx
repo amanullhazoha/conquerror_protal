@@ -393,6 +393,22 @@ const PrivateLayout = ({ children }) => {
                 Create User
               </span>
             </NavLink>
+
+            <NavLink
+              to="/transactions"
+              className={(isActive) => isActiveLink(isActive)}
+            >
+              <div>
+                <UserManagementIcon />
+              </div>
+              <span
+                className={`text-base font-medium text-gray-500 group-hover:text-gray-900 ${
+                  !openSidebar && "scale-0"
+                }`}
+              >
+                Transaction
+              </span>
+            </NavLink>
           </div>
 
           <div className="flex h-10 flex-col gap-2 px-6 pt-[90px]">

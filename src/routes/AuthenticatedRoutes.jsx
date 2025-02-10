@@ -7,7 +7,10 @@ import Applications from "@/pages/applications/Applications";
 import InvitedApplicantDetail from "@/pages/applications/InvitedApplicantDetial";
 import NewApplications from "@/pages/applications/NewApplication";
 import SignUp from "@/pages/auth/SignUp";
+import DashboardPage from "@/pages/Dashboard";
 import { Outlet } from "react-router-dom";
+import Transactions from "@/pages/transaction/TransactionListPage";
+import { UserProfile } from "@/components/Profile/Profile";
 
 const AuthenticatedRoutes = {
   path: "/",
@@ -19,7 +22,8 @@ const AuthenticatedRoutes = {
   children: [
     {
       path: "/dashboard",
-      element: <Applications />,
+      //   element: <Applications />,
+      element: <DashboardPage />,
     },
     // {
     //   path: "/interview",
@@ -28,6 +32,10 @@ const AuthenticatedRoutes = {
     {
       path: "/create-user",
       element: <SignUp />,
+    },
+    {
+      path: "/transactions",
+      element: <Transactions />,
     },
     {
       path: "/applications",
@@ -60,6 +68,10 @@ const AuthenticatedRoutes = {
     {
       path: "/new-application/:id",
       element: <ApplicationDetails />,
+    },
+    {
+      path: "/profile",
+      element: <UserProfile />,
     },
   ],
 };

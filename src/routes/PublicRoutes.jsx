@@ -25,21 +25,12 @@ const PublicRoutes = {
     },
     {
       path: "/interview",
-      element: <PublicLayout><ScheduleInterview /></PublicLayout>,
+      element: (
+        <PublicLayout>
+          <ScheduleInterview />
+        </PublicLayout>
+      ),
     },
-    {
-      path: "/profile",
-      element: <PrivateLayout><UserProfile /></PrivateLayout>,
-    },
-    {
-      path: "/transactions",
-      element: <PrivateLayout><Transactions /></PrivateLayout>,
-    },
-
-    // {
-    //   path: "/sign-up",
-    //   element: <SignUp />,
-    // },
     {
       path: "/forgot-password",
       element: <ForgotPasswordStepper />,

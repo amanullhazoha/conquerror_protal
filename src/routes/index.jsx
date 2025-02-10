@@ -10,18 +10,15 @@ const router = createBrowserRouter(
     PublicRoutes,
     AuthenticatedRoutes,
     GlobalRoutes,
-    {
-      path: "/transactions",
-      element: <Transactions />,
-    },
+
     // {
     //   path: "/profile",
     //   element: <UserProfile />,
     // }
-  ],
-  {
-    basename: "/",
-  }
+  ]
+  //   {
+  //     basename: "/",
+  //   }
 );
 
 export default router;

@@ -1,0 +1,140 @@
+import { useState } from "react";
+import PrivateLayout from "@/components/layouts/PrivateLayout";
+import PaginationComponent from "@/shared/PaginationComponent";
+import ApplicationCard from "@/components/applications/ApplicationCard";
+import ApplicationsHeading from "@/components/applications/ApplicationsHeading";
+import { useGetAllApplicationsQuery } from "@/redux/features/applications/applications";
+import {
+  Select,
+  SelectItem,
+  SelectValue,
+  SelectTrigger,
+  SelectContent,
+} from "@/components/ui/select";
+import MainPreloader from "@/components/preloader/MainPreloader";
+import MetricCard from "@/components/card/MerticCard";
+
+const DashboardPage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(24);
+  const [filterValue, setFilterValue] = useState("all");
+
+  const {
+    data: applicationsData,
+    isLoading,
+    isSuccess,
+  } = useGetAllApplicationsQuery(
+    {
+      filter: filterValue,
+      searchQuery: searchTerm,
+      page: currentPage,
+      size: itemsPerPage,
+    },
+    { refetchOnMountOrArgChange: true }
+  );
+
+  const { meta } = applicationsData || {};
+
+  const handleFilterValueChange = (value) => {
+    setCurrentPage(1);
+    setFilterValue(value);
+  };
+
+  const handlePageChange = (newPage) => {
+    if (newPage < 1 || newPage > meta?.totalPages) return;
+    setCurrentPage(newPage);
+  };
+
+  const handleItemsPerPageChange = (value) => {
+    setItemsPerPage(Number(value));
+  };
+
+  const handleSearchTerm = (term) => {
+    setSearchTerm(term);
+    setCurrentPage(1);
+  };
+
+  return (
+    <PrivateLayout>
+      {isLoading && <MainPreloader />}
+
+      {!isLoading && isSuccess && (
+        <div className="border-[1px] border-[#E5E5E5] rounded-[16px]">
+          <div className="grid grid-cols-2 md:grid-cols-6 xl:grid-cols-4 gap-[20px] px-[20px] pt-5">
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+            <MetricCard />
+          </div>
+
+          <ApplicationsHeading
+            filter={true}
+            searchTerm={searchTerm}
+            heading="All Application"
+            filterValue={filterValue}
+            handleSearchTerm={handleSearchTerm}
+            totals={applicationsData?.meta?.totalRecords}
+            handleFilterValueChange={handleFilterValueChange}
+          />
+
+          {applicationsData?.meta?.totalRecords > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-6 gap-[20px] px-[20px]">
+              {applicationsData?.applicants?.map((applicant, idx) => (
+                <ApplicationCard
+                  key={idx}
+                  link="/applications"
+                  application={applicant}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="flex gap-3 flex-col justify-center items-center min-h-[60vh]">
+              <h3 className="text-base text-black font-medium">
+                404 - Application Not Found
+              </h3>
+            </div>
+          )}
+
+          {Number(meta?.totalRecords) > itemsPerPage && (
+            <div className="flex px-6 py-4">
+              <div className="flex items-center gap-2 w-full">
+                <p>Rows per page:</p>
+                <Select onValueChange={handleItemsPerPageChange}>
+                  <SelectTrigger className="w-[60px]">
+                    <SelectValue placeholder={itemsPerPage} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="12">12</SelectItem>
+                    <SelectItem value="24">24</SelectItem>
+                    <SelectItem value="48">48</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <PaginationComponent
+                totalPages={meta?.totalPages}
+                currentPage={currentPage}
+                handlePageChange={handlePageChange}
+              />
+            </div>
+          )}
+        </div>
+      )}
+    </PrivateLayout>
+  );
+};
+
+export default DashboardPage;
