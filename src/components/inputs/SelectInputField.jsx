@@ -209,7 +209,7 @@ const SelectInputField = ({
           ref={selectRef}
           onClick={toggleDropdown}
           className={`border border-[#D0D5DD] bg-[#F9FAFB] rounded-lg w-full px-4
-                    py-3 text-sm text-[#27303F] outline-none mt-0.5 flex
+                    py-3 text-sm text-[#27303F] outline-none mt-2 flex
                     justify-between items-center cursor-pointer group ${
                       touched[name] && errors[name] ? "border-red-500" : ""
                     }`}

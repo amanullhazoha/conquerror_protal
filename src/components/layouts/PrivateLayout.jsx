@@ -23,7 +23,7 @@ import UserManagementIcon from "../../assets/icons/UserManagementIcon";
 import OccasionalOfferIcon from "../../assets/icons/OccasionalOfferIcon";
 import NotificationManagementIcon from "../../assets/icons/NotificationManagementIcon";
 
-const PrivateLayout = ({ children }) => {
+const PrivateLayout = ({ children, className }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const [openSidebar, setOpenSidebar] = useState(true);
@@ -461,7 +461,9 @@ const PrivateLayout = ({ children }) => {
         </aside>
 
         <main className="flex-1 flex flex-col flex-grow min-h-[calc(100vh-83px)]">
-          <section className="p-6 border-t border-gray-200">{children}</section>
+          <section className={`p-6 border-t border-gray-200 ${className}`}>
+            {children}
+          </section>
 
           <footer className="mt-auto py-4 text-center">
             <p className="text-lg text-gray-900">

@@ -11,6 +11,7 @@ import DashboardPage from "@/pages/Dashboard";
 import { Outlet } from "react-router-dom";
 import Transactions from "@/pages/transaction/TransactionListPage";
 import { UserProfile } from "@/components/Profile/Profile";
+import LoginUserProfile from "@/pages/loginUserProfile/page";
 
 const AuthenticatedRoutes = {
   path: "/",
@@ -72,6 +73,10 @@ const AuthenticatedRoutes = {
     {
       path: "/profile",
       element: <UserProfile />,
+    },
+    {
+      path: "/:user/profile",
+      element: <LoginUserProfile />,
     },
   ],
 };

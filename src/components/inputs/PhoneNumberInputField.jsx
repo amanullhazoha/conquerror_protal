@@ -121,7 +121,7 @@ const PhoneNumberInputField = ({
       if (matched) {
         setFieldValue(
           name,
-          `${matched.code}${value.slice(
+          `${matched.code}${value?.slice(
             items.find((item) =>
               item?.shortName
                 ?.toLowerCase()
@@ -131,7 +131,7 @@ const PhoneNumberInputField = ({
           )}`
         );
         setPhoneNumber(
-          `${value.slice(
+          `${value?.slice(
             items.find((item) =>
               item?.shortName
                 ?.toLowerCase()
@@ -151,7 +151,10 @@ const PhoneNumberInputField = ({
         if (matched) {
           setFieldValue(
             name,
-            `${matched.code}${value.slice(matched?.code?.length, value.length)}`
+            `${matched.code}${value?.slice(
+              matched?.code?.length,
+              value.length
+            )}`
           );
           setPhoneNumber(
             `${value.slice(
